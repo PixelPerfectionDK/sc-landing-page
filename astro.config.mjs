@@ -14,5 +14,6 @@ export default defineConfig({
   },
 
   integrations: [react()],
-  adapter: netlify()
+  adapter: netlify(),
+  output: 'server'
 });
