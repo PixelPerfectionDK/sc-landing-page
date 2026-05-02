@@ -3,6 +3,14 @@ import { Image } from "astro:assets";
 import heroImage from "../assets/app-screenshot.webp";
 ---
 
-<section class="flex flex-col items-center justify-center">
-    <Image src={heroImage} alt="Hero Image" width={1000} height={1000} />
+<section class="flex flex-col items-center justify-center px-4 py-16 h-screen gap-4">
+  <h1 class="text-2xl font-semibold font-sans text-white">
+    Gør ubetalte fakturaer til vundne retssager.
+  </h1>
+  <p class="text-md font-sans text-white">
+    SmallClaims har automatiseret inddrivelsen af dine betalingskrav gennem
+    vores intelligente system. Det betyder, at vi kan sikre, at du får dine
+    penge tilbage via retten – selv små beløb, der før var for dyre at forfølge.
+  </p>
+  <Image src={heroImage} alt="Hero Image" class="w-full shadow-2xl rounded-lg" />
 </section>

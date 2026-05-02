@@ -3,6 +3,106 @@ import Layout from '../layouts/Layout.astro'
 import Hero from '../components/Hero.astro'
 ---
 
-<Layout title="Clerk + Astro">
+<Layout title="SmallClaims">
+  <!-- Fixed scroll-driven background -->
+  <div id="scroll-bg" class="fixed inset-0 -z-10">
+    <div id="scroll-bg-gradient" class="absolute inset-0 bg-signin-gradient"></div>
+    <div id="scroll-bg-grain" class="absolute inset-0 pointer-events-none [filter:url(#grain)]"></div>
+    <div id="scroll-bg-streak" class="absolute top-0 inset-x-0 h-[200px] bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none">
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </svg>
+
+  <section id="hero" class="py-16">
     <Hero />
+  </section>
 </Layout>
+
+<script>
+  const scrollBg       = document.getElementById('scroll-bg') as HTMLElement;
+  const gradientLayer  = document.getElementById('scroll-bg-gradient') as HTMLElement;
+  const grainLayer     = document.getElementById('scroll-bg-grain') as HTMLElement;
+  const streakLayer    = document.getElementById('scroll-bg-streak') as HTMLElement;
+
+  // One entry per section — add a color stop and section ID when a new section is added.
+  const SECTION_IDS = ['hero'];
+  const COLOR_STOPS = [
+    { r: 43,  g: 79,  b: 191 }, // hero:          rich blue
+    { r: 248, g: 249, b: 251 }, // next section:  off-white (placeholder)
+  ];
+
+  function lerp(a: number, b: number, t: number) {
+    return a + (b - a) * t;
+  }
+
+  function smoothstep(t: number) {
+    t = Math.max(0, Math.min(1, t));
+    return t * t * (3 - 2 * t);
+  }
+
+  // Gradient + grain overlay opacity — only show on blue sections (hero, CTA, footer).
+  // Update this when new blue sections are added.
+  function getOverlayOpacity(index: number, t: number): number {
+    if (index === 0 && t < 0.5) return 1;
+    if (index === 0) return lerp(1, 0, smoothstep((t - 0.5) * 2));
+    return 0;
+  }
+
+  let ticking = false;
+
+  function update() {
+    const sections = SECTION_IDS.map(id => document.getElementById(id));
+    const viewportCenter = window.scrollY + window.innerHeight / 2;
+
+    let activeIndex = 0;
+    let t = 0;
+
+    for (let i = 0; i < sections.length; i++) {
+      const el = sections[i];
+      if (!el) continue;
+      const top = el.offsetTop;
+      const bottom = top + el.offsetHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        activeIndex = i;
+        t = (viewportCenter - top) / el.offsetHeight;
+        break;
+      } else if (viewportCenter > bottom) {
+        activeIndex = i;
+        t = 1;
+      }
+    }
+
+    const current = COLOR_STOPS[activeIndex] ?? COLOR_STOPS.at(-1)!;
+    const next = COLOR_STOPS[Math.min(activeIndex + 1, COLOR_STOPS.length - 1)] ?? current;
+    const blendT = smoothstep(t);
+
+    scrollBg.style.backgroundColor = `rgb(${
+      Math.round(lerp(current.r, next.r, blendT))
+    }, ${
+      Math.round(lerp(current.g, next.g, blendT))
+    }, ${
+      Math.round(lerp(current.b, next.b, blendT))
+    })`;
+
+    const overlayOpacity = getOverlayOpacity(activeIndex, t);
+    gradientLayer.style.opacity = String(overlayOpacity);
+    grainLayer.style.opacity   = String(overlayOpacity * 0.2);
+    streakLayer.style.opacity  = String(overlayOpacity);
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+
+  update();
+</script>
