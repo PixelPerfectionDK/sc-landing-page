@@ -5,8 +5,10 @@
   id="nav"
   class="group fixed inset-x-0 top-0 z-[100] px-6 py-4 transition-[padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] data-[scrolled]:py-[10px]"
 >
+  <!-- Pill -->
   <div class="
-    max-w-[1100px] mx-auto flex items-center px-6 py-3 rounded-full border border-transparent
+    relative z-[100]
+    max-w-[1100px] mx-auto flex items-center px-4 md:px-6 py-3 rounded-full border border-transparent
     transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
     group-data-[scrolled]:max-w-[680px]
     group-data-[scrolled]:bg-white/82
@@ -16,6 +18,7 @@
     group-data-[scrolled]:shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)]
   ">
 
+    <!-- Logo -->
     <a
       href="/"
       class="
@@ -35,7 +38,8 @@
       smallclaims
     </a>
 
-    <ul class="flex gap-1 mx-auto list-none p-0 m-0">
+    <!-- Desktop links -->
+    <ul class="hidden md:flex gap-1 mx-auto list-none p-0 m-0">
       {[
         { href: '#process', label: 'Sådan virker det' },
         { href: '#pricing', label: 'Pris' },
@@ -58,11 +62,12 @@
       ))}
     </ul>
 
-    <div class="flex items-center gap-2">
+    <!-- Actions -->
+    <div class="flex items-center gap-2 ml-auto md:ml-0">
       <a
         href="#"
         class="
-          px-5 py-2 rounded-full text-white text-[13px] font-semibold no-underline
+          px-4 md:px-5 py-2 rounded-full text-white text-[13px] font-semibold no-underline
           bg-white/15 border border-white/20 backdrop-blur-sm
           transition-all duration-300
           hover:bg-white/25 hover:border-white/[0.35]
@@ -76,17 +81,107 @@
       >
         Opret din sag
       </a>
+
+      <!-- Burger (mobile only) -->
+      <button
+        id="menu-toggle"
+        aria-label="Åbn menu"
+        aria-expanded="false"
+        class="
+          md:hidden flex flex-col justify-center items-center gap-[5px] w-9 h-9 rounded-full
+          transition-colors duration-300
+          hover:bg-white/10
+          group-data-[scrolled]:hover:bg-surface-1
+        "
+      >
+        <span class="w-5 h-[2px] rounded-full bg-white transition-all duration-300 group-data-[scrolled]:bg-[--color-text-primary] group-data-[menu-open]:translate-y-[7px] group-data-[menu-open]:rotate-45"></span>
+        <span class="w-5 h-[2px] rounded-full bg-white transition-all duration-300 group-data-[scrolled]:bg-[--color-text-primary] group-data-[menu-open]:opacity-0 group-data-[menu-open]:scale-x-0"></span>
+        <span class="w-5 h-[2px] rounded-full bg-white transition-all duration-300 group-data-[scrolled]:bg-[--color-text-primary] group-data-[menu-open]:-translate-y-[7px] group-data-[menu-open]:-rotate-45"></span>
+      </button>
     </div>
 
+  </div>
+
+  <!-- Mobile menu (full screen) -->
+  <div
+    id="mobile-menu"
+    class="
+      md:hidden fixed inset-0 z-[99]
+      bg-signin-gradient
+      flex flex-col items-center justify-center gap-1
+      pointer-events-none opacity-0
+      transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
+      group-data-[menu-open]:pointer-events-auto group-data-[menu-open]:opacity-100
+    "
+  >
+    <!-- Top streak -->
+    <div class="absolute top-0 inset-x-0 h-[200px] bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+
+    <!-- Links -->
+    <div class="
+      relative flex flex-col items-center gap-1
+      translate-y-4 opacity-0 transition-all duration-300 delay-100
+      group-data-[menu-open]:translate-y-0 group-data-[menu-open]:opacity-100
+    ">
+      {[
+        { href: '#process', label: 'Sådan virker det' },
+        { href: '#pricing', label: 'Pris' },
+        { href: '#proof',   label: 'Om os' },
+        { href: '#faq',     label: 'FAQ' },
+      ].map(({ href, label }) => (
+        <a
+          href={href}
+          class="mobile-menu-link px-8 py-3 text-white/60 text-[1.75rem] font-semibold tracking-[-0.5px] no-underline rounded-2xl transition-colors duration-200 hover:text-white hover:bg-white/10"
+        >{label}</a>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <a
+      href="#"
+      class="
+        relative mt-10 px-8 py-3 rounded-full no-underline
+        bg-white text-brand-blue text-[15px] font-bold
+        shadow-[0_4px_24px_rgba(0,0,0,0.15)]
+        transition-all duration-200 hover:bg-white/90 hover:scale-[1.02]
+        translate-y-4 opacity-0 transition-all duration-300 delay-150
+        group-data-[menu-open]:translate-y-0 group-data-[menu-open]:opacity-100
+      "
+    >
+      Opret din sag
+    </a>
   </div>
 </nav>
 
 <script>
-  const nav = document.getElementById('nav') as HTMLElement;
+  const nav         = document.getElementById('nav') as HTMLElement;
+  const menuToggle  = document.getElementById('menu-toggle') as HTMLButtonElement;
+
+  function closeMenu() {
+    nav.removeAttribute('data-menu-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
 
   function onScroll() {
     nav.toggleAttribute('data-scrolled', window.scrollY > 60);
   }
+
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const opening = !nav.hasAttribute('data-menu-open');
+    nav.toggleAttribute('data-menu-open');
+    menuToggle.setAttribute('aria-expanded', String(opening));
+    document.body.style.overflow = opening ? 'hidden' : '';
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target as Node)) closeMenu();
+  });
+
+  document.querySelectorAll('.mobile-menu-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
