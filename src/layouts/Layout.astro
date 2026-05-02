@@ -1,5 +1,4 @@
 ---
-import { Show, UserButton, SignInButton } from '@clerk/astro/components'
 import '../styles/global.css'
 
 interface Props {
@@ -21,12 +20,6 @@ const { title } = Astro.props as Props
   </head>
   <body>
     <header>
-      <Show when="signed-out">
-        <SignInButton mode="modal" />
-      </Show>
-      <Show when="signed-in">
-        <UserButton />
-      </Show>
     </header>
     <slot />
   </body>

@@ -1,6 +1,33 @@
 @import "tailwindcss";
 
 @theme inline {
-    --font-sans: var(--font-manrope);
-    --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-jetbrains-mono);
+
+  /* Colors */
+  --color-brand-blue: #4271f0;
+  --color-brand-blue-light: #5a8af5;
+  --color-brand-blue-dark: #2b59c9;
+  --color-brand-gradient-1: #2b4fbf;
+  --color-brand-gradient-2: #5a8af5;
+  --color-bg-page: #fafaf6;
+  --color-surface-0: #ffffff;
+  --color-surface-1: #f8f9fb;
+  --color-surface-2: #f0f1f4;
+  --color-surface-3: #e8e9ed;
+  --color-text-primary: #111118;
+  --color-text-secondary: #555b6e;
+  --color-text-tertiary: #8b8fa3;
+  --color-border-deafult: #ebebeb;
+  --color-border-strong: #dbdbdb;
+  --color-accent-green: #16a34a;
+  --color-accent-green-light: #34d399;
+}
+
+@utility bg-signin-gradient {
+  background:
+    radial-gradient(ellipse at 25% 80%, rgba(43, 79, 191, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 15%, rgba(90, 138, 245, 0.25) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(59, 99, 214, 0.15) 0%, transparent 60%),
+    linear-gradient(175deg, #162D6B 0%, #1E3D94 15%, #2B4FBF 30%, #3560D8 50%, #4271f0 70%, #4A7CF5 85%, #5A8AF5 100%);
 }
