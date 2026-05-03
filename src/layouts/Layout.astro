@@ -1,25 +1,26 @@
 ---
-import { Show, UserButton, SignInButton } from '@clerk/astro/components'
+import "../styles/global.css";
+import Navigation from "../components/Navigation.tsx";
+
+interface Props {
+  title: string;
+  showNav?: boolean;
+}
+
+const { title, showNav = true } = Astro.props as Props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="da-DK">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>{title}</title>
   </head>
   <body>
-    <header>
-      <Show when="signed-out">
-        <SignInButton mode="modal" />
-      </Show>
-      <Show when="signed-in">
-        <UserButton />
-      </Show>
-    </header>
+    {showNav && <Navigation client:load />}
     <slot />
   </body>
 </html>

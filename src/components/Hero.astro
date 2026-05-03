@@ -1,0 +1,104 @@
+---
+import { Image } from "astro:assets";
+import heroImage from "../assets/app-screenshot.webp";
+import Partners from "./Partners.tsx";
+
+const badges = ["96% Vundne sager", "Største i Danmark", "100% Risikofrit"];
+---
+
+<section
+  class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-10 overflow-hidden"
+>
+  <div
+    class="grid grid-cols-1 lg:grid-cols-2 gap-2 max-w-[1140px] w-full items-center"
+  >
+    <!-- Content column -->
+    <div class="flex flex-col items-center justify-center text-center">
+      <h1
+        class="text-[clamp(2.5rem,5vw,4rem)] font-sans text-center font-extrabold leading-[1.06] tracking-[-0.04em] text-white mb-5 animate-fade-up [animation-delay:220ms]"
+      >
+        Gør ubetalte fakturaer til <em
+          class="not-italic bg-gradient-to-br from-white to-[#a8c4ff] bg-clip-text text-transparent"
+          >vundne retssager.</em
+        >
+      </h1>
+
+      <p
+        class="text-base lg:text-lg text-white/65 font-sans font-light text-center leading-relaxed max-w-[460px] mb-9 animate-fade-up [animation-delay:340ms]"
+      >
+        Vi tager over, når andre giver op. Ingen gevinst, ingen gebyrer — du
+        betaler kun, hvis vi vinder.
+      </p>
+
+      <div
+        class="flex flex-col items-center gap-3.5 mb-7 animate-fade-up [animation-delay:460ms]"
+      >
+        <a
+          href="/signup"
+          class="group inline-flex items-center font-medium font-sans gap-[10px] px-9 py-4 bg-white rounded-full text-brand-gradient-1 text-[16px] no-underline shadow-[0_4px_20px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(0,0,0,0.18),0_2px_4px_rgba(0,0,0,0.1)] active:translate-y-0"
+        >
+          Opret din sag
+          <svg
+            class="w-[18px] h-[18px] transition-transform duration-300 stroke-brand-gradient-1 group-hover:translate-x-[3px]"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="M4 9h10M10 5l4 4-4 4"></path></svg
+          >
+        </a>
+        <p class="text-white/50 text-sm font-light font-sans">Mange sager?</p>
+        <a
+          href="/book"
+          class="group inline-flex items-center gap-1.5 text-[13.5px] font-light text-white/50 hover:text-white/80 transition-colors duration-300 no-underline"
+        >
+          Book et møde
+          <svg
+            class="w-[18px] h-[18px] transition-transform duration-300 stroke-white/50 group-hover:translate-x-[3px]"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="M4 9h10M10 5l4 4-4 4"></path></svg
+          >
+        </a>
+      </div>
+
+      <div
+        class="flex flex-wrap justify-center gap-2.5 animate-fade-up [animation-delay:560ms]"
+      >
+        {
+          badges.map((label) => (
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white/10 border border-white/10 rounded-full text-[12.5px] font-medium text-white/80 backdrop-blur-md">
+              <svg
+                class="w-3.5 h-3.5 text-accent-green-light shrink-0"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 8l3.5 3.5L13 5" />
+              </svg>
+              {label}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Image column -->
+    <div class="animate-fade-up [animation-delay:200ms]">
+      <Image
+        src={heroImage}
+        alt="SmallClaims app screenshot"
+        class="w-full max-w-[480px] mx-auto drop-shadow-2xl"
+      />
+    </div>
+  </div>
+
+  <div class="w-full max-w-[1140px] animate-fade-up [animation-delay:700ms]">
+    <Partners client:load />
+  </div>
+</section>
