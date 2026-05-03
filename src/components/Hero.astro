@@ -1,16 +1,31 @@
 ---
 import { Image } from "astro:assets";
 import heroImage from "../assets/app-screenshot.webp";
+import Partners from "./Partners.tsx";
 ---
 
-<section class="flex flex-col items-center justify-center px-4 py-16 h-screen gap-4">
-  <h1 class="text-2xl font-semibold font-sans text-white">
+<section class="flex flex-col items-center justify-center px-4 h-screen gap-4">
+  <h1 class="text-4xl font-semibold font-sans text-white text-center">
     Gør ubetalte fakturaer til vundne retssager.
   </h1>
-  <p class="text-md font-sans text-white">
-    SmallClaims har automatiseret inddrivelsen af dine betalingskrav gennem
-    vores intelligente system. Det betyder, at vi kan sikre, at du får dine
-    penge tilbage via retten – selv små beløb, der før var for dyre at forfølge.
+  <p class="text-md font-sans text-white text-center">
+    Vi tager over, når andre giver op. Ingen gevinst, ingen gebyrer — du betaler
+    kun, hvis vi vinder.
   </p>
-  <Image src={heroImage} alt="Hero Image" class="w-full shadow-2xl rounded-lg" />
+  <a
+    href="/signup"
+    class="group inline-flex items-center gap-[10px] px-9 py-4 bg-white rounded-full text-brand-gradient-1 text-[16px] font-bold no-underline shadow-[0_4px_20px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(0,0,0,0.18),0_2px_4px_rgba(0,0,0,0.1)] active:translate-y-0"
+  >
+    Opret din sag
+    <svg
+      class="w-[18px] h-[18px] transition-transform duration-300 stroke-brand-gradient-1 group-hover:translate-x-[3px]"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"><path d="M4 9h10M10 5l4 4-4 4"></path></svg
+    >
+  </a>
+  <Image src={heroImage} alt="Hero Image" class="w-full drop-shadow-2xl" />
+  <Partners client:load />
 </section>

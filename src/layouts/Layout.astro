@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css'
-import Navigation from '../components/Navigation.astro'
+import Navigation from '../components/Navigation.tsx'
 
 interface Props {
   title: string
@@ -20,7 +20,7 @@ const { title, showNav = true } = Astro.props as Props
     <title>{title}</title>
   </head>
   <body>
-    {showNav && <Navigation />}
+    {showNav && <Navigation client:load />}
     <slot />
   </body>
 </html>

@@ -24,6 +24,11 @@
   --color-accent-green-light: #34d399;
 }
 
+@keyframes logo-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 @utility bg-signin-gradient {
   background:
     radial-gradient(ellipse at 25% 80%, rgba(43, 79, 191, 0.35) 0%, transparent 50%),
