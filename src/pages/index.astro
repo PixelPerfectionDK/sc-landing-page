@@ -40,16 +40,9 @@ import Process from "../components/Process.astro";
 </Layout>
 
 <script>
-  const scrollBg = document.getElementById("scroll-bg") as HTMLElement;
-  const gradientLayer = document.getElementById(
-    "scroll-bg-gradient",
-  ) as HTMLElement;
-  const grainLayer = document.getElementById("scroll-bg-grain") as HTMLElement;
-  const streakLayer = document.getElementById(
-    "scroll-bg-streak",
-  ) as HTMLElement;
+  import { initScrollBg, lerp, smoothstep } from "../scripts/scroll-bg";
 
-  // One entry per section — add a color stop and section ID when a new section is added.
+  // One entry per section — see CLAUDE.md "Scroll background" for the contract.
   const SECTION_IDS = ["hero", "process"];
   const COLOR_STOPS = [
     { r: 43, g: 79, b: 191 }, // hero:    rich blue
@@ -57,76 +50,12 @@ import Process from "../components/Process.astro";
     { r: 248, g: 249, b: 251 }, // end of process (placeholder for next section)
   ];
 
-  function lerp(a: number, b: number, t: number) {
-    return a + (b - a) * t;
-  }
-
-  function smoothstep(t: number) {
-    t = Math.max(0, Math.min(1, t));
-    return t * t * (3 - 2 * t);
-  }
-
   // Gradient + grain overlay opacity — only show on blue sections (hero, CTA, footer).
-  // Update this when new blue sections are added.
   function getOverlayOpacity(index: number, t: number): number {
     if (index === 0 && t < 0.5) return 1;
     if (index === 0) return lerp(1, 0, smoothstep((t - 0.5) * 2));
     return 0;
   }
 
-  let ticking = false;
-
-  function update() {
-    const sections = SECTION_IDS.map((id) => document.getElementById(id));
-    const viewportCenter = window.scrollY + window.innerHeight / 2;
-
-    let activeIndex = 0;
-    let t = 0;
-
-    for (let i = 0; i < sections.length; i++) {
-      const el = sections[i];
-      if (!el) continue;
-      const top = el.offsetTop;
-      const bottom = top + el.offsetHeight;
-      if (viewportCenter >= top && viewportCenter <= bottom) {
-        activeIndex = i;
-        t = (viewportCenter - top) / el.offsetHeight;
-        break;
-      } else if (viewportCenter > bottom) {
-        activeIndex = i;
-        t = 1;
-      }
-    }
-
-    const current = COLOR_STOPS[activeIndex] ?? COLOR_STOPS.at(-1)!;
-    const next =
-      COLOR_STOPS[Math.min(activeIndex + 1, COLOR_STOPS.length - 1)] ?? current;
-    const blendT = smoothstep(t);
-
-    scrollBg.style.backgroundColor = `rgb(${Math.round(
-      lerp(current.r, next.r, blendT),
-    )}, ${Math.round(lerp(current.g, next.g, blendT))}, ${Math.round(
-      lerp(current.b, next.b, blendT),
-    )})`;
-
-    const overlayOpacity = getOverlayOpacity(activeIndex, t);
-    gradientLayer.style.opacity = String(overlayOpacity);
-    grainLayer.style.opacity = String(overlayOpacity * 0.2);
-    streakLayer.style.opacity = String(overlayOpacity);
-
-    ticking = false;
-  }
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    },
-    { passive: true },
-  );
-
-  update();
+  initScrollBg(SECTION_IDS, COLOR_STOPS, getOverlayOpacity);
 </script>

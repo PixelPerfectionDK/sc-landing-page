@@ -1,27 +1,6 @@
----
-const revealBase =
-  "opacity-0 translate-y-7 transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] data-[visible]:opacity-100 data-[visible]:translate-y-0";
-
-const cardBase =
-  "relative overflow-hidden rounded-2xl p-7 transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-[3px]";
-const cardBaseShadow =
-  "shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.10)]";
-
-const card = `${cardBase} ${cardBaseShadow} bg-surface-0`;
-const cardUser = `${cardBase} ${cardBaseShadow} bg-gradient-to-br from-brand-blue/[0.06] to-brand-blue/[0.02] border border-brand-blue/10`;
-
-const stepLabelBase =
-  "inline-block font-mono text-[10px] font-semibold uppercase tracking-[2px] mb-3.5";
-const iconWrapBase =
-  "w-10 h-10 rounded-[10px] flex items-center justify-center mb-4";
-const cardTitle =
-  "text-base font-bold text-text-primary tracking-[-0.3px] mb-1.5";
-const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
----
-
 <section id="process" class="px-6 py-24 lg:py-32">
   <div class="max-w-[1140px] mx-auto">
-    <header data-reveal class={`text-center mb-14 ${revealBase}`}>
+    <header class="reveal text-center mb-14">
       <p
         class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
       >
@@ -42,12 +21,16 @@ const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
       <!-- Card 1: Upload -->
       <article
-        data-reveal
-        data-reveal-delay="50"
-        class={`${cardUser} ${revealBase}`}
+        class="reveal relative overflow-hidden rounded-2xl p-7 bg-gradient-to-br from-brand-blue/[0.06] to-brand-blue/[0.02] border border-brand-blue/10 shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:-translate-y-[3px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.10)]"
+        style="transition-delay: 50ms"
       >
-        <span class={`${stepLabelBase} text-brand-blue`}>Du · Trin 1</span>
-        <div class={`${iconWrapBase} bg-brand-blue/10`}>
+        <span
+          class="inline-block font-mono text-[10px] font-semibold uppercase tracking-[2px] mb-3.5 text-brand-blue"
+          >Du · Trin 1</span
+        >
+        <div
+          class="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4 bg-brand-blue/10"
+        >
           <svg
             class="w-5 h-5 text-brand-blue"
             viewBox="0 0 20 20"
@@ -61,8 +44,12 @@ const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
             <path d="M3 13v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"></path>
           </svg>
         </div>
-        <h3 class={cardTitle}>Upload din sag</h3>
-        <p class={cardDesc}>
+        <h3
+          class="text-base font-bold text-text-primary tracking-[-0.3px] mb-1.5"
+        >
+          Upload din sag
+        </h3>
+        <p class="text-[13.5px] leading-[1.55] text-text-secondary">
           Faktura, kontrakt, kontaktoplysninger. Det tager omkring 5 minutter.
         </p>
         <div class="mt-3.5 flex flex-col gap-1.5">
@@ -109,12 +96,16 @@ const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
 
       <!-- Card 2: We take over -->
       <article
-        data-reveal
-        data-reveal-delay="120"
-        class={`${card} ${revealBase}`}
+        class="reveal relative overflow-hidden rounded-2xl p-7 bg-surface-0 shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:-translate-y-[3px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.10)]"
+        style="transition-delay: 120ms"
       >
-        <span class={`${stepLabelBase} text-text-tertiary`}>Vi · Trin 2</span>
-        <div class={`${iconWrapBase} bg-surface-1`}>
+        <span
+          class="inline-block font-mono text-[10px] font-semibold uppercase tracking-[2px] mb-3.5 text-text-tertiary"
+          >Vi · Trin 2</span
+        >
+        <div
+          class="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4 bg-surface-1"
+        >
           <svg
             class="w-5 h-5 text-brand-blue"
             viewBox="0 0 20 20"
@@ -128,8 +119,12 @@ const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
             <path d="M7.5 10l1.8 1.8L13 8"></path>
           </svg>
         </div>
-        <h3 class={cardTitle}>Vi tager over</h3>
-        <p class={cardDesc}>
+        <h3
+          class="text-base font-bold text-text-primary tracking-[-0.3px] mb-1.5"
+        >
+          Vi tager over
+        </h3>
+        <p class="text-[13.5px] leading-[1.55] text-text-secondary">
           Vi vurderer sagen, forhandler med modparten, og fører den i retten
           hvis det bliver nødvendigt.
         </p>
@@ -162,12 +157,16 @@ const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
 
       <!-- Card 3: Get paid -->
       <article
-        data-reveal
-        data-reveal-delay="190"
-        class={`${cardUser} ${revealBase}`}
+        class="reveal relative overflow-hidden rounded-2xl p-7 bg-gradient-to-br from-brand-blue/[0.06] to-brand-blue/[0.02] border border-brand-blue/10 shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:-translate-y-[3px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.10)]"
+        style="transition-delay: 190ms"
       >
-        <span class={`${stepLabelBase} text-brand-blue`}>Du · Trin 3</span>
-        <div class={`${iconWrapBase} bg-brand-blue/10`}>
+        <span
+          class="inline-block font-mono text-[10px] font-semibold uppercase tracking-[2px] mb-3.5 text-brand-blue"
+          >Du · Trin 3</span
+        >
+        <div
+          class="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4 bg-brand-blue/10"
+        >
           <svg
             class="w-5 h-5 text-brand-blue"
             viewBox="0 0 20 20"
@@ -182,8 +181,12 @@ const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
             <circle cx="14" cy="13" r="1"></circle>
           </svg>
         </div>
-        <h3 class={cardTitle}>Få dine penge</h3>
-        <p class={cardDesc}>
+        <h3
+          class="text-base font-bold text-text-primary tracking-[-0.3px] mb-1.5"
+        >
+          Få dine penge
+        </h3>
+        <p class="text-[13.5px] leading-[1.55] text-text-secondary">
           Når sagen er afgjort, ender pengene på din konto. Du betaler kun, hvis
           vi har vundet for dig.
         </p>
@@ -225,9 +228,8 @@ const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
     </div>
 
     <div
-      data-reveal
-      data-reveal-delay="300"
-      class={`mt-7 flex items-center justify-center gap-1.5 text-[13px] font-medium text-text-tertiary ${revealBase}`}
+      class="reveal mt-7 flex items-center justify-center gap-1.5 text-[13px] font-medium text-text-tertiary"
+      style="transition-delay: 300ms"
     >
       <svg
         class="w-4 h-4"
@@ -243,23 +245,3 @@ const cardDesc = "text-[13.5px] leading-[1.55] text-text-secondary";
     </div>
   </div>
 </section>
-
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target as HTMLElement;
-        const delay = el.dataset.revealDelay ?? "0";
-        el.style.transitionDelay = `${delay}ms`;
-        el.setAttribute("data-visible", "");
-        observer.unobserve(el);
-      });
-    },
-    { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
-  );
-
-  document
-    .querySelectorAll("[data-reveal]")
-    .forEach((el) => observer.observe(el));
-</script>

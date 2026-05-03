@@ -51,7 +51,7 @@ export default function Partners() {
         paddingTop: "20px",
       }}
     >
-      <p className="text-surface-3 text-md font-semibold font-sans uppercase tracking-[0.15em] text-center mb-6">
+      <p className="text-surface-3 text-md font-semibold uppercase tracking-[0.15em] text-center mb-6">
         Brugt af virksomheder i hele Danmark
       </p>
       <div
