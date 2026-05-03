@@ -1,0 +1,59 @@
+---
+const avatarInitials = ["JR", "ML", "PH", "AK"];
+---
+
+<section
+  id="cta-band"
+  class="relative px-6 py-24 lg:py-28 text-center overflow-hidden"
+>
+  <h2
+    class="reveal text-[clamp(2rem,3.5vw,2.8rem)] font-bold leading-[1.12] tracking-[-1.2px] text-white mb-3"
+  >
+    Du har intet at tabe.
+  </h2>
+  <p
+    class="reveal text-[1.05rem] text-white/60 mb-9 max-w-[560px] mx-auto leading-relaxed"
+    style="transition-delay: 80ms"
+  >
+    Opret din sag gratis. Du betaler kun, hvis vi vinder — og det gør vi i 96%
+    af tilfældene.
+  </p>
+  <a
+    href="/signup"
+    class="reveal group inline-flex items-center gap-[10px] px-9 py-4 bg-white rounded-full text-brand-blue-dark text-[16px] font-bold no-underline shadow-[0_4px_16px_rgba(0,0,0,0.10)] transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] active:translate-y-0"
+    style="transition-delay: 160ms"
+  >
+    Opret din sag gratis
+    <svg
+      class="w-[18px] h-[18px] transition-transform duration-300 stroke-brand-blue-dark group-hover:translate-x-[3px]"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"><path d="M4 9h10M10 5l4 4-4 4"></path></svg
+    >
+  </a>
+
+  <div
+    class="reveal mt-8 flex items-center justify-center gap-3"
+    style="transition-delay: 240ms"
+  >
+    <div class="flex">
+      {
+        avatarInitials.map((initials, i) => (
+          <div
+            class={`w-[30px] h-[30px] rounded-full bg-gradient-to-br from-white/20 to-white/[0.08] border-2 border-white/25 flex items-center justify-center text-[9px] font-bold text-white ${
+              i === 0 ? "" : "-ml-2"
+            }`}
+            aria-hidden="true"
+          >
+            {initials}
+          </div>
+        ))
+      }
+    </div>
+    <span class="text-[13px] font-medium text-white/50">
+      Slut dig til 500+ danske virksomheder
+    </span>
+  </div>
+</section>
