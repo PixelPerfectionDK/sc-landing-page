@@ -1,0 +1,114 @@
+---
+import TestimonialCard from "./TestimonialCard.astro";
+
+const TESTIMONIALS = [
+  {
+    name: "Edwin N. Holst",
+    title: "COO",
+    company: "Likvido",
+    logo: "/logos/Likvido.dk_idTWJepgi3_1.svg",
+    logoH: 22,
+    profilePicture: "/profiles/Edwin_Likvido.avif",
+    avatarHue: 215,
+    avatarInitials: "EH",
+    rating: 5,
+    short:
+      "SmallClaims gør småkravsinddrivelse profitabel og omkostningseffektiv.",
+    long: "SmallClaims-løsningen tilbyder en enestående værdi ved at overtage uafklarede småkrav, som vi normalt ville afskrive på grund af deres størrelse og de omkostninger, der er forbundet med at inddrive dem gennem retssystemet, og har hjulpet os med at skabe en mere rentabel forretning.",
+  },
+  {
+    name: "Gitte Cramon",
+    title: "CEO",
+    company: "Inkassomægleren",
+    logo: "/logos/Inkassomægleren.svg",
+    logoH: 20,
+    profilePicture: "/profiles/GitteCramon.webp",
+    avatarHue: 28,
+    avatarInitials: "GC",
+    rating: 5,
+    short: "SmallClaims – et omkostningseffektivt alternativ til advokater.",
+    long: "SmallClaims løsning er et unikt alternativ til klassiske advokat, og har gjort det økonomisk muligt at forfølge mindre krav igennem domstolene.",
+  },
+  {
+    name: "Michael Vegh",
+    title: "Partner",
+    company: "Tjenestetorvet",
+    logo: "/logos/Tje.webp",
+    logoH: 24,
+    profilePicture: "/profiles/MichaelVegh.jpeg",
+    avatarHue: 145,
+    avatarInitials: "MV",
+    rating: 5,
+    short: "Utrolig nem og hurtig",
+    long: "Utrolig nem og hurtig løsning med super god support.",
+  },
+  {
+    name: "Lasse Berg Svenningsen",
+    title: "Ejer",
+    company: "VIMESO.marketing",
+    logo: "/logos/vimeso-logo.webp",
+    logoH: 22,
+    profilePicture: "/profiles/LasseBergSvenningsen.webp",
+    avatarHue: 280,
+    avatarInitials: "LS",
+    rating: 5,
+    short: "SmallClaims hjalp mig med at få penge hjem – nemt og enkelt!",
+    long: "Jeg havde allerede afskrevet mit krav, men opdagede SmallClaims-løsningen, som hjalp mig med at få penge hjem, jeg ellers tidligere ville have opgivet. SmallClaims guidede mig gennem hele processen hos retten og sikrede betaling af min faktura – nemt og enkelt.Stor ros til Anton for hans hjælp og kundeservice!",
+  },
+  {
+    name: "René P. Mikkelsen",
+    title: "Operations Manager",
+    company: "Dreaminfluence",
+    logo: "/logos/Dreaminfluence.webp",
+    logoH: 22,
+    profilePicture: "/profiles/RenePMikkelsen.webp",
+    avatarHue: 340,
+    avatarInitials: "RM",
+    rating: 5,
+    short:
+      "SmallClaims har sikret os betaling, hvor en advokat ville være for dyr.",
+    long: "SmallClaims har sikret, at vi hos Dreaminfluence har fået inddrevet penge, som ellers ville være blevet afskrevet. En traditionel advokat ville være for dyr til at håndtere disse typer sager, da omkostningerne ofte overstiger selve kravet. Her har Small Claims været den perfekte løsning for os.Samarbejdet med Anton har været en rigtig god proces. Han har ikke blot håndteret sagen professionelt, men også været en værdifuld sparringspartner gennem hele forløbet. Derfor kan jeg kun give mine varmeste anbefalinger.",
+  },
+  {
+    name: "Tine Jørgensen",
+    title: "Collection Manager",
+    company: "RykkerPortalen",
+    logo: "/logos/RykkerPortalenlogo_transparent.png",
+    logoH: 30,
+    avatarHue: 195,
+    avatarInitials: "TJ",
+    rating: 5,
+    short:
+      "SmallClaims giver vores kunder et prisvenligt alternativ til advokater.",
+    long: "Vi har valgt at indgå i et samarbejde med SmallClaims, da vi gerne ville tilbyde vores kunder et alternativ til en klassisk advokat, som normalt er for dyr at bruge i sager om mindre krav. Vores kunder kan derfor nu - med minimal risiko - forfølge krav hos domstolene og sikre betaling af deres fakturaer, som ellers tidligere blev opgivet.",
+  },
+];
+---
+
+<section id="testimonials" class="px-6 py-16 lg:py-24">
+  <div class="max-w-[1140px] mx-auto">
+    <header class="reveal text-center mb-12 lg:mb-14">
+      <p
+        class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
+      >
+        Hvad vores kunder siger
+      </p>
+      <h2
+        class="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.2] tracking-[-0.03em] text-text-primary mb-4"
+      >
+        {TESTIMONIALS.length} virksomheder.<br />Én ting til fælles.
+      </h2>
+      <p
+        class="text-base lg:text-lg text-text-secondary max-w-[560px] mx-auto leading-relaxed"
+      >
+        De stoppede med at jagte ubetalte fakturaer. Vi tog over.
+      </p>
+    </header>
+
+    <div
+      class="flex gap-5 overflow-x-auto overflow-y-hidden touch-pan-x snap-x snap-mandatory pb-2 -mx-6 px-6 scroll-pl-6 [&>*]:min-w-[85%] [&>*]:snap-start lg:grid lg:grid-cols-3 lg:overflow-visible lg:touch-auto lg:pb-0 lg:mx-0 lg:px-0 lg:scroll-pl-0 lg:[&>*]:min-w-0"
+    >
+      {TESTIMONIALS.map((t, i) => <TestimonialCard {...t} delay={i * 70} />)}
+    </div>
+  </div>
+</section>
