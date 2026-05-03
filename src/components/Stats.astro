@@ -1,0 +1,70 @@
+---
+const numberCls =
+  "font-mono text-[clamp(2.5rem,4vw,3.5rem)] font-bold leading-none text-brand-blue tracking-[-2px] mb-2";
+const labelCls = "text-sm font-medium text-text-secondary";
+---
+
+<section id="stats" class="px-6 py-4 lg:py-8">
+  <div class="max-w-[1140px] mx-auto">
+    <div data-stats class="reveal grid grid-cols-2 lg:grid-cols-4">
+      <div class="stat-divider text-center py-10 px-6">
+        <div class={numberCls} data-target="96" data-suffix="%">0%</div>
+        <div class={labelCls}>Sager vundet</div>
+      </div>
+      <div class="stat-divider text-center py-10 px-6">
+        <div
+          class={numberCls}
+          data-target="500"
+          data-suffix="+"
+          data-duration="1800"
+        >
+          0
+        </div>
+        <div class={labelCls}>Vundne sager</div>
+      </div>
+      <div class="stat-divider text-center py-10 px-6">
+        <div class={numberCls}>0 kr</div>
+        <div class={labelCls}>Forudbetaling</div>
+      </div>
+      <div class="stat-divider text-center py-10 px-6">
+        <div class={numberCls}>&lt; 5 min</div>
+        <div class={labelCls}>At komme i gang</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const animateCounter = (el, target, suffix, duration) => {
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        el.textContent = Math.round(target * easeOutCubic(progress)) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.querySelectorAll("[data-target]").forEach((n) => {
+            const target = parseInt(n.dataset.target, 10);
+            const suffix = n.dataset.suffix ?? "";
+            const duration = parseInt(n.dataset.duration ?? "1400", 10);
+            animateCounter(n, target, suffix, duration);
+          });
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.3 },
+    );
+
+    document
+      .querySelectorAll("[data-stats]")
+      .forEach((el) => observer.observe(el));
+  })();
+</script>
