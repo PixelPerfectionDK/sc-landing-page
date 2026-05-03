@@ -1,0 +1,145 @@
+---
+const BULLETS = [
+  {
+    title: "Ingen forudbetaling",
+    desc: "Du betaler intet for at oprette sagen.",
+  },
+  {
+    title: "Ingen timepris",
+    desc: "Vi fakturerer ikke for tid eller arbejde.",
+  },
+  {
+    title: "Ingen skjulte gebyrer",
+    desc: "Det du ser her, er det du betaler.",
+  },
+];
+---
+
+<section id="pricing" class="px-6 py-24 lg:py-32">
+  <div class="max-w-[1140px] mx-auto">
+    <!-- Section header -->
+    <header class="reveal text-center mb-12 lg:mb-14">
+      <p
+        class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
+      >
+        Prismodel
+      </p>
+      <h2
+        class="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-text-primary mb-4"
+      >
+        Vi vinder, eller du<br />betaler ingenting.
+      </h2>
+      <p
+        class="text-base lg:text-lg text-text-secondary max-w-[560px] mx-auto leading-relaxed"
+      >
+        50% af det inddrevne beløb. Det er hele regningen — og du betaler kun,
+        hvis vi vinder for dig.
+      </p>
+    </header>
+
+    <!-- Main pricing card -->
+    <article
+      class="reveal max-w-[880px] mx-auto rounded-[20px] bg-surface-0 shadow-[0_8px_32px_rgba(0,0,0,0.06)] overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1px_1.15fr]"
+    >
+      <!-- Left: 50% -->
+      <div
+        class="px-8 lg:px-12 pt-10 lg:pt-14 pb-6 lg:pb-14 flex flex-col justify-center items-center text-center lg:items-start lg:text-left"
+      >
+        <span
+          class="text-[clamp(72px,8vw,120px)] font-extrabold leading-none tracking-[-4px] bg-gradient-to-br from-brand-blue to-brand-blue-light bg-clip-text text-transparent mb-3.5"
+          >50%</span
+        >
+        <span
+          class="text-[17px] font-bold text-text-primary tracking-[-0.2px] mb-1.5"
+          >af det inddrevne beløb</span
+        >
+        <span class="text-[13.5px] text-text-secondary"
+          >Vores eneste honorar.</span
+        >
+      </div>
+
+      <!-- Vertical divider at lg, horizontal at mobile -->
+      <div class="hidden lg:block bg-black/[0.08]"></div>
+      <div class="block lg:hidden h-px bg-black/[0.08] mx-8"></div>
+
+      <!-- Right: example calc -->
+      <div
+        class="px-8 lg:px-12 pt-6 lg:pt-10 pb-10 lg:pb-10 flex flex-col justify-center"
+      >
+        <span
+          class="font-mono text-[10.5px] uppercase tracking-[2px] font-semibold text-text-tertiary mb-3"
+          >Eksempel</span
+        >
+        <p class="text-[14px] text-text-secondary mb-3.5">
+          Hvis vi inddriver DKK 47.500 for dig:
+        </p>
+        <div class="flex flex-col gap-2">
+          <div
+            class="flex justify-between items-baseline px-3.5 py-2.5 bg-brand-blue/[0.08] border border-brand-blue/[0.18] rounded-lg"
+          >
+            <span class="text-[13.5px] font-semibold text-text-primary"
+              >Du modtager</span
+            >
+            <span class="font-mono text-[15px] font-bold text-brand-blue"
+              >DKK 23.750</span
+            >
+          </div>
+          <div
+            class="flex justify-between items-baseline px-3.5 py-2.5 bg-surface-1 rounded-lg"
+          >
+            <span class="text-[13.5px] text-text-secondary">Vi modtager</span>
+            <span class="font-mono text-[14px] font-bold text-text-primary"
+              >DKK 23.750</span
+            >
+          </div>
+          <div class="h-px bg-black/[0.08] my-1"></div>
+          <div
+            class="flex justify-between items-baseline px-3.5 py-2.5 bg-surface-1 rounded-lg"
+          >
+            <span class="text-[13.5px] text-text-secondary"
+              >Hvis vi taber sagen</span
+            >
+            <span
+              class="font-mono text-[14px] font-semibold text-text-tertiary"
+              >0 kr</span
+            >
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Three benefit bullets -->
+    <div class="mt-7 max-w-[880px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
+      {
+        BULLETS.map((b, i) => (
+          <div
+            class="reveal flex items-start gap-3 p-5 bg-surface-0 rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.06)]"
+            style={`transition-delay: ${100 + i * 60}ms`}
+          >
+            <div class="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center shrink-0">
+              <svg
+                class="w-3.5 h-3.5 text-brand-blue"
+                viewBox="0 0 14 14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2.5 7.2l2.4 2.3 6.6-7" />
+              </svg>
+            </div>
+            <div class="flex flex-col gap-1">
+              <h4 class="text-[14px] font-bold text-text-primary tracking-[-0.2px]">
+                {b.title}
+              </h4>
+              <p class="text-[12.5px] leading-[1.5] text-text-secondary">
+                {b.desc}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
