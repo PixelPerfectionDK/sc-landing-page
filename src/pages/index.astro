@@ -4,6 +4,7 @@ import Hero from "../components/Hero.astro";
 import Stats from "../components/Stats.astro";
 import Process from "../components/Process.astro";
 import Testimonials from "../components/Testimonials.astro";
+import Pricing from "../components/Pricing.astro";
 import CtaBand from "../components/CtaBand.astro";
 import Footer from "../components/Footer.astro";
 ---
@@ -46,6 +47,8 @@ import Footer from "../components/Footer.astro";
 
   <Testimonials />
 
+  <Pricing />
+
   <CtaBand />
 
   <Footer />
@@ -60,6 +63,7 @@ import Footer from "../components/Footer.astro";
     "stats",
     "process",
     "testimonials",
+    "pricing",
     "cta-band",
     "footer",
   ];
@@ -68,7 +72,8 @@ import Footer from "../components/Footer.astro";
     { r: 248, g: 249, b: 251 }, // hero bottom / stats top: off-white
     { r: 248, g: 249, b: 251 }, // stats bottom / process top: off-white
     { r: 248, g: 249, b: 251 }, // process bottom / testimonials top: off-white
-    { r: 248, g: 249, b: 251 }, // testimonials bottom / cta-band top: off-white (start of fade)
+    { r: 248, g: 249, b: 251 }, // testimonials bottom / pricing top: off-white
+    { r: 248, g: 249, b: 251 }, // pricing bottom / cta-band top: off-white (start of fade)
     { r: 22, g: 45, b: 107 }, // cta-band bottom / footer top: dark navy
     { r: 22, g: 45, b: 107 }, // footer bottom: dark navy (stays)
   ];
@@ -77,8 +82,8 @@ import Footer from "../components/Footer.astro";
   function getOverlayOpacity(index: number, t: number): number {
     if (index === 0 && t < 0.5) return 1;
     if (index === 0) return lerp(1, 0, smoothstep((t - 0.5) * 2));
-    if (index === 4) return smoothstep(t);
-    if (index === 5) return 1;
+    if (index === 5) return smoothstep(t);
+    if (index === 6) return 1;
     return 0;
   }
 

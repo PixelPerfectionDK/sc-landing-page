@@ -1,0 +1,187 @@
+---
+const BULLETS = [
+  "Ingen forudbetaling",
+  "Ingen timepris",
+  "Ingen skjulte gebyrer",
+];
+---
+
+<section id="pricing" class="px-6 py-24 lg:py-32">
+  <div class="max-w-[1140px] mx-auto">
+    <!-- Section header -->
+    <header class="reveal text-center mb-14 lg:mb-16">
+      <p
+        class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
+      >
+        Prismodel
+      </p>
+      <h2
+        class="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-text-primary mb-4"
+      >
+        Vi vinder, eller du<br />betaler ingenting.
+      </h2>
+      <p
+        class="text-base lg:text-lg text-text-secondary max-w-[560px] mx-auto leading-relaxed"
+      >
+        50% af det inddrevne beløb. Det er hele regningen — og du betaler kun,
+        hvis vi vinder for dig.
+      </p>
+    </header>
+
+    <div
+      class="lg:grid lg:grid-cols-[1fr_1fr] lg:gap-16 lg:items-center max-w-[1040px] mx-auto"
+    >
+      <!-- Annotation panel (lg+ only) -->
+      <aside class="reveal hidden lg:block relative pl-8">
+        <div
+          class="absolute left-0 top-1 bottom-1 w-px bg-gradient-to-b from-brand-blue/40 via-brand-blue/15 to-transparent"
+          aria-hidden="true"
+        >
+        </div>
+        <p
+          class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-5"
+        >
+          Hvordan vi arbejder
+        </p>
+        <h3
+          class="text-[clamp(1.6rem,2.4vw,2.1rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-text-primary mb-5"
+        >
+          Du betaler kun<br />for resultatet.
+        </h3>
+        <p class="text-[15px] leading-[1.65] text-text-secondary mb-4">
+          Ingen timepris. Ingen forudbetaling. Vi bruger kun ressourcer på sager
+          vi tror på — og bærer hele risikoen for udfaldet.
+        </p>
+        <p class="text-[15px] leading-[1.65] text-text-secondary">
+          Vinder vi, deler vi det inddrevne beløb 50/50. Taber vi, betaler du
+          intet. <span class="text-text-primary font-semibold"
+            >Det er hele modellen.</span
+          >
+        </p>
+      </aside>
+
+      <!-- Receipt -->
+      <div class="reveal max-w-[440px] mx-8">
+        <div
+          class="relative [filter:drop-shadow(0_18px_30px_rgba(15,30,80,0.10))_drop-shadow(0_3px_6px_rgba(0,0,0,0.04))]"
+        >
+          <!-- Paper -->
+          <div class="relative bg-white rounded-t-[14px] pt-7 pb-7 px-7">
+            <!-- Rubber-stamp seal, top-right -->
+            <div
+              class="receipt-stamp absolute top-6 right-4 lg:right-5 pointer-events-none select-none origin-top-right"
+            >
+              <div
+                class="border-[2.5px] border-brand-blue/45 rounded-[3px] px-2.5 py-1 bg-white/40 [box-shadow:inset_0_0_0_1px_rgba(66,113,240,0.15)]"
+              >
+                <div
+                  class="font-mono text-[9px] font-extrabold uppercase tracking-[0.08em] text-brand-blue/60 leading-[1.4]"
+                >
+                  Ingen gevinst
+                </div>
+                <div
+                  class="font-mono text-[9px] font-extrabold uppercase tracking-[0.08em] text-brand-blue/60 leading-[1.4]"
+                >
+                  Ingen regning
+                </div>
+              </div>
+            </div>
+
+            <!-- Header band -->
+            <div class="border-b-2 border-dashed border-black/[0.08] pb-4 mb-4">
+              <div
+                class="font-mono text-[10px] font-bold uppercase tracking-[0.35em] text-text-tertiary"
+              >
+                Faktura — Eksempel
+              </div>
+              <div class="font-mono text-[11px] text-text-secondary mt-1.5">
+                SmallClaims ApS · CVR 43188739
+              </div>
+              <div
+                class="flex justify-between mt-3 font-mono text-[10.5px] text-text-tertiary"
+              >
+                <span>REF #00472</span>
+                <span>2026-05-03</span>
+              </div>
+            </div>
+
+            <!-- Line items -->
+            <div class="font-mono text-[13px] flex flex-col">
+              <div
+                class="flex justify-between items-baseline py-2.5 border-b border-dashed border-black/[0.06]"
+              >
+                <span class="text-text-secondary">Inddrevet beløb</span>
+                <span class="font-bold text-text-primary">DKK 47.500</span>
+              </div>
+              <div class="flex justify-between items-baseline py-2.5">
+                <span class="text-text-secondary">
+                  Vores honorar <span class="text-text-tertiary">(50%)</span>
+                </span>
+                <span class="font-bold text-text-primary">DKK 23.750</span>
+              </div>
+            </div>
+
+            <!-- Solid divider before total -->
+            <div class="my-3 border-t-[2.5px] border-black/15"></div>
+
+            <!-- Total: amount the customer receives -->
+            <div class="flex justify-between items-baseline">
+              <span
+                class="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-text-tertiary"
+              >
+                Du modtager
+              </span>
+              <span
+                class="font-mono text-[24px] font-extrabold tracking-[-0.04em] text-brand-blue leading-none"
+              >
+                DKK 23.750
+              </span>
+            </div>
+          </div>
+
+          <!-- Perforated tear edge -->
+          <div class="receipt-perforation" aria-hidden="true"></div>
+        </div>
+
+        <!-- Inline annotations below the receipt (mobile only — desktop has the side panel) -->
+        <div
+          class="lg:hidden mt-9 flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
+        >
+          {
+            BULLETS.map((b, i) => (
+              <>
+                <div
+                  class="reveal flex items-center gap-1.5"
+                  style={`transition-delay: ${100 + i * 60}ms`}
+                >
+                  <svg
+                    class="w-3 h-3 text-brand-blue shrink-0"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M2.5 7.2l2.4 2.3 6.6-7" />
+                  </svg>
+                  <span class="font-mono text-[11px] uppercase tracking-[0.12em] font-medium text-text-tertiary">
+                    {b}
+                  </span>
+                </div>
+                {i < BULLETS.length - 1 && (
+                  <span
+                    class="font-mono text-[11px] text-text-tertiary/40 hidden sm:inline"
+                    aria-hidden="true"
+                  >
+                    ·
+                  </span>
+                )}
+              </>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
