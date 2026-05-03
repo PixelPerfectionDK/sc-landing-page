@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { useLogoSoup } from "react-logo-soup";
 
 const LOGOS = [
@@ -14,13 +15,28 @@ const LOGOS = [
   { src: "/logos/vimeso-logo.webp", alt: "Vimeso" },
 ];
 
+const BG_COLOR: [number, number, number] = [43, 79, 191];
+
 export default function Partners() {
   const { normalizedLogos, isReady } = useLogoSoup({
     logos: LOGOS,
-    baseSize: 48,
-    backgroundColor: [43, 79, 191],
-    cropToContent: true,
+    baseSize: 64,
+    backgroundColor: BG_COLOR,
   });
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin: "100px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isReady]);
 
   if (!isReady) return null;
 
@@ -28,13 +44,14 @@ export default function Partners() {
 
   return (
     <div
+      ref={containerRef}
       className="w-full mt-8"
       style={{
         borderTop: "1px solid rgba(255,255,255,0.08)",
         paddingTop: "20px",
       }}
     >
-      <p className="text-white/40 text-[11px] uppercase tracking-[0.15em] text-center mb-6">
+      <p className="text-surface-3 text-md font-semibold font-sans uppercase tracking-[0.15em] text-center mb-6">
         Brugt af virksomheder i hele Danmark
       </p>
       <div
@@ -44,6 +61,8 @@ export default function Partners() {
             "linear-gradient(90deg, transparent, white 10%, white 90%, transparent)",
           maskImage:
             "linear-gradient(90deg, transparent, white 10%, white 90%, transparent)",
+          filter: "brightness(0) invert(1)",
+          opacity: 0.75,
         }}
       >
         <div
@@ -51,20 +70,22 @@ export default function Partners() {
           style={{
             width: "max-content",
             gap: "48px",
+            willChange: "transform",
+            transform: "translate3d(0,0,0)",
             animation: "logo-ticker 35s linear infinite",
+            animationPlayState: isVisible ? "running" : "paused",
           }}
         >
           {logos.map((logo, i) => (
             <img
               key={i}
-              src={logo.croppedSrc || logo.src}
+              src={logo.src}
               alt={logo.alt}
               width={logo.normalizedWidth}
               height={logo.normalizedHeight}
-              className="object-contain transition-opacity duration-300 shrink-0"
-              style={{ opacity: 0.75, filter: "brightness(0) invert(1)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.75")}
+              loading="lazy"
+              decoding="async"
+              className="object-contain shrink-0"
             />
           ))}
         </div>
