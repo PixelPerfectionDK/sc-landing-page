@@ -49,6 +49,24 @@
   transform: translateY(0);
 }
 
+.stat-divider {
+  position: relative;
+}
+.stat-divider:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.08);
+}
+@media (max-width: 1023px) {
+  .stat-divider:nth-child(n + 2)::after {
+    display: none;
+  }
+}
+
 @utility bg-signin-gradient {
   background:
     radial-gradient(ellipse at 25% 80%, rgba(43, 79, 191, 0.35) 0%, transparent 50%),

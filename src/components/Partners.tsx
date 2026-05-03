@@ -45,13 +45,13 @@ export default function Partners() {
   return (
     <div
       ref={containerRef}
-      className="w-full mt-8"
+      className="w-full mt-16"
       style={{
         borderTop: "1px solid rgba(255,255,255,0.08)",
         paddingTop: "20px",
       }}
     >
-      <p className="text-surface-3 text-md font-semibold uppercase tracking-[0.15em] text-center mb-6">
+      <p className="text-surface-3 text-md font-semibold uppercase tracking-[0.15em] text-center mt-6 mb-6">
         Brugt af virksomheder i hele Danmark
       </p>
       <div
