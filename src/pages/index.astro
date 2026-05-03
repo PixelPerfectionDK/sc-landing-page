@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Stats from "../components/Stats.astro";
 import Process from "../components/Process.astro";
+import Testimonials from "../components/Testimonials.astro";
 ---
 
 <Layout title="SmallClaims - Sikring af jeres retsmæssige krav">
@@ -40,18 +41,21 @@ import Process from "../components/Process.astro";
   <Stats />
 
   <Process />
+
+  <Testimonials />
 </Layout>
 
 <script>
   import { initScrollBg, lerp, smoothstep } from "../scripts/scroll-bg";
 
   // One entry per section — see CLAUDE.md "Scroll background" for the contract.
-  const SECTION_IDS = ["hero", "stats", "process"];
+  const SECTION_IDS = ["hero", "stats", "process", "testimonials"];
   const COLOR_STOPS = [
     { r: 43, g: 79, b: 191 }, // hero top:    rich blue
     { r: 248, g: 249, b: 251 }, // hero bottom / stats top: off-white
     { r: 248, g: 249, b: 251 }, // stats bottom / process top: off-white
-    { r: 248, g: 249, b: 251 }, // process bottom (placeholder for next section)
+    { r: 248, g: 249, b: 251 }, // process bottom / testimonials top: off-white
+    { r: 248, g: 249, b: 251 }, // testimonials bottom (placeholder for next)
   ];
 
   // Gradient + grain overlay opacity — only show on blue sections (hero, CTA, footer).

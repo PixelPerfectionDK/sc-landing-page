@@ -1,0 +1,110 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  company: string;
+  logo: string;
+  logoH: number;
+  avatarHue: number;
+  avatarInitials: string;
+  profilePicture?: string;
+  rating: number;
+  short: string;
+  delay?: number;
+}
+
+const {
+  name,
+  title,
+  company,
+  logo,
+  logoH,
+  avatarHue,
+  avatarInitials,
+  profilePicture,
+  rating,
+  short,
+  delay = 0,
+} = Astro.props;
+---
+
+<article
+  class="reveal relative overflow-hidden rounded-2xl p-7 bg-white border border-black/[0.04] shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex flex-col"
+  style={`transition-delay: ${delay}ms`}
+>
+  <div class="flex items-start justify-between mb-4">
+    <div
+      class="flex items-center gap-[3px]"
+      role="img"
+      aria-label={`${rating} ud af 5 stjerner`}
+    >
+      {
+        Array.from({ length: 5 }).map((_, i) => (
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 16 16"
+            fill={i < rating ? "#4271f0" : "rgba(17,17,24,0.10)"}
+            aria-hidden="true"
+          >
+            <path d="M8 1.2l2.06 4.18 4.61.67-3.34 3.25.79 4.59L8 11.72l-4.12 2.17.79-4.59L1.33 6.05l4.61-.67L8 1.2z" />
+          </svg>
+        ))
+      }
+    </div>
+    <img
+      src={logo}
+      alt={company}
+      style={`height: ${logoH}px; width: auto; max-width: 140px;`}
+      class="object-contain object-right opacity-70 select-none"
+      draggable="false"
+    />
+  </div>
+
+  <p
+    class="text-[15px] leading-[1.55] text-text-primary font-medium tracking-[-0.005em] flex-1"
+  >
+    <span class="text-brand-blue">“</span>{short}<span class="text-brand-blue"
+      >”</span
+    >
+  </p>
+
+  <div
+    class="mt-5 pt-5 border-t border-black/[0.06] flex items-center gap-3"
+  >
+    {
+      profilePicture ? (
+        <img
+          src={profilePicture}
+          alt={name}
+          width="40"
+          height="40"
+          loading="lazy"
+          decoding="async"
+          class="w-10 h-10 rounded-full object-cover shrink-0 select-none shadow-[0_0_0_1px_rgba(0,0,0,0.06),_0_1px_2px_rgba(0,0,0,0.08)]"
+          draggable="false"
+        />
+      ) : (
+        <div
+          style={`width: 40px; height: 40px; background: oklch(0.74 0.09 ${avatarHue}); box-shadow: inset 0 0 0 2px oklch(0.84 0.06 ${avatarHue}), 0 1px 2px rgba(0,0,0,0.08); color: oklch(0.32 0.09 ${avatarHue});`}
+          class="rounded-full flex items-center justify-center font-bold tracking-[-0.02em] shrink-0 select-none"
+          aria-hidden="true"
+        >
+          <span style="font-size: 14.4px">{avatarInitials}</span>
+        </div>
+      )
+    }
+    <div class="min-w-0">
+      <div
+        class="text-[13.5px] font-bold text-text-primary tracking-[-0.01em] leading-tight truncate"
+      >
+        {name}
+      </div>
+      <div
+        class="font-mono text-[11px] uppercase tracking-[0.08em] text-text-tertiary mt-1 truncate"
+      >
+        {title} · {company}
+      </div>
+    </div>
+  </div>
+</article>
