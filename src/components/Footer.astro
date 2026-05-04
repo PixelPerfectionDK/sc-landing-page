@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import linkedinLogo from "../assets/linkedinlogo.svg";
+
 const colTitle =
   "text-[11px] font-bold uppercase tracking-[1.5px] text-white/30 mb-4";
 const linkCls =
@@ -39,19 +42,33 @@ const plainCls = "block text-[13.5px] text-white/50 py-1";
         </svg>
         smallclaims.ai
       </a>
-      <p class="text-[13px] leading-[1.6] max-w-[260px]">
-        Software-faciliteret inddrivelse af retskrav. Vi gør det nemt at vinde
-        din sag.
+      <p class="text-sm leading-[1.6] max-w-[260px] mb-4">
+        LegalTech der hjælper både virksomheder og privatpersoner med at
+        retsforfølge småkrav, der hidtil ikke har været rentable at forfølge på
+        grund af høje advokat- og retsomkostninger. Vi håndterer alle typer
+        sager op til 100.000 DKK.
       </p>
+      <div class="flex gap-4">
+        <a href="https://www.linkedin.com/company/smallclaims/">
+          <Image
+            src={linkedinLogo}
+            alt="LinkedIn"
+            width={20}
+            height={20}
+            class="brightness-0 invert opacity-40 hover:opacity-100 transition-opacity duration-200"
+          />
+        </a>
+      </div>
     </div>
 
     <div>
       <div class={colTitle}>Navigation</div>
-      <a class={linkCls} href="#process">Sådan virker det</a>
-      <a class={linkCls} href="#pricing">Pris</a>
-      <a class={linkCls} href="#testimonials">Kunderne</a>
-      <a class={linkCls} href="#">FAQ</a>
-      <a class={linkCls} href="#">Om os</a>
+      <a class={linkCls} href="/services">Services</a>
+      <a class={linkCls} href="/proces">Proces</a>
+      <a class={linkCls} href="/counterpart">Modpart</a>
+      <a class={linkCls} href="/ordbog">Ordbog</a>
+      <a class={linkCls} href="/om-os/viden">Viden</a>
+      <a class={linkCls} href="/om-os/faq">FAQ</a>
     </div>
 
     <div>
@@ -60,13 +77,16 @@ const plainCls = "block text-[13.5px] text-white/50 py-1";
         >info@smallclaims.ai</a
       >
       <a class={linkCls} href="tel:+4527132622">+45 27 13 26 22</a>
-      <span class={plainCls}>Tirs/Tors kl. 10–12</span>
+      <span class={plainCls}>Tirs &amp; Tors kl. 10–12</span>
     </div>
 
     <div>
       <div class={colTitle}>Adresse</div>
-      <span class={plainCls}>Sortedam Dossering 55</span>
-      <span class={plainCls}>2100 København Ø</span>
+      <a class={linkCls} href="https://maps.app.goo.gl/yrS6D6x5B7cRzXxw7">
+        <span>Sortedam Dossering 55</span>
+        <br />
+        <span>2100 København Ø</span>
+      </a>
       <span class={plainCls}>CVR: 43188739</span>
     </div>
   </div>
@@ -80,15 +100,11 @@ const plainCls = "block text-[13.5px] text-white/50 py-1";
     <div class="flex justify-center md:justify-end gap-5">
       <a
         class="text-[12px] text-white/35 hover:text-white/60 no-underline transition-colors duration-200"
-        href="#">Privatlivspolitik</a
+        href="/persondatapolitik">Persondatapolitik</a
       >
       <a
         class="text-[12px] text-white/35 hover:text-white/60 no-underline transition-colors duration-200"
-        href="#">Vilkår</a
-      >
-      <a
-        class="text-[12px] text-white/35 hover:text-white/60 no-underline transition-colors duration-200"
-        href="#">Cookiepolitik</a
+        href="/persondatapolitik">Cookiepolitik</a
       >
     </div>
   </div>
