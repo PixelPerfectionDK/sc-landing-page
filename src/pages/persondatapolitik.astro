@@ -1,0 +1,310 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Footer from "../components/Footer.astro";
+
+type Right = { label: string; body: string };
+
+const rights: Right[] = [
+  {
+    label: "Indsigtsret",
+    body: "Du har ret til at få indsigt i de oplysninger, som vi behandler om dig.",
+  },
+  {
+    label: "Berigtigelse",
+    body: "Såfremt nogle af de oplysninger vi behandler om dig er ukorrekte, har du ret til af få disse berigtiget.",
+  },
+  {
+    label: "Sletning",
+    body: "I nogle tilfælde har du ret til at få oplysning, vi behandler om dig, slettet inden tidspunktet for vores almindelige opbevaringsperiode er udløbet beskrevet i punkt 6.",
+  },
+  {
+    label: "Indsigelse",
+    body: "I nogle tilfælde har du ret til af gøre indsigelse mod vores behandling af dine personoplysninger.",
+  },
+  {
+    label: "Begrænset behandling",
+    body: "I nogle tilfælde har du ret til at opnå begrænset behandling, hvis et særligt forhold gør sig gældende.",
+  },
+  {
+    label: "Dataportabilitet",
+    body: "Du har ret til at modtage oplysninger om dig selv, som du har givet til en datasvarlig, i et almindelig anvendt og maskinlæsbart format, og transmittere disse oplysninger til en anden dataansvarlig.",
+  },
+];
+
+const numCls =
+  "font-mono text-[40px] lg:text-[52px] font-bold leading-none tracking-[-0.06em] text-brand-blue-light/70 select-none";
+const h2Cls =
+  "text-[1.5rem] lg:text-[1.75rem] font-bold leading-[1.2] tracking-[-0.02em] text-white mb-5";
+const proseCls = "space-y-4 text-[15px] leading-[1.7] text-white/80";
+const listCls =
+  "list-disc pl-5 space-y-2.5 marker:text-brand-blue-light/55 text-white/80";
+---
+
+<Layout title="Persondatapolitik | smallclaims.ai">
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <main class="px-6 pt-32 pb-20 lg:pt-40 lg:pb-32">
+    <div class="max-w-[860px] mx-auto">
+      <header class="mb-20 lg:mb-28">
+        <div
+          class="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue-light mb-6 animate-fade-up"
+        >
+          § Juridisk · GDPR
+        </div>
+        <h1
+          class="text-[clamp(2.75rem,6vw,4.5rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-white animate-fade-up"
+          style="animation-delay: 80ms"
+        >
+          Persondatapolitik
+        </h1>
+      </header>
+
+      <article class="space-y-16 lg:space-y-24">
+        <section
+          class="grid lg:grid-cols-[88px_1fr] gap-x-10 gap-y-4 lg:items-start"
+        >
+          <div class={numCls}>01</div>
+          <div>
+            <h2 class={h2Cls}>Dataansvarlig</h2>
+            <div class={proseCls}>
+              <p>
+                SmallClaims er dataansvarlig for behandlingen af de
+                personoplysninger, som vi har modtaget. Vores kontaktoplysninger
+                finder du nedenfor:
+              </p>
+            </div>
+            <address
+              class="not-italic mt-6 pl-5 border-l border-brand-blue-light/40 font-mono text-[13px] leading-[1.9] text-white/70"
+            >
+              SmallClaims ApS<br />
+              Sortedam Dossering 55<br />
+              2100 København Ø<br />
+              CVR 43188739<br />
+              +45 27 13 26 22<br />
+              <a
+                class="underline decoration-white/20 underline-offset-4 hover:decoration-white hover:text-white transition-all duration-200"
+                href="mailto:info@smallclaims.ai">info@smallclaims.ai</a
+              >
+            </address>
+          </div>
+        </section>
+
+        <section
+          class="grid lg:grid-cols-[88px_1fr] gap-x-10 gap-y-4 lg:items-start"
+        >
+          <div class={numCls}>02</div>
+          <div>
+            <h2 class={h2Cls}>
+              Formål og retsgrundlag for behandling af personoplysninger
+            </h2>
+            <div class={proseCls}>
+              <p>
+                SmallClaims behandler dine personoplysninger i henhold til
+                formål og retsgrundlag oplistet nedenfor:
+              </p>
+              <ul class={listCls}>
+                <li>
+                  Idet behandlingen er nødvendig for at SmallClaims kan forfølge
+                  vores kunders legitime interesser, som er den legitime
+                  interesse i at vores kunder kan inddrive deres udestående
+                  fordringer igennem en retslig proces. Retsgrundlaget følger
+                  af GDPR art. 6, stk. 1, litra f.
+                </li>
+                <li>
+                  Idet behandlinger er nødvendig for at kunne overholde en
+                  retlig forpligtelse, herunder bogføringsloven. Retsgrundlaget
+                  følger af GDPR art. 6, stk. 1, litra c.
+                </li>
+                <li>
+                  Idet behandlingen kan være nødvendig for at gøre et retskrav
+                  gældende, herunder eventuel behandling af dit CPR-nummer.
+                  Retsgrundlaget følger af databeskyttelsesloven § 11, stk. 2,
+                  nr. 4.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="grid lg:grid-cols-[88px_1fr] gap-x-10 gap-y-4 lg:items-start"
+        >
+          <div class={numCls}>03</div>
+          <div>
+            <h2 class={h2Cls}>Kategorier af personoplysninger</h2>
+            <div class={proseCls}>
+              <p>
+                SmallClaims behandler forskellige kategorier af
+                personoplysninger. Hvilke personoplysninger SmallClaims
+                behandler i den konkrete sag kan variere, men falder som
+                udgangspunkt ind i en eller flere af nedenstående kategorier:
+              </p>
+              <ul class={listCls}>
+                <li>
+                  Almindelige personoplysninger, herunder navn, adresse, email,
+                  telefonnummer og økonomiske forhold.
+                </li>
+                <li>CPR-nummer.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="grid lg:grid-cols-[88px_1fr] gap-x-10 gap-y-4 lg:items-start"
+        >
+          <div class={numCls}>04</div>
+          <div>
+            <h2 class={h2Cls}>Modtagere af personoplysninger</h2>
+            <div class={proseCls}>
+              <p>
+                Følgende modtagere får personoplysninger fra SmallClaims:
+              </p>
+              <ul class={listCls}>
+                <li>Databehandlere</li>
+                <li>Domstole</li>
+                <li>Klienter</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="grid lg:grid-cols-[88px_1fr] gap-x-10 gap-y-4 lg:items-start"
+        >
+          <div class={numCls}>05</div>
+          <div>
+            <h2 class={h2Cls}>Personoplysningernes oprindelse</h2>
+            <div class={proseCls}>
+              <p>
+                SmallClaims har modtaget personoplysninger fra følgende
+                afsendere:
+              </p>
+              <ul class={listCls}>
+                <li>Klienter</li>
+                <li>CVR</li>
+                <li>Domstolene</li>
+                <li>Offentlig tilgængelig registre</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="grid lg:grid-cols-[88px_1fr] gap-x-10 gap-y-4 lg:items-start"
+        >
+          <div class={numCls}>06</div>
+          <div>
+            <h2 class={h2Cls}>Varighed for opbevaring af personoplysninger</h2>
+            <div class={proseCls}>
+              <p>
+                SmallClaims opbevare personoplysninger så længe det er
+                nødvendigt for at overholde vores kontraktretlige
+                forpligtelser, og så længe det er nødvendigt i henhold til
+                lovbestemte opbevaringstider, herunder bl.a. bogføringsloven.
+                Det afhænger derfor fra sag til sag, hvor lang tid vi opbevarer
+                personoplysninger. Vi sletter oplysninger, når det ikke længere
+                er nødvendigt at gemme dem, og som udgangspunkt tager vi
+                udgangspunkt i en opbevaringsperiode på fem år fra afslutningen
+                af en sag.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="grid lg:grid-cols-[88px_1fr] gap-x-10 gap-y-4 lg:items-start"
+        >
+          <div class={numCls}>07</div>
+          <div>
+            <h2 class={h2Cls}>Rettigheder</h2>
+            <div class={proseCls}>
+              <p>
+                I henhold til persondataforordningen (GDPR) har du visse
+                rettigheder for behandlingen af dine personoplysninger. De
+                vigtigste rettigheder finder du nedenfor:
+              </p>
+            </div>
+            <dl class="mt-6">
+              {
+                rights.map((r, i) => (
+                  <div
+                    class={`grid sm:grid-cols-[180px_1fr] gap-x-6 gap-y-1 py-4 ${i === 0 ? "border-t border-white/10" : ""} border-b border-white/10`}
+                  >
+                    <dt class="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white self-start sm:pt-1.5">
+                      {r.label}
+                    </dt>
+                    <dd class="text-[15px] leading-[1.65] text-white/80">
+                      {r.body}
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </section>
+
+        <section
+          class="grid lg:grid-cols-[88px_1fr] gap-x-10 gap-y-4 lg:items-start"
+        >
+          <div class={numCls}>08</div>
+          <div>
+            <h2 class={h2Cls}>Klage til Datatilsynet</h2>
+            <div class={proseCls}>
+              <p>
+                Du har ret til at klage over SmallClaims behandling af dine
+                personoplysninger til Datatilsynet. Du finder Datatilsynets
+                kontaktoplysninger på <a
+                  class="underline decoration-white/20 underline-offset-4 hover:decoration-white hover:text-white transition-all duration-200"
+                  href="https://www.datatilsynet.dk"
+                  target="_blank"
+                  rel="noopener noreferrer">www.datatilsynet.dk</a
+                >.
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <aside
+        class="mt-24 pt-8 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.2em]"
+      >
+        <span class="text-white/35">— slut · 8 §§</span>
+        <a
+          href="mailto:info@smallclaims.ai"
+          class="group inline-flex items-center gap-2 text-white/55 hover:text-white transition-colors duration-300 no-underline"
+        >
+          Kontakt os
+          <svg
+            class="w-[13px] h-[13px] transition-transform duration-300 stroke-current group-hover:translate-x-[3px]"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4"></path></svg
+          >
+        </a>
+      </aside>
+    </div>
+  </main>
+
+  <CtaBand />
+  <Footer />
+</Layout>
