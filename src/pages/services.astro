@@ -1,0 +1,138 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Service from "../components/Service.astro";
+import Industry from "../components/Industry.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Footer from "../components/Footer.astro";
+import foged from "../assets/ikon_foged.png";
+import penge from "../assets/ikon_penge.png";
+import retssag from "../assets/ikon_retssag_v2.png";
+
+import { BsBank2 } from "react-icons/bs";
+import { FaCarRear } from "react-icons/fa6";
+import { AiOutlineSafety } from "react-icons/ai";
+import { SlEnergy } from "react-icons/sl";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { FaRegCopyright } from "react-icons/fa6";
+import { FaCreditCard } from "react-icons/fa";
+import { FaWallet } from "react-icons/fa6";
+
+const services = [
+  {
+    image: retssag,
+    title: "Retssager",
+    description:
+      "Er I/du part i en konflikt om et mindre beløb, hjælper vi med at få afgjort sagen hurtigt og billigt gennem en retssag.Vi fører og løser retssager nemt og billigt med krav, som har en økonomisk værdi på op til 100.000 kr. uden renter og omkostninger.",
+  },
+  {
+    image: penge,
+    title: "Betalingspåkrav",
+    description:
+      "Er der ikke konflikt om kravets eksistens, kan vi hjælpe jer/dig med at inddrive det gennem fogedretten med et såkaldt betalingspåkrav. Her kan sagerne have et pålydende op til 100.000 kr.",
+  },
+  {
+    image: foged,
+    title: "Fogedretsinddrivelse",
+    description:
+      "Såfremt inddrivelse gennem fogedretten er nødvendig, eksempelvis hvis debitor på trods af dom stadig nægter at betale kravet, hjælper vi også.",
+  },
+];
+
+const industries = [
+  {
+    icon: BsBank2,
+    title: "Bank & finans",
+  },
+  {
+    icon: FaCarRear,
+    title: "Transport",
+  },
+  {
+    icon: AiOutlineSafety,
+    title: "Forsikring",
+  },
+  {
+    icon: SlEnergy,
+    title: "Energi & forsyning",
+  },
+  {
+    icon: BsFillTelephoneFill,
+    title: "Tele",
+  },
+  {
+    icon: FaRegCopyright,
+    title: "Ophavsret",
+  },
+  {
+    icon: FaCreditCard,
+    title: "Tech & abonnement",
+  },
+  {
+    icon: FaWallet,
+    title: "Leasing",
+  },
+];
+---
+
+<Layout title="Services | smallclaims.ai">
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <main>
+    <section class="max-w-[1140px] mx-auto py-24 px-6">
+      <h1
+        class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-white/50 mb-4 text-center"
+      >
+        Services
+      </h1>
+      <h2
+        class="text-4xl md:text-5xl font-bold text-center text-white mb-8 max-w-[800px] mx-auto"
+      >
+        Vi forfølger jeres krav igennem forskellige juridiske instanser og
+        metoder
+      </h2>
+      <section class="flex flex-col gap-4 md:grid md:grid-cols-3">
+        {services.map((service) => <Service {...service} />)}
+      </section>
+    </section>
+    <section
+      class="mx-2 max-w-[1140px] bg-white/10 border border-white/10 rounded-2xl p-6 md:mx-auto md:grid md:grid-cols-2"
+    >
+      <section class="max-w-[400px] mx-auto md:mx-0">
+        <h1
+          class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-white/50 mb-4 text-center"
+        >
+          Kunder
+        </h1>
+        <h2 class="text-2xl font-bold text-center text-white mb-4 md:text-left">
+          Vi er specialister i disse brancher
+        </h2>
+        <p class="text-base text-center text-white/85 md:text-left">
+          Vores kunder er fra mange forskellige brancher. Ofte er de dog
+          karakteriseret ved blandt andet stor volumen af sager, hyppig
+          betalings-frekvens eller abonnementbaserede produkter.
+        </p>
+      </section>
+      <section class="grid grid-cols-2 gap-4 mt-6">
+        {industries.map((industry) => <Industry {...industry} />)}
+      </section>
+    </section>
+  </main>
+
+  <CtaBand />
+  <Footer />
+</Layout>
