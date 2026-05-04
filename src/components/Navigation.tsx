@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 
 const NAV_LINKS = [
-  { href: "#process", label: "Sådan virker det" },
-  { href: "#pricing", label: "Pris" },
-  { href: "#proof", label: "Om os" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/services", label: "Services" },
+  { href: "/proces", label: "Proces" },
+  { href: "/counterpart", label: "Modpart" },
+  { href: "/ordbog", label: "Ordbog" },
+  { href: "/om-os/viden", label: "Viden" },
+  { href: "/om-os/faq", label: "FAQ" },
+  { href: "/kontakt", label: "Kontakt" },
 ];
 
 export default function Navigation() {
