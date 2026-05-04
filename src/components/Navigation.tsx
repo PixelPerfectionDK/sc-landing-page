@@ -4,8 +4,8 @@ const NAV_LINKS = [
   { href: "/services", label: "Services" },
   { href: "/proces", label: "Proces" },
   { href: "/counterpart", label: "Modpart" },
-  { href: "/ordbog", label: "Ordbog" },
-  { href: "/om-os/viden", label: "Viden" },
+  { href: "/ordbog", label: "Ordbog", hideOnScroll: true },
+  { href: "/om-os/viden", label: "Viden", hideOnScroll: true },
   { href: "/om-os/faq", label: "FAQ" },
   { href: "/kontakt", label: "Kontakt" },
 ];
@@ -59,7 +59,7 @@ export default function Navigation() {
       <div
         className={`relative z-[100] mx-auto flex items-center px-4 md:px-6 py-3 rounded-full border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isScrolled
-            ? "max-w-[680px] bg-white/82 backdrop-blur-[20px] backdrop-saturate-[180%] border-white/30 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)]"
+            ? "max-w-[760px] bg-white/82 backdrop-blur-[20px] backdrop-saturate-[180%] border-white/30 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)]"
             : "max-w-[1100px] border-transparent"
         }`}
       >
@@ -99,7 +99,7 @@ export default function Navigation() {
 
         {/* Desktop links */}
         <ul className="hidden md:flex gap-1 mx-auto list-none p-0 m-0">
-          {NAV_LINKS.map(({ href, label }) => (
+          {NAV_LINKS.filter(({ hideOnScroll }) => !(isScrolled && hideOnScroll)).map(({ href, label }) => (
             <li key={href}>
               <a
                 href={href}
