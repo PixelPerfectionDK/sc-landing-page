@@ -27,6 +27,10 @@
   --animate-fade-up: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
+:root {
+  color-scheme: light;
+}
+
 @keyframes logo-ticker {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
