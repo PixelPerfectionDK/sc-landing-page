@@ -1,0 +1,69 @@
+---
+import TeamMember from "./TeamMember.astro";
+
+import placeholder from "../assets/team/placeholder.jpeg";
+
+interface TeamMember {
+  name: string;
+  title: string;
+  image: ImageMetadata;
+}
+
+const team: TeamMember[] = [
+  {
+    name: "Christian Olson",
+    title: "CEO",
+    image: placeholder,
+  },
+  {
+    name: "Anton Claudius",
+    title: "COO",
+    image: placeholder,
+  },
+  {
+    name: "Paul Kvisgaard",
+    title: "CTO",
+    image: placeholder,
+  },
+  {
+    name: "Matteo Giorgio",
+    title: "Jurist",
+    image: placeholder,
+  },
+  {
+    name: "Oliver Bach",
+    title: "Jurist",
+    image: placeholder,
+  },
+  {
+    name: "Gustav Rasmussen",
+    title: "Jurist",
+    image: placeholder,
+  },
+  {
+    name: "Martin Pedersen",
+    title: "Udvikler",
+    image: placeholder,
+  },
+  {
+    name: "Mikkel Jørgensen",
+    title: "UX Designer",
+    image: placeholder,
+  },
+];
+---
+
+<section id="team" class="px-6 py-16 lg:py-24">
+  <div class="max-w-[1140px] mx-auto bg-orange-100 p-6 rounded-2xl">
+    <header class="reveal text-center mb-12 lg:mb-14">
+      <p
+        class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
+      >
+        Vores team
+      </p>
+    </header>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {team.map((member) => <TeamMember {...member} />)}
+    </div>
+  </div>
+</section>
