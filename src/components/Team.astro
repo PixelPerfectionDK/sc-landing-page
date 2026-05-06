@@ -1,5 +1,4 @@
 ---
-import { animate, scroll } from "motion";
 import TeamMember from "./TeamMember.astro";
 
 import placeholder from "../assets/team/placeholder.jpeg";
@@ -25,12 +24,6 @@ const team: TeamMember[] = [
     image: placeholder,
   },
   {
-    name: "Paul Kvisgaard",
-    title: "CTO",
-    description: "Udvikling og teknologi",
-    image: placeholder,
-  },
-  {
     name: "Matteo Giorgio",
     title: "Jurist",
     description: "Juridisk rådgivning",
@@ -46,6 +39,12 @@ const team: TeamMember[] = [
     name: "Gustav Rasmussen",
     title: "Jurist",
     description: "Juridisk rådgivning",
+    image: placeholder,
+  },
+  {
+    name: "Paul Kvisgaard",
+    title: "CTO",
+    description: "Udvikling og teknologi",
     image: placeholder,
   },
   {
@@ -82,15 +81,3 @@ const team: TeamMember[] = [
     </div>
   </div>
 </section>
-
-<script>
-  import { animate, inView } from "motion";
-
-  const team = document.querySelectorAll("#team .reveal");
-
-  team.forEach((member) => {
-    inView(member, (element) => {
-      animate(element, { opacity: 1, y: 0 }, { duration: 0.5 });
-    });
-  });
-</script>
