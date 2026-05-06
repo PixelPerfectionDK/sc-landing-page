@@ -63,7 +63,7 @@ const team: TeamMember[] = [
 ---
 
 <section id="team" class="py-16 lg:py-24">
-  <div class="max-w-[1140px] mx-auto bg-brand-blue px-6 py-12 sm:rounded-2xl">
+  <div class="max-w-[1140px] bg-brand-blue px-6 py-12 sm:rounded-2xl md:mx-42">
     <header class="reveal text-center mb-12 lg:mb-14">
       <p
         class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80 mb-4"
@@ -76,8 +76,38 @@ const team: TeamMember[] = [
         Vores team står klar til at hjælpe dig.
       </h2>
     </header>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {team.map((member) => <TeamMember {...member} />)}
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4">
+      {
+        team.map((member, i) => (
+          <div
+            class:list={[
+              "lg:col-span-2",
+              i === 0 && "lg:col-start-4",
+              i === 1 && "lg:col-start-1",
+              i === 5 && "lg:col-start-2",
+            ]}
+          >
+            <TeamMember {...member} />
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
+
+<script>
+  import { animate, scroll } from "motion";
+
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    const card = document.querySelector<HTMLElement>("#team > div");
+    if (card) {
+      scroll(
+        animate(card, {
+          marginInline: ["10.5rem", "3rem"],
+          paddingBlock: ["3rem", "6rem"],
+        }),
+        { target: card, offset: ["start end", "5% center"] },
+      );
+    }
+  }
+</script>
