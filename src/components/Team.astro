@@ -60,54 +60,320 @@ const team: TeamMember[] = [
     image: placeholder,
   },
 ];
+
+const [founder, ...rest] = team;
+const teamCount = String(team.length).padStart(2, "0");
+
+// Per-card rotations for the supporting polaroid scatter (deg)
+const SCATTER_ROTATIONS = [-3.5, 4.2, -5.5, 2.8, 3.6, -2.4, 4.8] as const;
+const FOUNDER_ROTATION = -4;
 ---
 
 <section id="team" class="py-16 lg:py-24">
-  <div class="max-w-[1140px] bg-brand-blue px-6 py-12 sm:rounded-2xl md:mx-42">
-    <header class="reveal text-center mb-12 lg:mb-14">
+  <div
+    class="relative max-w-[1140px] mx-auto bg-brand-blue px-6 py-12 sm:rounded-2xl overflow-hidden"
+  >
+    <div
+      class="absolute -top-40 -right-40 w-[560px] h-[560px] pointer-events-none rounded-full"
+      style="background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 60%);"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="absolute -bottom-40 -left-40 w-[480px] h-[480px] pointer-events-none rounded-full"
+      style="background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 65%);"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div
+      class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center mb-14 lg:mb-20"
+    >
+      <div class="lg:col-span-7">
+        <p
+          class="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-white/70 mb-5 lg:mb-7"
+          aria-label={`Mød teamet — ${teamCount} personer`}
+        >
+          <span class="team-word inline-block">Vi er</span>
+          <span class="team-word inline-block ml-[2px]">SmallClaims</span>
+        </p>
+
+        <h2
+          aria-label="Vores team står klar til at hjælpe dig."
+          class="text-[clamp(2.25rem,5.5vw,4.5rem)] font-extrabold leading-[0.96] tracking-[-0.04em] text-white"
+        >
+          <span class="team-word inline-block" aria-hidden="true">Vores</span>
+          <span class="team-word inline-block" aria-hidden="true">team</span>
+          <span class="team-word inline-block" aria-hidden="true">står</span>
+          <br />
+          <span class="team-word inline-block" aria-hidden="true">klar</span>
+          <span class="team-word inline-block" aria-hidden="true">til</span>
+          <span class="team-word inline-block" aria-hidden="true">at</span>
+          <span class="team-word inline-block" aria-hidden="true">hjælpe</span>
+          <br />
+          <span class="team-word inline-block" aria-hidden="true">dig.</span>
+        </h2>
+
+        <p
+          class="team-lede mt-6 lg:mt-7 max-w-[440px] text-[15px] leading-[1.6] text-white/65"
+        >
+          Vi er baseret i København og vi er en team af otte personer, der er
+          dedikeret til at hjælpe dig med at vinde dine sager.
+        </p>
+      </div>
+
+      <div class="lg:col-span-5 flex justify-center lg:justify-end lg:pr-4">
+        <div
+          class="team-featured w-[260px] sm:w-[300px] lg:w-[320px] max-w-full"
+          data-rotation={FOUNDER_ROTATION}
+        >
+          <TeamMember
+            {...founder}
+            rotation={FOUNDER_ROTATION}
+            featured={true}
+          />
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="team-divider relative flex items-center gap-4 mb-10 lg:mb-14"
+      aria-hidden="true"
+    >
+      <span class="block h-px flex-1 bg-white/20"></span>
       <p
-        class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80 mb-4"
+        class="font-marker text-[18px] text-white/85 whitespace-nowrap leading-none translate-y-[1px]"
       >
-        Mød SmallClaims
+        Jura
       </p>
-      <h2
-        class="text-[clamp(2rem,4vw,3rem)] text-center mx-auto max-w-[560px] font-extrabold leading-[1.2] tracking-[-0.03em] text-white mb-4"
-      >
-        Vores team står klar til at hjælpe dig.
-      </h2>
-    </header>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4">
+      <span class="block h-px flex-1 bg-white/20"></span>
+    </div>
+
+    <div
+      class="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3 gap-y-8 lg:gap-y-10"
+    >
       {
-        team.map((member, i) => (
-          <div
-            class:list={[
-              "lg:col-span-2",
-              i === 0 && "lg:col-start-4",
-              i === 1 && "lg:col-start-1",
-              i === 5 && "lg:col-start-2",
-            ]}
-          >
-            <TeamMember {...member} />
-          </div>
-        ))
+        rest.map((member, i) => {
+          const rotation = SCATTER_ROTATIONS[i] ?? 0;
+          return (
+            <div
+              class="team-scatter flex justify-center"
+              data-rotation={rotation}
+            >
+              <div class="w-[170px] sm:w-[180px] lg:w-[190px] max-w-full">
+                <TeamMember {...member} rotation={rotation} />
+              </div>
+            </div>
+          );
+        })
       }
     </div>
   </div>
 </section>
 
+<style>
+  .team-word {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .team-lede {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .team-featured,
+  .team-scatter {
+    opacity: 0;
+  }
+  .team-divider span {
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  .team-divider span:last-child {
+    transform-origin: right;
+  }
+  .team-divider p {
+    opacity: 0;
+    transform: rotate(-2deg);
+  }
+</style>
+
 <script>
-  import { animate, scroll } from "motion";
+  import { animate, inView, scroll, stagger } from "motion";
+
+  const easing = [0.16, 1, 0.3, 1] as const;
 
   if (window.matchMedia("(min-width: 768px)").matches) {
     const card = document.querySelector<HTMLElement>("#team > div");
     if (card) {
       scroll(
         animate(card, {
-          marginInline: ["10.5rem", "3rem"],
+          maxWidth: ["880px", "1140px"],
           paddingBlock: ["3rem", "6rem"],
         }),
         { target: card, offset: ["start end", "5% center"] },
       );
     }
+  }
+
+  const team = document.querySelector<HTMLElement>("#team");
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (team && prefersReducedMotion) {
+    team
+      .querySelectorAll<HTMLElement>(
+        ".team-word, .team-lede, .team-featured, .team-scatter, .team-divider p",
+      )
+      .forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+    team.querySelectorAll<HTMLElement>(".team-divider span").forEach((el) => {
+      el.style.transform = "scaleX(1)";
+    });
+  }
+
+  if (team && !prefersReducedMotion) {
+    const words = team.querySelectorAll<HTMLElement>(".team-word");
+    const lede = team.querySelector<HTMLElement>(".team-lede");
+    const featured = team.querySelector<HTMLElement>(".team-featured");
+    const dividerLines =
+      team.querySelectorAll<HTMLElement>(".team-divider span");
+    const dividerLabel = team.querySelector<HTMLElement>(".team-divider p");
+    const scatter = team.querySelectorAll<HTMLElement>(".team-scatter");
+
+    const polaroidEntry = (
+      el: HTMLElement,
+      rotation: number,
+      delay: number,
+      direction: 1 | -1,
+    ) => {
+      animate(
+        el,
+        {
+          opacity: [0, 1],
+          y: [60, 0],
+          scale: [0.7, 1],
+          rotate: [`${rotation + 18 * direction}deg`, `${rotation}deg`],
+        },
+        { duration: 0.85, delay, ease: easing },
+      );
+    };
+
+    const polaroidReset = (
+      el: HTMLElement,
+      rotation: number,
+      direction: 1 | -1,
+    ) => {
+      animate(
+        el,
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.7,
+          rotate: `${rotation + 18 * direction}deg`,
+        },
+        { duration: 0 },
+      );
+    };
+
+    inView(
+      team,
+      () => {
+        animate(
+          Array.from(words),
+          { opacity: 1, y: 0 },
+          { duration: 0.7, delay: stagger(0.05), ease: easing },
+        );
+
+        if (lede) {
+          animate(
+            lede,
+            { opacity: 1, y: 0 },
+            { duration: 0.8, delay: 0.4, ease: easing },
+          );
+        }
+
+        if (featured) {
+          const rot = Number(featured.dataset.rotation ?? 0);
+          polaroidEntry(featured, rot, 0.3, -1);
+        }
+
+        animate(
+          Array.from(dividerLines),
+          { scaleX: 1 },
+          { duration: 0.8, delay: 0.7, ease: easing },
+        );
+        if (dividerLabel) {
+          animate(
+            dividerLabel,
+            { opacity: 1, rotate: "-2deg" },
+            { duration: 0.5, delay: 0.85, ease: "linear" },
+          );
+        }
+
+        scatter.forEach((card, i) => {
+          const rot = Number(card.dataset.rotation ?? 0);
+          const dir: 1 | -1 = i % 2 === 0 ? -1 : 1;
+          polaroidEntry(card, rot, 0.95 + i * 0.09, dir);
+        });
+
+        return () => {
+          words.forEach((w) =>
+            animate(w, { opacity: 0, y: 20 }, { duration: 0 }),
+          );
+          if (lede) {
+            animate(lede, { opacity: 0, y: 14 }, { duration: 0 });
+          }
+          if (featured) {
+            polaroidReset(featured, Number(featured.dataset.rotation ?? 0), -1);
+          }
+          dividerLines.forEach((s) =>
+            animate(s, { scaleX: 0 }, { duration: 0 }),
+          );
+          if (dividerLabel) {
+            animate(dividerLabel, { opacity: 0 }, { duration: 0 });
+          }
+          scatter.forEach((card, i) => {
+            const rot = Number(card.dataset.rotation ?? 0);
+            const dir: 1 | -1 = i % 2 === 0 ? -1 : 1;
+            polaroidReset(card, rot, dir);
+          });
+        };
+      },
+      { amount: 0.12 },
+    );
+
+    // Hover lift / un-tilt for all polaroid wrappers
+    const allPolaroids = team.querySelectorAll<HTMLElement>(
+      ".team-featured, .team-scatter",
+    );
+    allPolaroids.forEach((wrapper) => {
+      const rot = Number(wrapper.dataset.rotation ?? 0);
+      let isHovering = false;
+
+      wrapper.addEventListener("pointerenter", () => {
+        isHovering = true;
+        wrapper.style.zIndex = "10";
+        animate(
+          wrapper,
+          { rotate: "0deg", scale: 1.06 },
+          { duration: 0.45, ease: easing },
+        );
+      });
+
+      wrapper.addEventListener("pointerleave", () => {
+        isHovering = false;
+        animate(
+          wrapper,
+          { rotate: `${rot}deg`, scale: 1 },
+          { duration: 0.45, ease: easing },
+        ).finished.then(() => {
+          if (!isHovering) wrapper.style.zIndex = "";
+        });
+      });
+    });
   }
 </script>

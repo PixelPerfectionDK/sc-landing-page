@@ -16,6 +16,9 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ["react-dom/client", "react/jsx-runtime"],
+    },
   },
   fonts: [
     {
@@ -27,6 +30,12 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: "JetBrains Mono",
       cssVariable: "--font-jetbrains-mono",
+    },
+    {
+      provider: fontProviders.google(),
+      name: "Caveat",
+      cssVariable: "--font-caveat",
+      weights: ["400", "500", "600", "700"],
     },
   ],
   integrations: [react(), clerk()],

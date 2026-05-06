@@ -3,6 +3,7 @@
 @theme inline {
   --font-sans: var(--font-manrope);
   --font-mono: var(--font-jetbrains-mono);
+  --font-marker: var(--font-caveat);
 
   /* Colors */
   --color-brand-blue: #4271f0;
