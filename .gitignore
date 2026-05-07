@@ -30,6 +30,7 @@ pnpm-debug.log*
 .cursor/
 .claude/
 CLAUDE.md
+docs/superpowers/
 
 # prototypes
 prototypes/
