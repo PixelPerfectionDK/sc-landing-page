@@ -1,0 +1,471 @@
+---
+const DEFAULT_CLAIM = 20000;
+const COURT_FEE = 750;
+const SUCCESS_FEE_RATE = 0.5;
+const HOURLY_RATE = 3125;
+const HOURS_MIN = 8;
+const HOURS_MAX = 22;
+const CLAIM_MAX = 100000;
+const CLAIM_MIN = 2000;
+const CLAIM_STEP = 500;
+
+const claim = DEFAULT_CLAIM;
+const successFee = Math.round(claim * SUCCESS_FEE_RATE);
+const hours = HOURS_MIN + (claim / CLAIM_MAX) * (HOURS_MAX - HOURS_MIN);
+const solicitor = Math.round(hours * HOURLY_RATE);
+const youReceive = claim - successFee - COURT_FEE;
+const advokatReceive = claim - solicitor - COURT_FEE;
+const youSave = youReceive - advokatReceive;
+
+const fmtKr = (n: number) => `${Math.round(n).toLocaleString("da-DK")} kr`;
+const fmtHours = (n: number) =>
+  `${n.toLocaleString("da-DK", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} timer`;
+
+const trackPct = (claim / CLAIM_MAX) * 100;
+---
+
+<div class="bg-bg-page rounded-2xl px-6 py-7 sm:px-8 sm:py-8">
+  <!-- Slider section -->
+  <p
+    class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-3"
+  >
+    Sagens beløb
+  </p>
+  <div
+    id="calc-amount"
+    class="font-extrabold text-[clamp(2rem,4vw,2.75rem)] tracking-[-0.03em] text-brand-blue leading-none mb-5"
+  >
+    {fmtKr(claim)}
+  </div>
+
+  <input
+    id="calc-slider"
+    type="range"
+    min={CLAIM_MIN}
+    max={CLAIM_MAX}
+    step={CLAIM_STEP}
+    value={claim}
+    aria-label="Sagens beløb"
+    aria-valuetext={`${claim.toLocaleString("da-DK")} kroner`}
+    class="calc-slider w-full"
+    style={`--track-pct: ${trackPct}%`}
+  />
+  <div class="flex justify-between mt-2 mb-7">
+    <span class="font-mono text-[10px] text-text-tertiary">
+      {fmtKr(CLAIM_MIN)}
+    </span>
+    <span class="font-mono text-[10px] text-text-tertiary">
+      {fmtKr(CLAIM_MAX)}
+    </span>
+  </div>
+
+  <!-- Line items -->
+  <div
+    class="border-t border-dashed border-black/[0.10] pt-4 flex flex-col gap-3"
+  >
+    <div class="flex justify-between items-baseline">
+      <span class="text-[15px] text-text-secondary flex items-center gap-1.5">
+        Retsgebyr
+        <span class="calc-info-wrap relative inline-flex">
+          <button
+            type="button"
+            class="calc-info inline-flex items-center justify-center w-4 h-4 rounded-full border border-text-tertiary/40 text-text-tertiary text-[9px] font-bold leading-none hover:border-brand-blue/60 hover:text-brand-blue focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/50"
+            aria-label="Info om retsgebyr"
+            aria-describedby="calc-court-tooltip"
+          >
+            i
+          </button>
+          <span id="calc-court-tooltip" role="tooltip" class="calc-tooltip">
+            Fastsat af domstolene. Betales kun hvis kravet skal føres i retten.
+          </span>
+        </span>
+      </span>
+      <span class="text-text-primary font-semibold text-[15px]">
+        {fmtKr(COURT_FEE)}
+      </span>
+    </div>
+    <div class="flex justify-between items-baseline">
+      <span class="text-[15px] text-text-secondary">
+        Vores honorar <span class="text-text-tertiary">(50%)</span>
+      </span>
+      <span
+        id="calc-success"
+        class="text-text-primary font-semibold text-[15px]"
+      >
+        {fmtKr(successFee)}
+      </span>
+    </div>
+  </div>
+
+  <div class="my-4 border-t-[2.5px] border-black/15"></div>
+
+  <!-- I kan modtage comparison -->
+  <p
+    class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-text-tertiary mb-4"
+  >
+    I kan modtage
+  </p>
+
+  <!-- Advokat row (muted, comparison) -->
+  <div class="flex justify-between items-baseline mb-3">
+    <span class="text-[14px] text-text-secondary flex items-center gap-1.5">
+      Fra en advokat
+      <span class="calc-info-wrap relative inline-flex">
+        <button
+          type="button"
+          class="calc-info inline-flex items-center justify-center w-4 h-4 rounded-full border border-text-tertiary/40 text-text-tertiary text-[9px] font-bold leading-none hover:border-brand-blue/60 hover:text-brand-blue focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/50"
+          aria-label="Info om advokat-beregning"
+          aria-describedby="calc-solicitor-tooltip"
+        >
+          i
+        </button>
+        <span id="calc-solicitor-tooltip" role="tooltip" class="calc-tooltip">
+          Beregnet som ~<span id="calc-tooltip-hours">{fmtHours(hours)}</span> á
+          3.125 kr/h plus 750 kr i retsgebyr.
+        </span>
+      </span>
+    </span>
+    <span
+      id="calc-advokat"
+      class={`text-[15px] font-medium tabular-nums transition-colors duration-200 ${advokatReceive < 0 ? "text-red-600" : "text-text-tertiary"}`}
+    >
+      {fmtKr(advokatReceive)}
+    </span>
+  </div>
+
+  <!-- SmallClaims row (hero) -->
+  <div class="flex justify-between items-baseline mb-5">
+    <span class="text-[15px] text-text-primary font-semibold">
+      Igennem SmallClaims
+    </span>
+    <span
+      id="calc-receive"
+      class="font-extrabold text-[clamp(1.6rem,3vw,2.25rem)] tracking-[-0.04em] text-brand-blue leading-none tabular-nums"
+    >
+      {fmtKr(youReceive)}
+    </span>
+  </div>
+
+  <!-- Savings band -->
+  <div class="rounded-xl bg-brand-blue/8 px-4 py-3 mb-5">
+    <p class="text-[14px] leading-snug text-text-primary">
+      I kan spare op til
+      <span id="calc-save" class="font-extrabold text-lg tabular-nums">
+        {fmtKr(youSave)}
+      </span> sammenlignet med hvad det ville koste ved en traditionel advokat.
+    </p>
+  </div>
+
+  <!-- CTA -->
+  <a
+    href="/signup"
+    class="calc-cta group flex gap-2 items-center justify-center w-full text-center bg-brand-blue text-white font-semibold py-3.5 rounded-xl transition duration-150 hover:brightness-95"
+  >
+    Opret sag gratis
+    <svg
+      class="w-[18px] h-[18px] transition-transform duration-300 stroke-white group-hover:translate-x-[3px]"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M4 9h10M10 5l4 4-4 4"></path>
+    </svg>
+  </a>
+</div>
+
+<script>
+  import { animate, type AnimationPlaybackControls } from "motion";
+
+  const CLAIM_MAX = 100000;
+  const COURT_FEE = 750;
+  const SUCCESS_FEE_RATE = 0.5;
+  const HOURLY_RATE = 3125;
+  const HOURS_MIN = 8;
+  const HOURS_MAX = 22;
+
+  const fmtKr = (n: number) => `${Math.round(n).toLocaleString("da-DK")} kr`;
+  const fmtHours = (n: number) =>
+    `${n.toLocaleString("da-DK", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} timer`;
+
+  const slider = document.getElementById(
+    "calc-slider",
+  ) as HTMLInputElement | null;
+  const elAmount = document.getElementById("calc-amount");
+  const elSuccess = document.getElementById("calc-success");
+  const elReceive = document.getElementById("calc-receive");
+  const elAdvokat = document.getElementById("calc-advokat");
+  const elTooltipHours = document.getElementById("calc-tooltip-hours");
+  const elSave = document.getElementById("calc-save");
+
+  if (
+    slider &&
+    elAmount &&
+    elSuccess &&
+    elReceive &&
+    elAdvokat &&
+    elTooltipHours &&
+    elSave
+  ) {
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const easing = [0.16, 1, 0.3, 1] as const;
+    const TWEEN_MS = 250;
+
+    type Tween = {
+      el: HTMLElement;
+      current: number;
+      controls: AnimationPlaybackControls | null;
+      format: (n: number) => string;
+    };
+
+    const make = (
+      el: HTMLElement,
+      initial: number,
+      format: (n: number) => string,
+    ): Tween => ({
+      el,
+      current: initial,
+      controls: null,
+      format,
+    });
+
+    const initialClaim = Number(slider.value);
+    const initialHours =
+      HOURS_MIN + (initialClaim / CLAIM_MAX) * (HOURS_MAX - HOURS_MIN);
+    const initialReceive =
+      initialClaim - initialClaim * SUCCESS_FEE_RATE - COURT_FEE;
+    const initialAdvokat =
+      initialClaim - initialHours * HOURLY_RATE - COURT_FEE;
+    const initial = {
+      claim: initialClaim,
+      successFee: initialClaim * SUCCESS_FEE_RATE,
+      youReceive: initialReceive,
+      hours: initialHours,
+      advokatReceive: initialAdvokat,
+      youSave: initialReceive - initialAdvokat,
+    };
+
+    const tweens = {
+      amount: make(elAmount, initial.claim, fmtKr),
+      success: make(elSuccess, initial.successFee, fmtKr),
+      receive: make(elReceive, initial.youReceive, fmtKr),
+      advokat: make(elAdvokat, initial.advokatReceive, fmtKr),
+      tooltipHours: make(elTooltipHours, initial.hours, fmtHours),
+      save: make(elSave, initial.youSave, fmtKr),
+    };
+
+    const tween = (t: Tween, target: number) => {
+      if (reduced) {
+        t.current = target;
+        t.el.textContent = t.format(target);
+        return;
+      }
+      t.controls?.stop();
+      const from = t.current;
+      t.controls = animate(from, target, {
+        duration: TWEEN_MS / 1000,
+        ease: easing,
+        onUpdate: (v) => {
+          t.current = v;
+          t.el.textContent = t.format(v);
+        },
+      });
+    };
+
+    const compute = (claim: number) => {
+      const successFee = claim * SUCCESS_FEE_RATE;
+      const youReceive = claim - successFee - COURT_FEE;
+      const hours = HOURS_MIN + (claim / CLAIM_MAX) * (HOURS_MAX - HOURS_MIN);
+      const solicitor = hours * HOURLY_RATE;
+      const advokatReceive = claim - solicitor - COURT_FEE;
+      const youSave = youReceive - advokatReceive;
+      return { claim, successFee, youReceive, hours, advokatReceive, youSave };
+    };
+
+    const render = (claim: number) => {
+      const v = compute(claim);
+      tween(tweens.amount, v.claim);
+      tween(tweens.success, v.successFee);
+      tween(tweens.receive, v.youReceive);
+      tween(tweens.advokat, v.advokatReceive);
+      tween(tweens.tooltipHours, v.hours);
+      tween(tweens.save, v.youSave);
+      elAdvokat.classList.toggle("text-red-600", v.advokatReceive < 0);
+      elAdvokat.classList.toggle("text-text-tertiary", v.advokatReceive >= 0);
+      const pct = (v.claim / CLAIM_MAX) * 100;
+      slider.style.setProperty("--track-pct", `${pct}%`);
+      slider.setAttribute(
+        "aria-valuetext",
+        `${Math.round(v.claim).toLocaleString("da-DK")} kroner`,
+      );
+    };
+
+    slider.addEventListener("input", () => {
+      const claim = Number(slider.value);
+      render(claim);
+    });
+  }
+
+  // Tooltip handlers — supports any number of .calc-info / .calc-info-wrap pairs.
+  const infoBtns = document.querySelectorAll<HTMLButtonElement>(".calc-info");
+  if (infoBtns.length > 0) {
+    infoBtns.forEach((btn) => {
+      const wrap = btn.closest<HTMLElement>(".calc-info-wrap");
+      if (!wrap) return;
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = wrap.hasAttribute("data-open");
+        document
+          .querySelectorAll<HTMLElement>(".calc-info-wrap[data-open]")
+          .forEach((w) => w.removeAttribute("data-open"));
+        if (!isOpen) wrap.setAttribute("data-open", "");
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      document
+        .querySelectorAll<HTMLElement>(".calc-info-wrap[data-open]")
+        .forEach((wrap) => {
+          if (!wrap.contains(e.target as Node)) {
+            wrap.removeAttribute("data-open");
+          }
+        });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        document
+          .querySelectorAll<HTMLElement>(".calc-info-wrap[data-open]")
+          .forEach((wrap) => wrap.removeAttribute("data-open"));
+      }
+    });
+  }
+</script>
+
+<style>
+  /* ---- Slider ---- */
+  .calc-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--color-brand-blue) 0%,
+      var(--color-brand-blue) var(--track-pct, 20%),
+      rgba(15, 30, 80, 0.1) var(--track-pct, 20%),
+      rgba(15, 30, 80, 0.1) 100%
+    );
+    cursor: pointer;
+    outline: none;
+  }
+
+  .calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: white;
+    border: 2px solid var(--color-brand-blue);
+    box-shadow: 0 2px 6px rgba(15, 30, 80, 0.18);
+    cursor: grab;
+    transition:
+      transform 150ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .calc-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: white;
+    border: 2px solid var(--color-brand-blue);
+    box-shadow: 0 2px 6px rgba(15, 30, 80, 0.18);
+    cursor: grab;
+    transition:
+      transform 150ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .calc-slider:hover::-webkit-slider-thumb {
+    box-shadow:
+      0 2px 6px rgba(15, 30, 80, 0.18),
+      0 0 0 6px rgba(66, 113, 240, 0.15);
+  }
+  .calc-slider:hover::-moz-range-thumb {
+    box-shadow:
+      0 2px 6px rgba(15, 30, 80, 0.18),
+      0 0 0 6px rgba(66, 113, 240, 0.15);
+  }
+
+  .calc-slider:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+    cursor: grabbing;
+  }
+  .calc-slider:active::-moz-range-thumb {
+    transform: scale(1.15);
+    cursor: grabbing;
+  }
+
+  .calc-slider:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 2px 6px rgba(15, 30, 80, 0.18),
+      0 0 0 4px rgba(66, 113, 240, 0.45);
+  }
+  .calc-slider:focus-visible::-moz-range-thumb {
+    box-shadow:
+      0 2px 6px rgba(15, 30, 80, 0.18),
+      0 0 0 4px rgba(66, 113, 240, 0.45);
+  }
+
+  /* ---- Tooltip (court fee + advokat) ---- */
+  .calc-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    width: max-content;
+    max-width: 240px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgb(22, 45, 107);
+    color: white;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition:
+      opacity 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+  }
+  .calc-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgb(22, 45, 107);
+  }
+
+  .calc-info-wrap:hover .calc-tooltip,
+  .calc-info-wrap:focus-within .calc-tooltip,
+  .calc-info-wrap[data-open] .calc-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .calc-tooltip {
+      transition: none;
+    }
+  }
+</style>
