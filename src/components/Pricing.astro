@@ -23,22 +23,37 @@ const fmtHours = (n: number) =>
 const trackPct = (claim / CLAIM_MAX) * 100;
 ---
 
-<section id="pricing" class="px-6 py-24 lg:py-32">
-  <div class="max-w-[1140px] mx-auto">
+<section id="pricing" class="py-16 lg:py-24">
+  <div
+    class="relative max-w-[1140px] mx-auto bg-brand-blue px-6 py-12 sm:rounded-2xl overflow-hidden"
+  >
+    <div
+      class="absolute -top-40 -right-40 w-[560px] h-[560px] pointer-events-none rounded-full"
+      style="background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 60%);"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="absolute -bottom-40 -left-40 w-[480px] h-[480px] pointer-events-none rounded-full"
+      style="background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 65%);"
+      aria-hidden="true"
+    >
+    </div>
+
     <!-- Section header -->
-    <header class="reveal text-center mb-14 lg:mb-16">
+    <header class="reveal relative text-center mb-14 lg:mb-16">
       <p
-        class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
+        class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70 mb-4"
       >
         Prismodel
       </p>
       <h2
-        class="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-text-primary mb-4"
+        class="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white mb-4"
       >
         Få jeres penge tilbage, <br /> ellers betaler i ingenting.
       </h2>
       <p
-        class="text-base lg:text-lg text-text-secondary max-w-[560px] mx-auto leading-relaxed"
+        class="text-base lg:text-lg text-white/65 max-w-[560px] mx-auto leading-relaxed"
       >
         50% af det inddrevne beløb. Det er hele regningen — og i betaler kun,
         hvis i får jeres penge tilbage.
@@ -46,32 +61,32 @@ const trackPct = (claim / CLAIM_MAX) * 100;
     </header>
 
     <div
-      class="lg:grid lg:grid-cols-[1fr_1fr] lg:gap-16 lg:items-center max-w-[1040px] mx-auto"
+      class="relative lg:grid lg:grid-cols-[1fr_1fr] lg:gap-16 lg:items-center max-w-[1040px] mx-auto"
     >
       <!-- Annotation panel (lg+ only) -->
       <aside class="reveal hidden lg:block relative pl-8">
         <div
-          class="absolute left-0 top-1 bottom-1 w-px bg-gradient-to-b from-brand-blue/40 via-brand-blue/15 to-transparent"
+          class="absolute left-0 top-1 bottom-1 w-px bg-gradient-to-b from-white/40 via-white/15 to-transparent"
           aria-hidden="true"
         >
         </div>
         <p
-          class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-5"
+          class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70 mb-5"
         >
           Hvordan vi arbejder
         </p>
         <h3
-          class="text-[clamp(1.6rem,2.4vw,2.1rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-text-primary mb-5"
+          class="text-[clamp(1.6rem,2.4vw,2.1rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-white mb-5"
         >
           I betaler kun<br />for resultatet.
         </h3>
-        <p class="text-[15px] leading-[1.65] text-text-secondary mb-4">
+        <p class="text-[15px] leading-[1.65] text-white/70 mb-4">
           Ingen timepris. Ingen forudbetaling. Vi bruger kun ressourcer på sager
           vi tror på — og bærer hele risikoen for udfaldet.
         </p>
-        <p class="text-[15px] leading-[1.65] text-text-secondary">
+        <p class="text-[15px] leading-[1.65] text-white/70">
           Vinder vi, deler vi det inddrevne beløb 50/50. Taber vi, betaler du
-          intet. <span class="text-text-primary font-semibold"
+          intet. <span class="text-white font-semibold"
             >Det er hele modellen.</span
           >
         </p>
@@ -206,7 +221,20 @@ const trackPct = (claim / CLAIM_MAX) * 100;
 </section>
 
 <script>
-  import { animate, type AnimationPlaybackControls } from "motion";
+  import { animate, scroll, type AnimationPlaybackControls } from "motion";
+
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    const card = document.querySelector<HTMLElement>("#pricing > div");
+    if (card) {
+      scroll(
+        animate(card, {
+          maxWidth: ["880px", "1140px"],
+          paddingBlock: ["3rem", "6rem"],
+        }),
+        { target: card, offset: ["start end", "5% center"] },
+      );
+    }
+  }
 
   const CLAIM_MAX = 100000;
   const COURT_FEE = 750;
