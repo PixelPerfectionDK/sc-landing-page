@@ -4,6 +4,7 @@
   --font-sans: var(--font-manrope);
   --font-mono: var(--font-jetbrains-mono);
   --font-marker: var(--font-caveat);
+  --font-permanent-marker: var(--font-permanent-marker-raw);
 
   /* Colors */
   --color-brand-blue: #4271f0;
@@ -33,13 +34,23 @@
 }
 
 @keyframes logo-ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .reveal {
@@ -79,8 +90,29 @@
 
 @utility bg-signin-gradient {
   background:
-    radial-gradient(ellipse at 25% 80%, rgba(43, 79, 191, 0.35) 0%, transparent 50%),
-    radial-gradient(ellipse at 75% 15%, rgba(90, 138, 245, 0.25) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 50%, rgba(59, 99, 214, 0.15) 0%, transparent 60%),
-    linear-gradient(175deg, #162D6B 0%, #1E3D94 15%, #2B4FBF 30%, #3560D8 50%, #4271f0 70%, #4A7CF5 85%, #5A8AF5 100%);
+    radial-gradient(
+      ellipse at 25% 80%,
+      rgba(43, 79, 191, 0.35) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 75% 15%,
+      rgba(90, 138, 245, 0.25) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(59, 99, 214, 0.15) 0%,
+      transparent 60%
+    ),
+    linear-gradient(
+      175deg,
+      #162d6b 0%,
+      #1e3d94 15%,
+      #2b4fbf 30%,
+      #3560d8 50%,
+      #4271f0 70%,
+      #4a7cf5 85%,
+      #5a8af5 100%
+    );
 }

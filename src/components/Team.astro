@@ -2,6 +2,9 @@
 import TeamMember from "./TeamMember.astro";
 
 import placeholder from "../assets/team/placeholder.jpeg";
+import anton from "../assets/team/anton.jpeg";
+import paul from "../assets/team/paul.jpeg";
+import matteo from "../assets/team/matteo.jpeg";
 
 interface TeamMember {
   name: string;
@@ -18,16 +21,16 @@ const team: TeamMember[] = [
     image: placeholder,
   },
   {
-    name: "Anton Claudius",
-    title: "COO",
+    name: "Anton Claudius Hansen",
+    title: "Chief Legal Officer",
     description: "Ledelse og strategi",
-    image: placeholder,
+    image: anton,
   },
   {
     name: "Matteo Giorgio",
     title: "Jurist",
     description: "Juridisk rådgivning",
-    image: placeholder,
+    image: matteo,
   },
   {
     name: "Oliver Bach",
@@ -43,9 +46,9 @@ const team: TeamMember[] = [
   },
   {
     name: "Paul Kvisgaard",
-    title: "CTO",
+    title: "Chief Technology Officer",
     description: "Udvikling og teknologi",
-    image: placeholder,
+    image: paul,
   },
   {
     name: "Martin Pedersen",
@@ -89,12 +92,12 @@ const FOUNDER_ROTATION = -4;
     <div
       class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center mb-14 lg:mb-20"
     >
-      <div class="lg:col-span-7">
+      <div class="lg:col-span-7 lg:px-8">
         <p
           class="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-white/70 mb-5 lg:mb-7"
-          aria-label={`Mød teamet — ${teamCount} personer`}
+          aria-label="Mød holdet bag SmallClaims"
         >
-          <span class="team-word inline-block">Vi er</span>
+          <span class="team-word inline-block">Mød holdet bag</span>
           <span class="team-word inline-block ml-[2px]">SmallClaims</span>
         </p>
 
@@ -109,22 +112,20 @@ const FOUNDER_ROTATION = -4;
           <span class="team-word inline-block" aria-hidden="true">klar</span>
           <span class="team-word inline-block" aria-hidden="true">til</span>
           <span class="team-word inline-block" aria-hidden="true">at</span>
-          <span class="team-word inline-block" aria-hidden="true">hjælpe</span>
-          <br />
-          <span class="team-word inline-block" aria-hidden="true">dig.</span>
+          <span class="team-word inline-block" aria-hidden="true">hjælpe.</span>
         </h2>
 
         <p
-          class="team-lede mt-6 lg:mt-7 max-w-[440px] text-[15px] leading-[1.6] text-white/65"
+          class="team-lede mt-6 lg:mt-7 max-w-[440px] text-lg leading-[1.6] text-white/65"
         >
-          Vi er baseret i København og vi er en team af otte personer, der er
-          dedikeret til at hjælpe dig med at vinde dine sager.
+          Vores hold af dedikerede medarbejdere i København står altid klar til
+          at hjælpe dig med at få dine penge tilbage.
         </p>
       </div>
 
       <div class="lg:col-span-5 flex justify-center lg:justify-end lg:pr-4">
         <div
-          class="team-featured w-[260px] sm:w-[300px] lg:w-[320px] max-w-full"
+          class="team-featured w-[260px] sm:w-[300px] lg:w-[320px] max-w-full mx-auto"
           data-rotation={FOUNDER_ROTATION}
         >
           <TeamMember
@@ -141,9 +142,7 @@ const FOUNDER_ROTATION = -4;
       aria-hidden="true"
     >
       <span class="block h-px flex-1 bg-white/20"></span>
-      <p
-        class="font-marker text-[18px] text-white/85 whitespace-nowrap leading-none translate-y-[1px]"
-      >
+      <p class="font-sans text-lg text-white/85 whitespace-nowrap leading-none">
         Jura
       </p>
       <span class="block h-px flex-1 bg-white/20"></span>
@@ -156,14 +155,28 @@ const FOUNDER_ROTATION = -4;
         rest.map((member, i) => {
           const rotation = SCATTER_ROTATIONS[i] ?? 0;
           return (
-            <div
-              class="team-scatter flex justify-center"
-              data-rotation={rotation}
-            >
-              <div class="w-[170px] sm:w-[180px] lg:w-[190px] max-w-full">
-                <TeamMember {...member} rotation={rotation} />
+            <>
+              {i === 4 && (
+                <div
+                  class="team-divider col-span-full relative flex items-center gap-4 my-2 lg:my-3"
+                  aria-hidden="true"
+                >
+                  <span class="block h-px flex-1 bg-white/20" />
+                  <p class="font-sans text-lg text-white/85 whitespace-nowrap leading-none">
+                    Udvikling
+                  </p>
+                  <span class="block h-px flex-1 bg-white/20" />
+                </div>
+              )}
+              <div
+                class="team-scatter flex justify-center"
+                data-rotation={rotation}
+              >
+                <div class="w-[170px] sm:w-[180px] lg:w-[190px] max-w-full">
+                  <TeamMember {...member} rotation={rotation} />
+                </div>
               </div>
-            </div>
+            </>
           );
         })
       }
@@ -239,9 +252,8 @@ const FOUNDER_ROTATION = -4;
     const words = team.querySelectorAll<HTMLElement>(".team-word");
     const lede = team.querySelector<HTMLElement>(".team-lede");
     const featured = team.querySelector<HTMLElement>(".team-featured");
-    const dividerLines =
-      team.querySelectorAll<HTMLElement>(".team-divider span");
-    const dividerLabel = team.querySelector<HTMLElement>(".team-divider p");
+    const dividers = team.querySelectorAll<HTMLElement>(".team-divider");
+    const DIVIDER_DELAYS = [0.7, 1.2] as const;
     const scatter = team.querySelectorAll<HTMLElement>(".team-scatter");
 
     const polaroidEntry = (
@@ -301,18 +313,23 @@ const FOUNDER_ROTATION = -4;
           polaroidEntry(featured, rot, 0.3, -1);
         }
 
-        animate(
-          Array.from(dividerLines),
-          { scaleX: 1 },
-          { duration: 0.8, delay: 0.7, ease: easing },
-        );
-        if (dividerLabel) {
+        dividers.forEach((divider, idx) => {
+          const lines = divider.querySelectorAll<HTMLElement>("span");
+          const label = divider.querySelector<HTMLElement>("p");
+          const base = DIVIDER_DELAYS[idx] ?? 0.7;
           animate(
-            dividerLabel,
-            { opacity: 1, rotate: "-2deg" },
-            { duration: 0.5, delay: 0.85, ease: "linear" },
+            Array.from(lines),
+            { scaleX: 1 },
+            { duration: 0.8, delay: base, ease: easing },
           );
-        }
+          if (label) {
+            animate(
+              label,
+              { opacity: 1, rotate: "-2deg" },
+              { duration: 0.5, delay: base + 0.15, ease: "linear" },
+            );
+          }
+        });
 
         scatter.forEach((card, i) => {
           const rot = Number(card.dataset.rotation ?? 0);
@@ -330,12 +347,15 @@ const FOUNDER_ROTATION = -4;
           if (featured) {
             polaroidReset(featured, Number(featured.dataset.rotation ?? 0), -1);
           }
-          dividerLines.forEach((s) =>
-            animate(s, { scaleX: 0 }, { duration: 0 }),
-          );
-          if (dividerLabel) {
-            animate(dividerLabel, { opacity: 0 }, { duration: 0 });
-          }
+          dividers.forEach((divider) => {
+            divider
+              .querySelectorAll<HTMLElement>("span")
+              .forEach((s) => animate(s, { scaleX: 0 }, { duration: 0 }));
+            const label = divider.querySelector<HTMLElement>("p");
+            if (label) {
+              animate(label, { opacity: 0 }, { duration: 0 });
+            }
+          });
           scatter.forEach((card, i) => {
             const rot = Number(card.dataset.rotation ?? 0);
             const dir: 1 | -1 = i % 2 === 0 ? -1 : 1;

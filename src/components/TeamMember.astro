@@ -10,13 +10,7 @@ interface Props {
   featured?: boolean;
 }
 
-const {
-  name,
-  title,
-  image,
-  rotation = 0,
-  featured = false,
-} = Astro.props;
+const { name, title, image, rotation = 0, featured = false } = Astro.props;
 
 const captionTilt = (rotation * 0.4).toFixed(2);
 ---
@@ -65,8 +59,10 @@ const captionTilt = (rotation * 0.4).toFixed(2);
     >
       <p
         class:list={[
-          "font-marker text-[#1a1a1a] leading-[1] tracking-tight",
-          featured ? "text-[26px] lg:text-[30px] font-bold" : "text-[19px] sm:text-[20px] font-semibold",
+          "font-permanent-marker text-[#1a1a1a] leading-[1] tracking-tight",
+          featured
+            ? "text-2xl sm:text-3xl font-bold"
+            : "text-lg sm:text-xl font-semibold",
         ]}
       >
         {name}
@@ -74,7 +70,7 @@ const captionTilt = (rotation * 0.4).toFixed(2);
       <p
         class:list={[
           "font-marker italic leading-[1.1] mt-0.5 text-[#1a1a1a]/60",
-          featured ? "text-[15px] lg:text-[16px]" : "text-[12px] sm:text-[13px]",
+          featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl",
         ]}
       >
         {title}

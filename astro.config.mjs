@@ -37,6 +37,12 @@ export default defineConfig({
       cssVariable: "--font-caveat",
       weights: ["400", "500", "600", "700"],
     },
+    {
+      provider: fontProviders.google(),
+      name: "Permanent Marker",
+      cssVariable: "--font-permanent-marker-raw",
+      weights: ["400", "500", "600", "700"],
+    },
   ],
   integrations: [react(), clerk()],
   adapter: netlify(),

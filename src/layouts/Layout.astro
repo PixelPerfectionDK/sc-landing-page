@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import "../styles/global.css";
 import Navigation from "../components/Navigation.tsx";
 
@@ -19,6 +20,10 @@ const { title, showNav = true } = Astro.props as Props;
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#385DC6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#385DC6" media="(prefers-color-scheme: dark)" />
+    <Font cssVariable="--font-manrope" preload />
+    <Font cssVariable="--font-jetbrains-mono" preload />
+    <Font cssVariable="--font-caveat" preload />
+    <Font cssVariable="--font-permanent-marker-raw" preload />
     <title>{title}</title>
   </head>
   <body>
