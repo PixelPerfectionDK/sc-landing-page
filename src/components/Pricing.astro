@@ -14,7 +14,8 @@ const yourTotal = successFee + COURT_FEE;
 const youReceive = claim - yourTotal;
 const hours = HOURS_MIN + (claim / CLAIM_MAX) * (HOURS_MAX - HOURS_MIN);
 const solicitor = Math.round(hours * HOURLY_RATE);
-const youSave = solicitor - yourTotal;
+const advokatReceive = claim - solicitor - COURT_FEE;
+const youSave = youReceive - advokatReceive;
 
 const fmtKr = (n: number) => `${Math.round(n).toLocaleString("da-DK")} kr`;
 const fmtHours = (n: number) =>
@@ -50,13 +51,13 @@ const trackPct = (claim / CLAIM_MAX) * 100;
       <h2
         class="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white mb-4"
       >
-        Få jeres penge tilbage, <br /> ellers betaler i ingenting.
+        Indrivelse af småkrav. <br /> Uden alt besværet.
       </h2>
       <p
         class="text-base lg:text-lg text-white/65 max-w-[560px] mx-auto leading-relaxed"
       >
-        50% af det inddrevne beløb. Det er hele regningen — og i betaler kun,
-        hvis i får jeres penge tilbage.
+        Vores platform gør det muligt at indrive penge i sager, der normalt
+        ville være for dyre at behandle med en advokat.
       </p>
     </header>
 
@@ -73,30 +74,26 @@ const trackPct = (claim / CLAIM_MAX) * 100;
         <p
           class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70 mb-5"
         >
-          Hvordan vi arbejder
+          Hvordan det virker
         </p>
         <h3
           class="text-[clamp(1.6rem,2.4vw,2.1rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-white mb-5"
         >
-          I betaler kun<br />for resultatet.
+          I betaler kun<br />for resultater.
         </h3>
         <p class="text-[15px] leading-[1.65] text-white/70 mb-4">
-          Ingen timepris. Ingen forudbetaling. Vi bruger kun ressourcer på sager
-          vi tror på — og bærer hele risikoen for udfaldet.
+          Ingen timepris. Ingen forudbetaling. Vores platform automatiserer hele
+          processen, så i kan fokusere på jeres forretning.
         </p>
         <p class="text-[15px] leading-[1.65] text-white/70">
-          Vinder vi, deler vi det inddrevne beløb 50/50. Taber vi, betaler du
-          intet. <span class="text-white font-semibold"
-            >Det er hele modellen.</span
-          >
+          Slip for spildte advokatregninger og betal kun, når i får jeres penge
+          tilbage.
         </p>
       </aside>
 
       <!-- Calculator card -->
       <div class="reveal max-w-[440px] w-full mx-auto lg:mx-0">
-        <div
-          class="bg-white rounded-2xl px-6 py-7 sm:px-8 sm:py-8 [box-shadow:0_18px_30px_rgba(15,30,80,0.10),_0_3px_6px_rgba(0,0,0,0.04)]"
-        >
+        <div class="bg-bg-page rounded-2xl px-6 py-7 sm:px-8 sm:py-8">
           <!-- Slider section -->
           <p
             class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-3"
@@ -154,7 +151,7 @@ const trackPct = (claim / CLAIM_MAX) * 100;
                     role="tooltip"
                     class="calc-tooltip"
                   >
-                    Fastsat af retsvæsenet. Betales kun hvis kravet skal føres i
+                    Fastsat af domstolene. Betales kun hvis kravet skal føres i
                     retten.
                   </span>
                 </span>
@@ -178,41 +175,85 @@ const trackPct = (claim / CLAIM_MAX) * 100;
 
           <div class="my-4 border-t-[2.5px] border-black/15"></div>
 
-          <!-- You receive -->
-          <div class="flex justify-between items-baseline mb-6">
+          <!-- Du modtager comparison -->
+          <p
+            class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-text-tertiary mb-4"
+          >
+            I kan modtage
+          </p>
+
+          <!-- Advokat row (muted, comparison) -->
+          <div class="flex justify-between items-baseline mb-3">
             <span
-              class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-text-tertiary"
+              class="text-[14px] text-text-secondary flex items-center gap-1.5"
             >
-              Du modtager
+              Fra en advokat
+              <span class="calc-info-wrap relative inline-flex">
+                <button
+                  type="button"
+                  class="calc-info inline-flex items-center justify-center w-4 h-4 rounded-full border border-text-tertiary/40 text-text-tertiary text-[9px] font-bold leading-none hover:border-brand-blue/60 hover:text-brand-blue focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/50"
+                  aria-label="Info om advokat-beregning"
+                  aria-describedby="calc-solicitor-tooltip"
+                >
+                  i
+                </button>
+                <span
+                  id="calc-solicitor-tooltip"
+                  role="tooltip"
+                  class="calc-tooltip"
+                >
+                  Beregnet som ~<span id="calc-tooltip-hours"
+                    >{fmtHours(hours)}</span
+                  > á 3.125 kr/h plus 750 kr i retsgebyr.
+                </span>
+              </span>
+            </span>
+            <span
+              id="calc-advokat"
+              class={`text-[15px] font-medium tabular-nums transition-colors duration-200 ${advokatReceive < 0 ? "text-red-600" : "text-text-tertiary"}`}
+            >
+              {fmtKr(advokatReceive)}
+            </span>
+          </div>
+
+          <!-- SmallClaims row (hero) -->
+          <div class="flex justify-between items-baseline mb-5">
+            <span class="text-[15px] text-text-primary font-semibold">
+              Igennem SmallClaims
             </span>
             <span
               id="calc-receive"
-              class="font-extrabold text-[clamp(1.6rem,3vw,2.25rem)] tracking-[-0.04em] text-brand-blue leading-none"
+              class="font-extrabold text-[clamp(1.6rem,3vw,2.25rem)] tracking-[-0.04em] text-brand-blue leading-none tabular-nums"
             >
               {fmtKr(youReceive)}
             </span>
           </div>
 
           <!-- Savings band -->
-          <div class="rounded-xl bg-brand-blue/8 px-4 py-3.5 mb-5">
-            <p class="text-[15px] leading-snug text-text-primary">
-              Du sparer
-              <span id="calc-save" class="font-extrabold text-lg"
+          <div class="rounded-xl bg-brand-blue/8 px-4 py-3 mb-5">
+            <p class="text-[14px] leading-snug text-text-primary">
+              I kan spare op til
+              <span id="calc-save" class="font-extrabold text-lg tabular-nums"
                 >{fmtKr(youSave)}</span
-              >
-              sammenlignet med en traditionel advokat.
-            </p>
-            <p class="text-[12px] text-text-tertiary mt-1">
-              ~<span id="calc-hours">{fmtHours(hours)}</span> á 3.125 kr/h
+              > sammenlignet med hvad det ville koste ved en traditionel advokat.
             </p>
           </div>
 
           <!-- CTA -->
           <a
             href="/signup"
-            class="calc-cta block w-full text-center bg-brand-blue text-white font-semibold py-3.5 rounded-xl transition duration-150 hover:brightness-95 hover:-translate-y-px"
+            class="calc-cta group flex gap-2 items-center justify-center w-full text-center bg-brand-blue text-white font-semibold py-3.5 rounded-xl transition duration-150 hover:brightness-95"
           >
-            Start din sag
+            Opret sag gratis
+            <svg
+              class="w-[18px] h-[18px] transition-transform duration-300 stroke-white group-hover:translate-x-[3px]"
+              viewBox="0 0 18 18"
+              fill="none"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M4 9h10M10 5l4 4-4 4"></path></svg
+            >
           </a>
         </div>
       </div>
@@ -253,10 +294,19 @@ const trackPct = (claim / CLAIM_MAX) * 100;
   const elAmount = document.getElementById("calc-amount");
   const elSuccess = document.getElementById("calc-success");
   const elReceive = document.getElementById("calc-receive");
+  const elAdvokat = document.getElementById("calc-advokat");
+  const elTooltipHours = document.getElementById("calc-tooltip-hours");
   const elSave = document.getElementById("calc-save");
-  const elHours = document.getElementById("calc-hours");
 
-  if (slider && elAmount && elSuccess && elReceive && elSave && elHours) {
+  if (
+    slider &&
+    elAmount &&
+    elSuccess &&
+    elReceive &&
+    elAdvokat &&
+    elTooltipHours &&
+    elSave
+  ) {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -283,23 +333,28 @@ const trackPct = (claim / CLAIM_MAX) * 100;
     });
 
     const initialClaim = Number(slider.value);
+    const initialHours =
+      HOURS_MIN + (initialClaim / CLAIM_MAX) * (HOURS_MAX - HOURS_MIN);
+    const initialReceive =
+      initialClaim - initialClaim * SUCCESS_FEE_RATE - COURT_FEE;
+    const initialAdvokat =
+      initialClaim - initialHours * HOURLY_RATE - COURT_FEE;
     const initial = {
       claim: initialClaim,
       successFee: initialClaim * SUCCESS_FEE_RATE,
-      youReceive: initialClaim - initialClaim * SUCCESS_FEE_RATE - COURT_FEE,
-      hours: HOURS_MIN + (initialClaim / CLAIM_MAX) * (HOURS_MAX - HOURS_MIN),
-      youSave:
-        (HOURS_MIN + (initialClaim / CLAIM_MAX) * (HOURS_MAX - HOURS_MIN)) *
-          HOURLY_RATE -
-        (initialClaim * SUCCESS_FEE_RATE + COURT_FEE),
+      youReceive: initialReceive,
+      hours: initialHours,
+      advokatReceive: initialAdvokat,
+      youSave: initialReceive - initialAdvokat,
     };
 
     const tweens = {
       amount: make(elAmount, initial.claim, fmtKr),
       success: make(elSuccess, initial.successFee, fmtKr),
       receive: make(elReceive, initial.youReceive, fmtKr),
+      advokat: make(elAdvokat, initial.advokatReceive, fmtKr),
+      tooltipHours: make(elTooltipHours, initial.hours, fmtHours),
       save: make(elSave, initial.youSave, fmtKr),
-      hours: make(elHours, initial.hours, fmtHours),
     };
 
     const tween = (t: Tween, target: number) => {
@@ -322,12 +377,12 @@ const trackPct = (claim / CLAIM_MAX) * 100;
 
     const compute = (claim: number) => {
       const successFee = claim * SUCCESS_FEE_RATE;
-      const yourTotal = successFee + COURT_FEE;
-      const youReceive = claim - yourTotal;
+      const youReceive = claim - successFee - COURT_FEE;
       const hours = HOURS_MIN + (claim / CLAIM_MAX) * (HOURS_MAX - HOURS_MIN);
       const solicitor = hours * HOURLY_RATE;
-      const youSave = solicitor - yourTotal;
-      return { claim, successFee, youReceive, hours, youSave };
+      const advokatReceive = claim - solicitor - COURT_FEE;
+      const youSave = youReceive - advokatReceive;
+      return { claim, successFee, youReceive, hours, advokatReceive, youSave };
     };
 
     const render = (claim: number) => {
@@ -335,8 +390,11 @@ const trackPct = (claim / CLAIM_MAX) * 100;
       tween(tweens.amount, v.claim);
       tween(tweens.success, v.successFee);
       tween(tweens.receive, v.youReceive);
+      tween(tweens.advokat, v.advokatReceive);
+      tween(tweens.tooltipHours, v.hours);
       tween(tweens.save, v.youSave);
-      tween(tweens.hours, v.hours);
+      elAdvokat.classList.toggle("text-red-600", v.advokatReceive < 0);
+      elAdvokat.classList.toggle("text-text-tertiary", v.advokatReceive >= 0);
       const pct = (v.claim / CLAIM_MAX) * 100;
       slider.style.setProperty("--track-pct", `${pct}%`);
       slider.setAttribute(
@@ -351,27 +409,37 @@ const trackPct = (claim / CLAIM_MAX) * 100;
     });
   }
 
-  const infoBtn = document.querySelector<HTMLButtonElement>(".calc-info");
-  const infoWrap = document.querySelector<HTMLElement>(".calc-info-wrap");
-
-  if (infoBtn && infoWrap) {
-    infoBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (infoWrap.hasAttribute("data-open")) {
-        infoWrap.removeAttribute("data-open");
-      } else {
-        infoWrap.setAttribute("data-open", "");
-      }
+  const infoBtns = document.querySelectorAll<HTMLButtonElement>(".calc-info");
+  if (infoBtns.length > 0) {
+    infoBtns.forEach((btn) => {
+      const wrap = btn.closest<HTMLElement>(".calc-info-wrap");
+      if (!wrap) return;
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = wrap.hasAttribute("data-open");
+        document
+          .querySelectorAll<HTMLElement>(".calc-info-wrap[data-open]")
+          .forEach((w) => w.removeAttribute("data-open"));
+        if (!isOpen) wrap.setAttribute("data-open", "");
+      });
     });
 
     document.addEventListener("click", (e) => {
-      if (!infoWrap.contains(e.target as Node)) {
-        infoWrap.removeAttribute("data-open");
-      }
+      document
+        .querySelectorAll<HTMLElement>(".calc-info-wrap[data-open]")
+        .forEach((wrap) => {
+          if (!wrap.contains(e.target as Node)) {
+            wrap.removeAttribute("data-open");
+          }
+        });
     });
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") infoWrap.removeAttribute("data-open");
+      if (e.key === "Escape") {
+        document
+          .querySelectorAll<HTMLElement>(".calc-info-wrap[data-open]")
+          .forEach((wrap) => wrap.removeAttribute("data-open"));
+      }
     });
   }
 </script>
