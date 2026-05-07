@@ -19,23 +19,27 @@
       </p>
     </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:items-stretch">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:grid-rows-[auto_auto_auto_1fr_auto]"
+    >
       <!-- Standard -->
       <article
-        class="reveal relative flex flex-col overflow-hidden rounded-2xl p-7 bg-surface-0 border border-border-deafult shadow-[0_8px_32px_rgba(0,0,0,0.06)]"
+        class="reveal relative flex flex-col lg:grid lg:grid-rows-subgrid lg:row-span-5 overflow-hidden rounded-2xl p-7 bg-surface-0 border border-border-deafult shadow-[0_8px_32px_rgba(0,0,0,0.06)]"
         data-reveal-delay="50"
       >
-        <h3
-          class="text-[clamp(1.5rem,2.2vw,1.9rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-text-primary mb-2"
-        >
-          Standard
-        </h3>
-        <p class="text-[14px] leading-[1.6] text-text-secondary mb-5">
-          For jer med en sag i klemme her og nu. Hurtig opstart, ingen binding —
-          vi tager risikoen.
-        </p>
+        <div class="mb-5 lg:mb-0">
+          <h3
+            class="text-[clamp(1.5rem,2.2vw,1.9rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-text-primary mb-2"
+          >
+            Standard
+          </h3>
+          <p class="text-[14px] leading-[1.6] text-text-secondary">
+            For jer med en sag i klemme her og nu. Hurtig opstart, ingen binding —
+            vi tager risikoen.
+          </p>
+        </div>
 
-        <div class="mb-5">
+        <div class="mb-5 lg:mb-0">
           <p
             class="text-[clamp(1.3rem,1.9vw,1.6rem)] font-extrabold tracking-[-0.02em] text-text-primary leading-tight"
           >
@@ -46,9 +50,9 @@
           </p>
         </div>
 
-        <div class="h-px bg-border-deafult mb-5"></div>
+        <div class="h-px bg-border-deafult mb-5 lg:mb-0"></div>
 
-        <ul class="flex-1 flex flex-col gap-2.5 mb-6">
+        <ul class="flex-1 flex flex-col gap-2.5 mb-6 lg:mb-0">
           {
             [
               "No cure no pay",
@@ -84,27 +88,29 @@
 
       <!-- Business (highlighted with corner ribbon) -->
       <article
-        class="reveal relative flex flex-col overflow-hidden rounded-2xl p-7 bg-surface-0 border border-border-deafult shadow-[0_8px_32px_rgba(0,0,0,0.06)]"
+        class="reveal relative flex flex-col lg:grid lg:grid-rows-subgrid lg:row-span-5 overflow-hidden rounded-2xl p-7 bg-surface-0 border border-border-deafult shadow-[0_8px_32px_rgba(0,0,0,0.06)]"
         data-reveal-delay="120"
       >
         <div
-          class="absolute top-[26px] -right-[46px] w-[180px] py-1.5 rotate-45 bg-brand-blue text-bg-page text-center font-mono text-[10px] font-bold uppercase tracking-[2px] pointer-events-none shadow-[0_2px_8px_rgba(43,89,201,0.25)]"
+          class="absolute top-[26px] -right-[46px] w-[180px] py-1.5 rotate-45 bg-brand-blue text-bg-page text-center font-mono text-[10px] font-bold uppercase tracking-[2px] pointer-events-none shadow-[0_2px_8px_rgba(43,89,201,0.25)] z-10"
           aria-hidden="true"
         >
           Populær
         </div>
 
-        <h3
-          class="text-[clamp(1.5rem,2.2vw,1.9rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-text-primary mb-2"
-        >
-          Business
-        </h3>
-        <p class="text-[14px] leading-[1.6] text-text-secondary mb-5">
-          For virksomheder med løbende sager. I kører alle jeres småsager gennem
-          os — så belønner vi volumen med lavere satser.
-        </p>
+        <div class="mb-5 lg:mb-0">
+          <h3
+            class="text-[clamp(1.5rem,2.2vw,1.9rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-text-primary mb-2"
+          >
+            Business
+          </h3>
+          <p class="text-[14px] leading-[1.6] text-text-secondary">
+            For virksomheder med løbende sager. I kører alle jeres småsager
+            gennem os — så belønner vi volumen med lavere satser.
+          </p>
+        </div>
 
-        <div class="mb-5">
+        <div class="mb-5 lg:mb-0">
           <p
             class="text-[clamp(1.3rem,1.9vw,1.6rem)] font-extrabold tracking-[-0.02em] text-text-primary leading-tight"
           >
@@ -115,9 +121,9 @@
           </p>
         </div>
 
-        <div class="h-px bg-border-deafult mb-5"></div>
+        <div class="h-px bg-border-deafult mb-5 lg:mb-0"></div>
 
-        <ul class="flex-1 flex flex-col gap-2.5 mb-6">
+        <ul class="flex-1 flex flex-col gap-2.5 mb-6 lg:mb-0">
           {
             [
               "No cure no pay",
@@ -153,21 +159,23 @@
 
       <!-- Enterprise -->
       <article
-        class="reveal relative flex flex-col overflow-hidden rounded-2xl p-7 bg-surface-0 border border-border-deafult shadow-[0_8px_32px_rgba(0,0,0,0.06)]"
+        class="reveal relative flex flex-col lg:grid lg:grid-rows-subgrid lg:row-span-5 overflow-hidden rounded-2xl p-7 bg-surface-0 border border-border-deafult shadow-[0_8px_32px_rgba(0,0,0,0.06)]"
         data-reveal-delay="190"
       >
-        <h3
-          class="text-[clamp(1.5rem,2.2vw,1.9rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-text-primary mb-2"
-        >
-          Enterprise
-        </h3>
-        <p class="text-[14px] leading-[1.6] text-text-secondary mb-5">
-          For større virksomheder med høje volumener og faste flows. Fast
-          månedligt abonnement plus lav provision — tilpasset jeres antal sager
-          og kontraktværdier.
-        </p>
+        <div class="mb-5 lg:mb-0">
+          <h3
+            class="text-[clamp(1.5rem,2.2vw,1.9rem)] font-extrabold leading-[1.15] tracking-[-0.02em] text-text-primary mb-2"
+          >
+            Enterprise
+          </h3>
+          <p class="text-[14px] leading-[1.6] text-text-secondary">
+            For større virksomheder med høje volumener og faste flows. Fast
+            månedligt abonnement plus lav provision — tilpasset jeres antal sager
+            og kontraktværdier.
+          </p>
+        </div>
 
-        <div class="mb-5">
+        <div class="mb-5 lg:mb-0">
           <p
             class="text-[clamp(1.3rem,1.9vw,1.6rem)] font-extrabold tracking-[-0.02em] text-text-primary leading-tight"
           >
@@ -178,38 +186,41 @@
           </p>
         </div>
 
-        <div class="h-px bg-border-deafult mb-5"></div>
+        <div class="h-px bg-border-deafult mb-5 lg:mb-0"></div>
 
-        <ul class="flex-1 flex flex-col gap-2.5 mb-5">
-          {
-            [
-              "Maksimalt afkast af inddrivelsen",
-              "Dedikeret sagsbehandler",
-              "API-integration til jeres ERP",
-              "SLA og rapportering",
-            ].map((item) => (
-              <li class="flex items-start gap-2.5 text-[14px] text-text-secondary">
-                <svg
-                  class="w-3.5 h-3.5 mt-1 text-brand-blue shrink-0"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M2.5 7.2l2.4 2.3L11.5 3" />
-                </svg>
-                {item}
-              </li>
-            ))
-          }
-        </ul>
-
-        <p class="text-[12.5px] leading-[1.55] text-text-tertiary mb-5">
-          Abonnementet modregnes i de inddrevne beløb — først når det er dækket,
-          opkræver vi den lave provision af det overskydende.
-        </p>
+        <div class="flex-1 flex flex-col mb-6 lg:mb-0">
+          <ul class="flex flex-col gap-2.5 mb-5">
+            {
+              [
+                "Maksimalt afkast af inddrivelsen",
+                "Dedikeret sagsbehandler",
+                "API-integration til jeres ERP",
+                "SLA og rapportering",
+              ].map((item) => (
+                <li class="flex items-start gap-2.5 text-[14px] text-text-secondary">
+                  <svg
+                    class="w-3.5 h-3.5 mt-1 text-brand-blue shrink-0"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M2.5 7.2l2.4 2.3L11.5 3" />
+                  </svg>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+          <p
+            class="text-[12.5px] leading-[1.55] text-text-tertiary lg:mt-auto"
+          >
+            Abonnementet modregnes i de inddrevne beløb — først når det er
+            dækket, opkræver vi den lave provision af det overskydende.
+          </p>
+        </div>
 
         <a
           href="#kontakt"
