@@ -66,7 +66,7 @@ export default function Navigation() {
         {/* Logo */}
         <a
           href="/"
-          className={`flex items-center gap-2 text-sm font-bold tracking-[0.1px] no-underline transition-colors duration-500 ${
+          className={`flex items-center gap-2 text-md font-bold tracking-[0.15px] no-underline transition-colors duration-500 ${
             isScrolled ? "text-text-primary" : "text-white"
           }`}
         >
@@ -99,7 +99,9 @@ export default function Navigation() {
 
         {/* Desktop links */}
         <ul className="hidden md:flex gap-1 mx-auto list-none p-0 m-0">
-          {NAV_LINKS.filter(({ hideOnScroll }) => !(isScrolled && hideOnScroll)).map(({ href, label }) => (
+          {NAV_LINKS.filter(
+            ({ hideOnScroll }) => !(isScrolled && hideOnScroll),
+          ).map(({ href, label }) => (
             <li key={href}>
               <a
                 href={href}

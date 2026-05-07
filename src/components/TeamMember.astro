@@ -1,0 +1,108 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  name: string;
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  rotation?: number;
+  featured?: boolean;
+}
+
+const { name, title, image, rotation = 0, featured = false } = Astro.props;
+
+const captionTilt = (rotation * 0.4).toFixed(2);
+---
+
+<div
+  class:list={[
+    "polaroid relative inline-block w-full will-change-transform",
+    featured && "is-featured",
+  ]}
+  data-rotation={rotation}
+>
+  <article
+    class:list={[
+      "relative bg-[#fafaf2] rounded-[3px] select-none",
+      "shadow-[0_2px_4px_rgba(0,0,0,0.18),_0_14px_30px_rgba(15,30,80,0.30)]",
+      featured ? "p-4 lg:p-5 pb-12 lg:pb-16" : "p-2.5 sm:p-3 pb-8 sm:pb-10",
+    ]}
+    style="background-image: linear-gradient(135deg, #ffffff 0%, #fafaf2 100%);"
+  >
+    <svg
+      class="absolute -top-3 left-1/2 -translate-x-1/2 rotate-30 z-10 pointer-events-none"
+      width="14"
+      height="22"
+      viewBox="0 0 14 22"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect x="6.5" y="10" width="2" height="12" fill="#94a3b8"></rect>
+
+      <circle cx="7" cy="6.5" r="5.5" fill="#dc2626"></circle>
+      <circle
+        cx="7"
+        cy="6.5"
+        r="5.5"
+        fill="none"
+        stroke="#7f1d1d"
+        stroke-width="0.4"
+        stroke-opacity="0.55"></circle>
+      <ellipse
+        cx="5.3"
+        cy="4.5"
+        rx="1.4"
+        ry="1.9"
+        fill="white"
+        fill-opacity="0.55"></ellipse>
+    </svg>
+
+    {
+      featured && (
+        <span
+          class="absolute -top-3 -right-4 lg:-top-4 lg:-right-6 px-3.5 py-1 bg-[#fde047] text-[#1a1a1a] font-marker text-[15px] lg:text-[17px] font-bold tracking-tight rotate-[9deg] shadow-[0_3px_8px_rgba(0,0,0,0.22)]"
+          aria-hidden="true"
+        >
+          Founder!
+        </span>
+      )
+    }
+
+    <div
+      class="aspect-square overflow-hidden bg-[#e5e3d8] [filter:saturate(0.92)_contrast(0.96)]"
+    >
+      <Image
+        src={image}
+        alt={name}
+        width={featured ? 360 : 240}
+        height={featured ? 360 : 240}
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+    <div
+      class="text-center mt-3 lg:mt-4"
+      style={`transform: rotate(${captionTilt}deg);`}
+    >
+      <p
+        class:list={[
+          "font-permanent-marker text-[#1a1a1a] leading-[1] tracking-tight",
+          featured
+            ? "text-2xl sm:text-3xl font-bold"
+            : "text-lg sm:text-xl font-semibold",
+        ]}
+      >
+        {name}
+      </p>
+      <p
+        class:list={[
+          "font-marker italic leading-[1.1] mt-0.5 text-[#1a1a1a]/60",
+          featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl",
+        ]}
+      >
+        {title}
+      </p>
+    </div>
+  </article>
+</div>

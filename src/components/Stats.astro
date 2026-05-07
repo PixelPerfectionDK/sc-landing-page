@@ -34,37 +34,39 @@ const labelCls = "text-sm font-medium text-text-secondary";
   </div>
 </section>
 
-<script is:inline>
-  (() => {
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-    const animateCounter = (el, target, suffix, duration) => {
-      const start = performance.now();
-      const tick = (now) => {
-        const progress = Math.min((now - start) / duration, 1);
-        el.textContent = Math.round(target * easeOutCubic(progress)) + suffix;
-        if (progress < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
+<script>
+  import { animate, inView } from "motion";
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.querySelectorAll("[data-target]").forEach((n) => {
-            const target = parseInt(n.dataset.target, 10);
-            const suffix = n.dataset.suffix ?? "";
-            const duration = parseInt(n.dataset.duration ?? "1400", 10);
-            animateCounter(n, target, suffix, duration);
+  const containers = document.querySelectorAll<HTMLElement>("[data-stats]");
+
+  containers.forEach((container) => {
+    const numbers = container.querySelectorAll<HTMLElement>("[data-target]");
+
+    inView(
+      container,
+      () => {
+        const animations = Array.from(numbers).map((el) => {
+          const target = Number(el.dataset.target);
+          const suffix = el.dataset.suffix ?? "";
+          const durationMs = Number(el.dataset.duration ?? 1400);
+
+          return animate(0, target, {
+            duration: durationMs / 1000,
+            ease: "circOut",
+            onUpdate: (latest) => {
+              el.textContent = Math.round(latest) + suffix;
+            },
           });
-          observer.unobserve(entry.target);
         });
-      },
-      { threshold: 0.3 },
-    );
 
-    document
-      .querySelectorAll("[data-stats]")
-      .forEach((el) => observer.observe(el));
-  })();
+        return () => {
+          animations.forEach((a) => a.stop());
+          numbers.forEach((el) => {
+            el.textContent = "0" + (el.dataset.suffix ?? "");
+          });
+        };
+      },
+      { amount: 0.3 },
+    );
+  });
 </script>
