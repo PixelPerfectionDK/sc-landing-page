@@ -2,6 +2,7 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import Layout from "../../layouts/Layout.astro";
+import CtaBand from "../../components/CtaBand.astro";
 import Footer from "../../components/Footer.astro";
 
 export const prerender = true;
@@ -24,8 +25,8 @@ const { content } = story;
 ---
 
 <Layout
-  title={content.title_tag ?? content.Title}
-  description={content.meta_description}
+  title={content.title_tag || content.Title}
+  description={content.meta_description || undefined}
 >
   <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
   <div
@@ -45,5 +46,6 @@ const { content } = story;
   </svg>
 
   <StoryblokComponent blok={content} />
+  <CtaBand />
   <Footer />
 </Layout>
