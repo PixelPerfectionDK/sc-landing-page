@@ -9,6 +9,15 @@ import netlify from "@astrojs/netlify";
 
 import clerk from "@clerk/astro";
 
+import { storyblok } from "@storyblok/astro";
+import { loadEnv } from "vite";
+const env = loadEnv("", process.cwd(), "STORYBLOK");
+const { STORYBLOK_DELIVERY_API_TOKEN } = loadEnv(
+  import.meta.env.MODE,
+  process.cwd(),
+  "",
+);
+
 // https://astro.build/config
 export default defineConfig({
   devToolbar: {
@@ -44,7 +53,16 @@ export default defineConfig({
       weights: ["400", "500", "600", "700"],
     },
   ],
-  integrations: [react(), clerk()],
+  integrations: [
+    react(),
+    clerk(),
+    storyblok({
+      accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
+      apiOptions: {
+        region: "eu",
+      },
+    }),
+  ],
   adapter: netlify(),
   output: "server",
 });
