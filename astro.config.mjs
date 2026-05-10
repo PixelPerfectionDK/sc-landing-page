@@ -61,6 +61,9 @@ export default defineConfig({
       apiOptions: {
         region: "eu",
       },
+      components: {
+        "ordbog-article": "storyblok/OrdbogArticle",
+      },
     }),
   ],
   adapter: netlify(),

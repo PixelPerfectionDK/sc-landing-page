@@ -1,0 +1,21 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+
+interface Props {
+  blok: any;
+}
+
+const { blok } = Astro.props;
+---
+
+<article {...storyblokEditable(blok)} class="max-w-2xl mx-auto px-6 py-24 text-white">
+  <p class="font-mono text-sm uppercase tracking-[0.2em] text-white/50 mb-2">
+    Ordbog · {blok.Bogstav}
+  </p>
+  <h1 class="text-4xl md:text-5xl font-bold mb-6">{blok.Title}</h1>
+  <p class="text-xl text-white/85 mb-8">{blok.Intro}</p>
+  <div class="text-base text-white/85 whitespace-pre-line">{blok.Content}</div>
+  <p class="font-mono text-xs text-white/40 mt-12">
+    {blok.TTR} · {blok.Date}
+  </p>
+</article>

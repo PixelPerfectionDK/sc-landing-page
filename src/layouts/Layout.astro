@@ -5,10 +5,11 @@ import Navigation from "../components/Navigation.tsx";
 
 interface Props {
   title: string;
+  description?: string;
   showNav?: boolean;
 }
 
-const { title, showNav = true } = Astro.props as Props;
+const { title, description, showNav = true } = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -24,6 +25,7 @@ const { title, showNav = true } = Astro.props as Props;
     <Font cssVariable="--font-jetbrains-mono" preload />
     <Font cssVariable="--font-caveat" preload />
     <Font cssVariable="--font-permanent-marker-raw" preload />
+    {description && <meta name="description" content={description} />}
     <title>{title}</title>
   </head>
   <body>
