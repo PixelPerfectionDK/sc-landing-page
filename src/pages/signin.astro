@@ -1,10 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { SignIn } from '@clerk/astro/components';
 ---
 
-<Layout title="Sign In" showNav={false}>
-  <main class="relative overflow-hidden flex items-center justify-center min-h-screen">
+<Layout title="Log ind" showNav={false}>
+  <main class="relative overflow-hidden flex items-center justify-center min-h-screen px-6 py-12">
     <svg class="absolute w-0 h-0 pointer-events-none">
       <filter id="grain">
         <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
@@ -16,18 +15,49 @@ import { SignIn } from '@clerk/astro/components';
     <div class="absolute inset-0 opacity-20 pointer-events-none [filter:url(#grain)]"></div>
     <div class="absolute top-0 inset-x-0 h-[200px] bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
 
-    <div class="relative z-10">
-      <SignIn appearance={{
-        variables: {
-          colorPrimary: '#4271f0',
-          colorBackground: 'rgba(255, 255, 255, 0.92)',
-          fontFamily: 'Manrope, sans-serif',
-          borderRadius: '0.75rem',
-        },
-        elements: {
-          card: 'backdrop-blur-xl shadow-2xl border border-white/30',
-        },
-      }} />
+    <div class="relative z-10 w-full max-w-[420px]">
+      <form
+        class="backdrop-blur-xl shadow-2xl border border-white/30 rounded-xl bg-[rgba(255,255,255,0.92)] p-8"
+        onsubmit="event.preventDefault()"
+      >
+        <h1 class="text-2xl font-semibold tracking-[-0.01em] text-text-primary mb-1">Log ind</h1>
+        <p class="text-sm text-text-secondary mb-6">Velkommen tilbage til smallclaims.</p>
+
+        <label class="block text-sm font-medium text-text-primary mb-1.5" for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          placeholder="navn@firma.dk"
+          class="w-full px-3.5 py-2.5 rounded-lg border border-border-deafult bg-white/60 text-[14px] text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition mb-4"
+        />
+
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="text-sm font-medium text-text-primary" for="password">Adgangskode</label>
+          <a href="#" class="text-xs text-brand-blue hover:text-brand-blue-dark">Glemt?</a>
+        </div>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="••••••••"
+          class="w-full px-3.5 py-2.5 rounded-lg border border-border-deafult bg-white/60 text-[14px] text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition mb-5"
+        />
+
+        <button
+          type="submit"
+          class="w-full inline-flex items-center justify-center px-5 py-3 rounded-xl bg-brand-blue text-white text-[14px] font-semibold tracking-[-0.01em] hover:bg-brand-blue-dark transition-colors"
+        >
+          Log ind
+        </button>
+
+        <p class="mt-5 text-center text-sm text-text-secondary">
+          Har du ikke en konto?
+          <a href="#" class="text-brand-blue hover:text-brand-blue-dark font-medium">Opret konto</a>
+        </p>
+      </form>
     </div>
   </main>
 </Layout>

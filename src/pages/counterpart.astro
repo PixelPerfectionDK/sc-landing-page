@@ -1,0 +1,288 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+import { BsBuilding, BsEnvelopeFill, BsAward } from "react-icons/bs";
+import { FaCreditCard } from "react-icons/fa";
+
+const quickRefCards = [
+  {
+    Icon: BsBuilding,
+    title: "Hvem er SmallClaims?",
+    body: "SmallClaims er en dansk virksomhed, der fører sager under den forenklede proces i Danmark.",
+  },
+  {
+    Icon: BsEnvelopeFill,
+    title: "Hvorfor har jeg modtaget en mail fra SmallClaims?",
+    body: "Vi repræsenterer en part, der mener at have et gyldigt krav mod dig.",
+  },
+  {
+    Icon: BsAward,
+    title: "Hvorfor bør jeg tage denne henvendelse alvorligt?",
+    bodyHtml:
+      'Vi vinder <strong class="font-semibold text-text-primary">96 %</strong> af alle de sager, vi fører i retten. Det betyder, at der er meget stor sandsynlighed for, at retten giver vores klient medhold.',
+  },
+  {
+    Icon: FaCreditCard,
+    title: "Hvordan kan jeg betale det skyldige beløb?",
+    bodyHtml:
+      'Hvis du ønsker at betale straks, kan du overføre det skyldige beløb til følgende konto: <strong class="font-semibold text-text-primary">Reg.nr.:</strong> 3409 <strong class="font-semibold text-text-primary">Kontonr.:</strong> 13537976 <strong class="font-semibold text-text-primary">VIGTIGT:</strong> Husk at angive <strong class="font-semibold text-text-primary">sagsnummeret</strong> i tekstfeltet ved overførsel. Hvis du har brug for hjælp eller er i tvivl om beløb eller sagsnummer, så kontakt os gerne på info@smallclaims.ai.',
+  },
+];
+
+const faqItems = [
+  {
+    q: "Hvem er SmallClaims?",
+    a: [
+      "SmallClaims ApS er en dansk virksomhed, der hjælper både virksomheder og privatpersoner med at føre sager under den forenklede proces i Danmark. Vi er registreret som autoriseret inkassovirksomhed hos det danske politi (CVR: 43188739) og behandler sager med en værdi op til DKK 100.000.",
+    ],
+  },
+  {
+    q: "Hvorfor bør jeg tage denne henvendelse alvorligt?",
+    a: [
+      "Vi vinder 96 % af alle de sager, vi fører i retten. Det betyder, at der er meget stor sandsynlighed for, at retten giver vores klient medhold. Du risikerer dermed at skulle betale både hovedkravet og yderligere omkostninger. Derfor anbefaler vi, at du betaler med det samme for at undgå yderligere konsekvenser.",
+    ],
+  },
+  {
+    q: "Hvad sker der, når en sag bliver anlagt hos en domstol?",
+    a: [
+      "Når en sag bliver anlagt ved domstolen, vil modparten typisk først modtage en stævning med påstand og begrundelse. Du får som udgangspunkt 7 dage til at kvittere for modtagelsen og derefter 14 dage til at indsende et svarskrift.",
+      "Hvis du ikke reagerer, kan retten afsige en såkaldt udeblivelsesdom, hvor vores klient får medhold uden yderligere høring.",
+      "Hvis du derimod svarer på stævningen, kan retten beramme et indledende møde – et såkaldt forberedende retsmøde, som ofte afholdes digitalt eller telefonisk. Her drøftes sagen og det videre forløb.",
+      "I nogle tilfælde kan der være behov for yderligere skriftudveksling, som kan ende i et fysisk fremmøde i retten ved en såkaldt hovedforhandling, hvor parterne fremlægger deres sag for en dommer. Dette vil dog altid medføre yderligere sagsomkostninger, som skal betales af den part, som taber sagen.",
+    ],
+  },
+  {
+    q: "Hvilken type sager fører SmallClaims?",
+    a: [
+      "SmallClaims fører som udgangspunkt alle typer af civile sager under den forenklede proces for krav op til DKK 100.000. SmallClaims fører også sager ved fogedretten skulle dette være påkrævet, og forlanger altid udlæg i modpart og skyldners aktiver, hvor disse vil blive forlangt solgt på tvangsauktion såfremt kravet ikke bliver betalt eller afdragsaftale ikke bliver overholdt.",
+    ],
+  },
+  {
+    q: "Hvorfor har jeg/vi modtaget en mail fra SmallClaims?",
+    a: [
+      "Du har modtaget en mail fra os, fordi vi repræsenterer en part, der mener at have et gyldigt krav mod dig. Vi fungerer som partsrepræsentant og varetager vores klients interesser. Har du spørgsmål, kan du kontakte os på info@smallclaims.ai.",
+    ],
+  },
+  {
+    q: "Hvordan kan jeg betale det skyldige beløb?",
+    a: [
+      "Hvis du ønsker at betale straks, kan du overføre det skyldige beløb til følgende konto:",
+      "Reg.nr.: 3409",
+      "Kontonr.: 13537976",
+      "VIGTIGT: Husk at angive sagsnummeret i tekstfeltet ved overførsel. Hvis du har brug for hjælp eller er i tvivl om beløb eller sagsnummer, så kontakt os gerne på info@smallclaims.ai.",
+    ],
+  },
+  {
+    q: "Andre betalingsmuligheder?",
+    a: [
+      "I mange tilfælde kan det være en fordel for parterne at indgå et forlig – enten før eller under en retssag. Det skyldes, at sagsomkostningerne typisk stiger, jo længere sagen varer.",
+      "Hos SmallClaims fører vi kun sager, som vores juridiske eksperter vurderer har gode chancer for at blive vundet. Vi anbefaler derfor, at man forsøger at nå til en hurtig løsning gennem forlig, både for at spare tid og undgå unødige omkostninger.",
+      "Ønsker du/I at indgå en afdragsordning, kan dette anmodes. Det vil dog blive vurderet individuelt fra sag til sag, og det er ikke alle anmodninger, der kan imødekommes.",
+    ],
+  },
+  {
+    q: "Ved hvilken domstol vil retssagen foregå?",
+    a: [
+      "Civile småsager skal foregå ved byretten i rette værneting. Reglerne om værneting findes i retsplejeloven. Som oftest skal sagen foregå i den byret, som er tættest på sagsøgtes adresse. Det samme gælder for sager i fogedretten.",
+    ],
+  },
+];
+---
+
+<Layout title="Modpart | smallclaims.ai">
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <main>
+    <section class="max-w-[1140px] mx-auto pt-32 pb-12 px-6 text-center">
+      <p
+        class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-white/50 mb-4 animate-fade-up [animation-delay:80ms]"
+      >
+        Modpart
+      </p>
+      <h1
+        class="text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.04em] text-white mb-6 animate-fade-up [animation-delay:160ms]"
+      >
+        Har du modtaget en mail fra os?
+      </h1>
+      <p
+        class="text-base sm:text-lg text-white/65 font-light leading-relaxed max-w-[620px] mx-auto mb-10 animate-fade-up [animation-delay:240ms]"
+      >
+        Vi håber, du kan finde svar på dine spørgsmål nedenfor. Tøv dog endelig
+        ikke med at kontakte os, hvis du har yderligere spørgsmål eller øvrige
+        henvendelser.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-3 animate-fade-up [animation-delay:320ms]">
+        <a
+          href="tel:+4527132622"
+          class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-brand-blue text-[15px] font-semibold tracking-[-0.01em] no-underline shadow-[0_4px_20px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-blue hover:text-white hover:shadow-[0_8px_32px_rgba(0,0,0,0.18)]"
+        >
+          Ring til os
+        </a>
+        <a
+          href="mailto:info@smallclaims.ai"
+          class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-brand-blue text-[15px] font-semibold tracking-[-0.01em] no-underline shadow-[0_4px_20px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-blue hover:text-white hover:shadow-[0_8px_32px_rgba(0,0,0,0.18)]"
+        >
+          Skriv til os
+        </a>
+        <a
+          href="/kontakt"
+          class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-brand-blue text-[15px] font-semibold tracking-[-0.01em] no-underline shadow-[0_4px_20px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-blue hover:text-white hover:shadow-[0_8px_32px_rgba(0,0,0,0.18)]"
+        >
+          Kontakt os
+        </a>
+      </div>
+
+      <p
+        class="text-sm text-white/60 mt-5 animate-fade-up [animation-delay:400ms]"
+      >
+        Telefontid: Tirsdag og torsdag 10&ndash;12
+      </p>
+    </section>
+
+    <section class="max-w-[1140px] mx-auto px-6 pb-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          quickRefCards.map(({ Icon, title, body, bodyHtml }, i) => (
+            <article
+              class="reveal bg-surface-0 border border-border-deafult rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex flex-col gap-5"
+              data-reveal-delay={i * 120}
+            >
+              <div
+                class="bg-brand-blue/10 text-brand-blue w-12 h-12 rounded-xl flex items-center justify-center text-xl"
+                aria-hidden="true"
+              >
+                <Icon />
+              </div>
+              <h3 class="text-lg font-semibold text-text-primary leading-snug tracking-[-0.01em]">
+                {title}
+              </h3>
+              {bodyHtml ? (
+                <p
+                  class="text-sm text-text-secondary leading-relaxed"
+                  set:html={bodyHtml}
+                />
+              ) : (
+                <p class="text-sm text-text-secondary leading-relaxed">{body}</p>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="max-w-[860px] mx-auto px-6 pb-16">
+      <div
+        class="reveal bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-8 sm:p-10"
+      >
+        <h2
+          class="text-2xl sm:text-3xl font-semibold text-text-primary mb-8 text-center"
+        >
+          Sådan betaler du
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-0 mb-6">
+          <div class="text-center px-4 sm:border-r sm:border-border-deafult">
+            <p
+              class="text-xs uppercase tracking-wider text-text-tertiary mb-2"
+            >
+              Reg.nr.
+            </p>
+            <p
+              class="font-mono text-3xl sm:text-4xl font-semibold text-text-primary tracking-tight"
+            >
+              3409
+            </p>
+          </div>
+          <div class="text-center px-4">
+            <p
+              class="text-xs uppercase tracking-wider text-text-tertiary mb-2"
+            >
+              Kontonr.
+            </p>
+            <p
+              class="font-mono text-3xl sm:text-4xl font-semibold text-text-primary tracking-tight"
+            >
+              13537976
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="bg-brand-blue/5 border-l-4 border-brand-blue px-4 py-3 rounded-r-md text-sm text-text-primary"
+        >
+          <strong class="font-semibold">VIGTIGT:</strong> Husk at angive
+          <strong class="font-semibold">sagsnummeret</strong> i tekstfeltet ved
+          overførsel.
+        </div>
+
+        <p class="text-sm text-text-secondary mt-4 text-center">
+          Brug for hjælp? Skriv til
+          <a
+            href="mailto:info@smallclaims.ai"
+            class="text-brand-blue hover:text-brand-blue-dark font-medium"
+          >
+            info@smallclaims.ai</a
+          >.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-[860px] mx-auto px-6 pb-16">
+      <h2
+        class="text-2xl sm:text-3xl font-semibold text-white mb-8 text-center"
+      >
+        Ofte stillede spørgsmål
+      </h2>
+
+      <div
+        class="reveal bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] divide-y divide-border-deafult overflow-hidden"
+      >
+        {
+          faqItems.map(({ q, a }) => (
+            <details name="faq" class="group">
+              <summary class="flex items-center justify-between gap-6 py-6 px-7 cursor-pointer hover:bg-surface-1 list-none [&::-webkit-details-marker]:hidden transition-colors">
+                <span class="text-text-primary font-semibold text-base sm:text-lg leading-snug tracking-[-0.01em]">
+                  {q}
+                </span>
+                <span class="text-brand-blue text-2xl leading-none transition-transform duration-300 shrink-0 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <div class="px-7 pb-7 text-sm sm:text-base text-text-secondary leading-relaxed">
+                {a.map((paragraph) => (
+                  <p class="mb-3 last:mb-0">{paragraph}</p>
+                ))}
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="max-w-[1140px] mx-auto px-6 pb-24 text-center">
+      <p
+        class="reveal text-2xl sm:text-3xl text-white/90 font-medium tracking-[-0.01em]"
+      >
+        Vi sikrer jeres retsmæssige krav.
+      </p>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>

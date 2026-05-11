@@ -7,8 +7,6 @@ import react from "@astrojs/react";
 
 import netlify from "@astrojs/netlify";
 
-import clerk from "@clerk/astro";
-
 import { storyblok } from "@storyblok/astro";
 import { loadEnv } from "vite";
 const env = loadEnv("", process.cwd(), "STORYBLOK");
@@ -55,7 +53,6 @@ export default defineConfig({
   ],
   integrations: [
     react(),
-    clerk(),
     storyblok({
       accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
       apiOptions: {
