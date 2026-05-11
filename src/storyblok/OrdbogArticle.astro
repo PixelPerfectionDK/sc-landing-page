@@ -1,0 +1,92 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+
+interface Props {
+  blok: any;
+}
+
+const { blok } = Astro.props;
+
+const dateStr = blok.Date
+  ? new Date(blok.Date).toLocaleDateString("da-DK", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  : null;
+
+const hasMeta = Boolean(dateStr || blok.TTR);
+
+let contentHtml = "";
+if (typeof blok.Content === "string") {
+  contentHtml = blok.Content
+    .split(/\n+/)
+    .filter(Boolean)
+    .map((line: string) => `<p>${line}</p>`)
+    .join("");
+} else if (blok.Content) {
+  contentHtml = renderRichText(blok.Content) ?? "";
+}
+---
+
+<article {...storyblokEditable(blok)} class="max-w-2xl mx-auto px-6 pt-32">
+  <div
+    class="flex items-center justify-between font-mono text-sm uppercase tracking-[0.2em] text-white/50 mb-10 animate-fade-up [animation-delay:80ms]"
+  >
+    <a
+      href="/ordbog"
+      class="inline-flex items-center gap-2 hover:text-white transition-colors no-underline"
+    >
+      <svg
+        class="w-3 h-3"
+        viewBox="0 0 12 12"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M7.5 2.5L3 6l4.5 3.5"></path>
+      </svg>
+      Ordbog
+    </a>
+    {
+      hasMeta && (
+        <span>
+          {dateStr}
+          {dateStr && blok.TTR ? " · " : ""}
+          {blok.TTR}
+        </span>
+      )
+    }
+  </div>
+
+  <h1
+    class="text-4xl md:text-5xl font-bold leading-[1.1] tracking-[-0.02em] text-white mb-6 animate-fade-up [animation-delay:160ms]"
+  >
+    {blok.Title}
+  </h1>
+
+  <p
+    class="text-xl text-white/80 leading-relaxed mb-12 animate-fade-up [animation-delay:240ms]"
+  >
+    {blok.Intro}
+  </p>
+
+  <section
+    class="reveal relative overflow-hidden rounded-2xl p-8 md:p-12 bg-surface-0 border border-border-deafult shadow-[0_8px_32px_rgba(0,0,0,0.06)] mb-16"
+  >
+    <div class="flex items-center gap-3 mb-6">
+      <span class="h-px w-8 bg-brand-blue" aria-hidden="true"></span>
+      <h2
+        class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-text-secondary"
+      >
+        Forklaring
+      </h2>
+    </div>
+    <div
+      class="text-lg text-text-primary leading-[1.75] [&_p]:mb-5 [&_p:last-child]:mb-0 [&_p:empty]:hidden [&_strong]:font-semibold [&_strong]:text-text-primary [&_em]:italic [&_a]:text-brand-blue [&_a]:underline hover:[&_a]:text-brand-blue-dark"
+      set:html={contentHtml}
+    />
+  </section>
+</article>

@@ -1,0 +1,51 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Layout from "../../layouts/Layout.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Footer from "../../components/Footer.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get("cdn/stories", {
+    starts_with: "ordbog/",
+    version: import.meta.env.DEV ? "draft" : "published",
+  });
+
+  return data.stories.map((story: any) => ({
+    params: { slug: story.slug },
+    props: { story },
+  }));
+}
+
+const { story } = Astro.props as { story: any };
+const { content } = story;
+---
+
+<Layout
+  title={content.title_tag || content.Title}
+  description={content.meta_description || undefined}
+>
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <StoryblokComponent blok={content} />
+  <CtaBand />
+  <Footer />
+</Layout>
