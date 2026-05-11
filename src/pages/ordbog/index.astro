@@ -1,0 +1,154 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import Layout from "../../layouts/Layout.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Footer from "../../components/Footer.astro";
+
+export const prerender = true;
+
+const storyblokApi = useStoryblokApi();
+const { data } = await storyblokApi.get("cdn/stories", {
+  starts_with: "ordbog/",
+  version: import.meta.env.DEV ? "draft" : "published",
+  per_page: 100,
+});
+
+type Story = {
+  slug: string;
+  full_slug: string;
+  content: {
+    Title?: string;
+    Bogstav?: string;
+    component?: string;
+  };
+};
+
+const articles: Story[] = (data.stories as Story[])
+  .filter((s) => s.content?.component === "ordbog-article")
+  .filter((s) => s.content.Title);
+
+const danishCollator = new Intl.Collator("da-DK", { sensitivity: "base" });
+
+const groups = new Map<string, Story[]>();
+for (const story of articles) {
+  const letter = (
+    story.content.Bogstav || story.content.Title!.charAt(0)
+  ).toUpperCase();
+  if (!groups.has(letter)) groups.set(letter, []);
+  groups.get(letter)!.push(story);
+}
+
+const sortedLetters = Array.from(groups.keys()).sort((a, b) =>
+  danishCollator.compare(a, b),
+);
+for (const letter of sortedLetters) {
+  groups
+    .get(letter)!
+    .sort((a, b) =>
+      danishCollator.compare(a.content.Title!, b.content.Title!),
+    );
+}
+---
+
+<Layout
+  title="Den store ordbog | SmallClaims"
+  description="Din genvej til at forstå de juridiske begreber, der dukker op i småsager, betalingspåkrav og civilretlige tvister."
+>
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <section class="max-w-5xl mx-auto px-6 pt-32 text-white">
+    <div class="max-w-3xl">
+      <p
+        class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-white/50 mb-4 animate-fade-up [animation-delay:80ms]"
+      >
+        Bliv klogere med
+      </p>
+      <h1
+        class="text-4xl md:text-5xl font-bold leading-[1.1] tracking-[-0.02em] mb-6 animate-fade-up [animation-delay:160ms]"
+      >
+        Den store ordbog
+      </h1>
+      <p
+        class="text-lg text-white/80 leading-relaxed mb-12 animate-fade-up [animation-delay:240ms]"
+      >
+        Hos SmallClaims ønsker vi at gøre det juridiske landskab mere
+        overskueligt. Småsager og retlige processer kan hurtigt virke som en
+        labyrint. Derfor har vi skabt SmallClaims Ordbogen – din genvej til at
+        forstå de mange juridiske begreber, der ofte dukker op i forbindelse med
+        småsager, betalingspåkrav og civilretlige tvister.
+      </p>
+    </div>
+
+    {
+      sortedLetters.length > 0 && (
+        <nav
+          aria-label="Spring til bogstav"
+          class="flex flex-wrap gap-x-3 gap-y-2 pb-6 mb-12 border-b border-white/10 animate-fade-up [animation-delay:320ms]"
+        >
+          {sortedLetters.map((letter) => (
+            <a
+              href={`#letter-${letter}`}
+              class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors no-underline"
+            >
+              {letter}
+            </a>
+          ))}
+        </nav>
+      )
+    }
+
+    {
+      sortedLetters.length === 0 && (
+        <p class="text-white/60 italic">Ingen artikler endnu.</p>
+      )
+    }
+
+    <div class="space-y-12 mb-16">
+      {
+        sortedLetters.map((letter) => (
+          <section id={`letter-${letter}`} class="reveal scroll-mt-24">
+            <div class="flex items-center gap-4 mb-5">
+              <h2 class="text-3xl md:text-4xl font-bold text-white">
+                {letter}
+              </h2>
+              <span
+                class="flex-1 h-px bg-white/10"
+                aria-hidden="true"
+              />
+            </div>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-1">
+              {groups.get(letter)!.map((story) => (
+                <li>
+                  <a
+                    href={`/${story.full_slug}`}
+                    class="block py-2 text-lg text-white/80 hover:text-white no-underline transition-colors"
+                  >
+                    {story.content.Title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand />
+  <Footer />
+</Layout>

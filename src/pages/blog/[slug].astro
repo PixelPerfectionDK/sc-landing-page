@@ -1,0 +1,127 @@
+---
+import { useStoryblokApi, renderRichText } from "@storyblok/astro";
+import Layout from "../../layouts/Layout.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Footer from "../../components/Footer.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get("cdn/stories", {
+    starts_with: "blogs/",
+    resolve_relations: "Blog.Author",
+    version: import.meta.env.DEV ? "draft" : "published",
+    per_page: 100,
+  });
+
+  return data.stories.map((story: any) => {
+    const author = story.content.Author?.[0]?.content ?? null;
+    return {
+      params: { slug: story.slug },
+      props: { story, author },
+    };
+  });
+}
+
+const { story, author } = Astro.props as { story: any; author: any };
+const { content } = story;
+
+const contentHtml = content.Blog_content
+  ? renderRichText(content.Blog_content) ?? ""
+  : "";
+---
+
+<Layout
+  title={content.Title_tag || content.Name}
+  description={content.Meta_description || undefined}
+>
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <article class="max-w-3xl mx-auto px-6 pt-32">
+    <div
+      class="flex items-center justify-between font-mono text-sm uppercase tracking-[0.2em] text-white/50 mb-10 animate-fade-up [animation-delay:80ms]"
+    >
+      <a
+        href="/om-os/viden"
+        class="inline-flex items-center gap-2 hover:text-white transition-colors no-underline"
+      >
+        <svg
+          class="w-3 h-3"
+          viewBox="0 0 12 12"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M7.5 2.5L3 6l4.5 3.5"></path>
+        </svg>
+        Viden
+      </a>
+      {content.TTR && <span>{content.TTR}</span>}
+    </div>
+
+    <h1
+      class="text-4xl md:text-5xl font-bold leading-[1.15] tracking-[-0.02em] text-white mb-8 animate-fade-up [animation-delay:160ms]"
+    >
+      {content.Name}
+    </h1>
+
+    {
+      author && (
+        <div class="flex items-center gap-3 mb-10 animate-fade-up [animation-delay:240ms]">
+          {author.Image?.filename && (
+            <img
+              src={author.Image.filename}
+              alt={author.Name}
+              class="w-10 h-10 rounded-full object-cover border border-white/10"
+              width="40"
+              height="40"
+              loading="lazy"
+            />
+          )}
+          <span class="text-white/80 text-base">{author.Name}</span>
+        </div>
+      )
+    }
+
+    {
+      content.Image?.filename && (
+        <img
+          src={content.Image.filename}
+          alt={content.Image.alt ?? content.Name}
+          class="w-full aspect-[3/2] object-cover rounded-2xl mb-12 animate-fade-up [animation-delay:320ms]"
+          loading="lazy"
+        />
+      )
+    }
+
+    <section
+      class="reveal relative overflow-hidden rounded-2xl p-8 md:p-12 bg-surface-0 border border-border-deafult shadow-[0_8px_32px_rgba(0,0,0,0.06)] mb-16"
+    >
+      <div
+        class="text-lg text-text-primary leading-[1.75] [&_p]:mb-5 [&_p:last-child]:mb-0 [&_p:empty]:hidden [&_h2]:text-2xl md:[&_h2]:text-3xl [&_h2]:font-bold [&_h2]:text-text-primary [&_h2]:mt-12 [&_h2]:mb-4 [&_h2:first-child]:mt-0 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-text-primary [&_h3]:mt-10 [&_h3]:mb-3 [&_strong]:font-semibold [&_strong]:text-text-primary [&_em]:italic [&_a]:text-brand-blue [&_a]:underline hover:[&_a]:text-brand-blue-dark [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-5 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-5 [&_li]:mb-2"
+        set:html={contentHtml}
+      />
+    </section>
+  </article>
+
+  <CtaBand />
+  <Footer />
+</Layout>
