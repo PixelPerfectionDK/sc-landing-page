@@ -12,6 +12,7 @@ export async function getStaticPaths() {
   const { data } = await storyblokApi.get("cdn/stories", {
     starts_with: "ordbog/",
     version: import.meta.env.DEV ? "draft" : "published",
+    per_page: 100,
   });
 
   return data.stories.map((story: any) => ({
