@@ -1,0 +1,504 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+import {
+  BsSearch,
+  BsRocketTakeoff,
+  BsBank,
+  BsWallet2,
+} from "react-icons/bs";
+
+const steps = [
+  {
+    Icon: BsSearch,
+    trin: "Trin 1",
+    title: "Vurdering af sagen",
+    body: "Vores algoritmer gennemgår sagen, sammenholder med tidligere behandlede sager samt eksterne datakilder for at tilrettelægge den rigtige strategi.",
+    tinted: true,
+    rows: [
+      { label: "sag-0472.pdf", value: "✓", kind: "file" },
+      { label: "Beløb", value: "DKK 47.500" },
+      { label: "Score", value: "92/100" },
+    ],
+  },
+  {
+    Icon: BsRocketTakeoff,
+    trin: "Trin 2",
+    title: "Automatisk opstart",
+    body: "SmallClaims system opretter automatisk sagen hos den relevante juridiske instans. I kan løbende følge med på hver enkel sags status.",
+    tinted: false,
+    rows: [
+      { label: "Status", value: "Sag oprettet" },
+      { label: "Sagsnummer", value: "BS-3409/2026" },
+      { label: "Domstol", value: "Københavns byret" },
+    ],
+  },
+  {
+    Icon: BsBank,
+    trin: "Trin 3",
+    title: "Retsagsbehandling",
+    body: "SmallClaims håndterer den løbende dialog og sagsbehandling med domstol og modpart, så I kan fokusere på andre opgaver i jeres virksomhed.",
+    tinted: true,
+    rows: [
+      { label: "Stævning sendt", value: "✓", kind: "check" },
+      { label: "Svarskrift modtaget", value: "✓", kind: "check" },
+      { label: "Dom afsagt", value: "✓", kind: "check" },
+    ],
+  },
+  {
+    Icon: BsWallet2,
+    trin: "Trin 4",
+    title: "Inddrivelse af tilkendt beløb",
+    body: "Efter domsafsigelsen står SmallClaims også for inddrivelse af beløbet hos modparten og eventuelt igennem fogedrettens mellemkomst, hvis nødvendigt.",
+    tinted: false,
+    rows: [
+      { label: "Status", value: "Vundet" },
+      { label: "Modpart betalt", value: "✓", kind: "check" },
+    ],
+    success: "Inddrevet · DKK 47.500",
+  },
+];
+
+const chartBars = [35, 50, 40, 60, 55, 70, 60, 75, 70, 85, 78, 95];
+
+const fullProcessChips = [
+  "Få et overblik over dine sager på platformen",
+  "En fast person tilknyttet den enkelte sag sikrer en god proces",
+];
+
+const algoChips = [
+  "No-Cure-No-Pay Model",
+  "96% af vores anlagte sager vindes",
+];
+
+const pillBtn =
+  "inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-brand-blue text-[15px] font-semibold tracking-[-0.01em] no-underline shadow-[0_4px_20px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-blue hover:text-white hover:shadow-[0_8px_32px_rgba(0,0,0,0.18)]";
+
+const chipGreenCls =
+  "inline-flex items-center gap-2 px-4 py-2 bg-accent-green/10 text-accent-green rounded-full text-sm font-medium";
+
+const chipGradientCls =
+  "inline-flex items-center gap-2 px-4 py-2 bg-white/10 text-white border border-white/15 rounded-full text-sm font-medium";
+---
+
+<Layout title="Proces | smallclaims.ai">
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <main>
+    {/* 1. Hero */}
+    <section class="max-w-[1140px] mx-auto pt-32 pb-12 px-6 text-center">
+      <p
+        class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-white/50 mb-4 animate-fade-up [animation-delay:80ms]"
+      >
+        Proces
+      </p>
+      <h1
+        class="text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.04em] text-white mb-6 animate-fade-up [animation-delay:160ms]"
+      >
+        Sådan konverterer vi skyldige krav til betalinger.
+      </h1>
+      <p
+        class="text-base sm:text-lg text-white/65 font-light leading-relaxed max-w-[620px] mx-auto mb-10 animate-fade-up [animation-delay:240ms]"
+      >
+        Vi har automatiseret retskravsprocessen. Herved kan vi på jeres vegne
+        rentabelt inddrive betalingskrav af selv små beløb.
+      </p>
+      <div
+        class="flex justify-center animate-fade-up [animation-delay:320ms]"
+      >
+        <a href="/kontakt" class={pillBtn}>Book et møde og hør mere</a>
+      </div>
+    </section>
+
+    {/* 2. 4-step process */}
+    <section class="max-w-[1140px] mx-auto px-6 pt-8 pb-20">
+      <header class="reveal text-center mb-12">
+        <p
+          class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60 mb-4"
+        >
+          Sådan virker det
+        </p>
+        <h2
+          class="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white"
+        >
+          Sådan virker SmallClaims i fire trin.
+        </h2>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {
+          steps.map(({ Icon, trin, title, body, rows, success, tinted }, i) => (
+            <article
+              class:list={[
+                "reveal relative overflow-hidden rounded-2xl p-7 shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex flex-col bg-surface-0",
+                tinted
+                  ? "bg-gradient-to-br from-brand-blue/10 to-brand-blue/[0.04] border border-brand-blue/25"
+                  : "border border-border-deafult",
+              ]}
+              data-reveal-delay={i * 80}
+            >
+              <span class="inline-block font-mono text-[10px] font-semibold uppercase tracking-[2px] mb-3.5 text-brand-blue">
+                {trin}
+              </span>
+              <div
+                class="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4 bg-brand-blue/10 text-brand-blue text-lg"
+                aria-hidden="true"
+              >
+                <Icon />
+              </div>
+              <h3 class="text-base font-bold text-text-primary tracking-[-0.3px] mb-1.5">
+                {title}
+              </h3>
+              <p class="text-[13.5px] leading-[1.55] text-text-secondary mb-4">
+                {body}
+              </p>
+
+              <div class="mt-auto flex flex-col gap-1.5">
+                {rows.map((row) =>
+                  row.kind === "file" ? (
+                    <div class="flex items-center gap-2 px-2.5 py-2 bg-surface-1 rounded-lg border border-dashed border-brand-blue/20">
+                      <svg
+                        class="w-3.5 h-3.5 text-brand-blue shrink-0"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M8 1H3.5A1.5 1.5 0 0 0 2 2.5v9A1.5 1.5 0 0 0 3.5 13h7a1.5 1.5 0 0 0 1.5-1.5V5L8 1z" />
+                        <path d="M8 1v4h4" />
+                      </svg>
+                      <span class="text-[11px] font-medium text-text-secondary flex-1">
+                        {row.label}
+                      </span>
+                      <span class="font-mono text-[11px] font-bold text-accent-green">
+                        {row.value}
+                      </span>
+                    </div>
+                  ) : row.kind === "check" ? (
+                    <div class="flex items-center gap-2 px-2.5 py-1.5 bg-surface-1 rounded-lg text-[12.5px] font-medium text-text-secondary">
+                      <svg
+                        class="w-3 h-3 text-brand-blue shrink-0"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M2.5 6.2l2.4 2.3 4.6-5" />
+                      </svg>
+                      <span class="flex-1">{row.label}</span>
+                    </div>
+                  ) : (
+                    <div class="flex items-center justify-between px-2.5 py-1.5 bg-surface-1 rounded-lg">
+                      <span class="text-[10.5px] font-medium uppercase tracking-[0.05em] text-text-tertiary">
+                        {row.label}
+                      </span>
+                      <span class="font-mono text-[11px] font-semibold text-text-primary">
+                        {row.value}
+                      </span>
+                    </div>
+                  ),
+                )}
+
+                {success && (
+                  <div class="flex items-center gap-2 px-2.5 py-2.5 bg-accent-green-light/10 border border-dashed border-accent-green-light/30 rounded-lg mt-1">
+                    <svg
+                      class="w-3.5 h-3.5 text-accent-green shrink-0"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M2.5 7.2l2.4 2.3L11.5 3" />
+                    </svg>
+                    <span class="font-mono text-[12px] font-bold text-accent-green flex-1">
+                      {success}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    {/* 3a. Chapter 02 — intro on gradient */}
+    <section class="max-w-[860px] mx-auto px-6 pt-4 pb-12 text-center">
+      <p
+        class="reveal font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60 mb-4"
+      >
+        Den fulde proces
+      </p>
+      <h2
+        class="reveal text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white mb-5"
+        data-reveal-delay="80"
+      >
+        Vi håndterer den fulde proces, så I f.eks. ikke skal møde op i retten
+      </h2>
+      <p
+        class="reveal text-base sm:text-lg text-white/70 font-light leading-relaxed max-w-[640px] mx-auto mb-8"
+        data-reveal-delay="160"
+      >
+        Vores team af erfarne juridiske eksperter håndterer retssagen gennem
+        hele processen hos domstolene; fra anlæg til forhandling og dom.
+      </p>
+      <div
+        class="reveal flex flex-wrap justify-center gap-3"
+        data-reveal-delay="240"
+      >
+        {
+          fullProcessChips.map((chip) => (
+            <span class={chipGradientCls}>
+              <svg
+                class="w-3.5 h-3.5 shrink-0"
+                viewBox="0 0 14 14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2.5 7.2l2.4 2.3L11.5 3" />
+              </svg>
+              {chip}
+            </span>
+          ))
+        }
+      </div>
+    </section>
+
+    {/* 3b. Chapter 02 — scale claim with dashboard mock */}
+    <section class="max-w-[1140px] mx-auto px-6 pb-20">
+      <article
+        class="reveal bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-8 sm:p-10 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 items-center"
+      >
+        <div>
+          <p
+            class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
+          >
+            Integration og skalering
+          </p>
+          <h3
+            class="text-2xl sm:text-3xl font-semibold text-text-primary leading-snug tracking-[-0.02em] mb-4"
+          >
+            Bygget til høj volumen i antal sager
+          </h3>
+          <p class="text-base text-text-secondary leading-relaxed mb-6">
+            Fra et få hundrede sager til titusindvis månedligt. Vores platform
+            sikrer en nem integration eller import af sager fra jeres
+            eksisterende systemer. Samt et enkelt overblik og hver enkel sags
+            behandlingsstatus ifht. de retslige instanser.
+          </p>
+          <a
+            href="/services"
+            class="inline-flex items-center gap-1.5 text-brand-blue hover:text-brand-blue-dark font-semibold text-[15px] transition-colors"
+          >
+            Læs mere
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 8h10M9 4l4 4-4 4"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div
+          class="bg-surface-1 border border-border-deafult rounded-xl p-5 flex flex-col gap-4"
+        >
+          <div class="flex items-center justify-between">
+            <p
+              class="text-xs uppercase tracking-wider text-text-tertiary font-semibold"
+            >
+              Sager i platformen
+            </p>
+            <span
+              class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent-green/10 text-accent-green rounded-full text-[11px] font-bold font-mono"
+            >
+              <svg
+                class="w-3 h-3"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 9l4-4 2 2 3-3"></path>
+                <path d="M11 4V7H8"></path>
+              </svg>
+              +18%
+            </span>
+          </div>
+          <p
+            class="font-mono text-4xl sm:text-5xl font-bold text-text-primary tracking-tight leading-none"
+          >
+            12.847
+          </p>
+          <div class="flex items-end gap-1 h-14" aria-hidden="true">
+            {
+              chartBars.map((h, i) => (
+                <div
+                  class:list={[
+                    "flex-1 rounded-t-sm",
+                    i >= chartBars.length - 3
+                      ? "bg-brand-blue"
+                      : "bg-brand-blue/20",
+                  ]}
+                  style={`height: ${h}%`}
+                />
+              ))
+            }
+          </div>
+          <div
+            class="flex items-center justify-between text-[12.5px] font-medium pt-3 border-t border-border-deafult"
+          >
+            <span class="text-text-secondary">
+              I dag &middot;
+              <span class="font-mono font-semibold text-text-primary">47</span>
+            </span>
+            <span class="text-text-secondary">
+              Klar til opstart &middot;
+              <span class="font-mono font-semibold text-text-primary">12</span>
+            </span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    {/* 4a. Chapter 03 — framing */}
+    <section class="max-w-[860px] mx-auto px-6 pt-4 pb-12 text-center">
+      <p
+        class="reveal font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60 mb-4"
+      >
+        Hvorfor SmallClaims
+      </p>
+      <h2
+        class="reveal text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white"
+        data-reveal-delay="80"
+      >
+        Forudsigelige omkostninger. Bedre strategi.
+      </h2>
+    </section>
+
+    {/* 4b. Algorithmic-edge 2-up */}
+    <section class="max-w-[1140px] mx-auto px-6 pb-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <article
+          class="reveal bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-8 flex flex-col"
+        >
+          <p
+            class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
+          >
+            Automatiseret retsproces
+          </p>
+          <h3
+            class="text-xl sm:text-2xl font-semibold text-text-primary leading-snug tracking-[-0.02em] mb-4"
+          >
+            Omkostninger ved at gå rettens vej, der er mindre end kravet
+          </h3>
+          <p class="text-[15px] text-text-secondary leading-relaxed mb-6">
+            I ved lige fra starten hvad omkostningerne på sagerne vil være.
+            Vores brug af machine learning og data gør os i stand til at tilbyde
+            de bedste og mest fair priser på markedet.
+          </p>
+          <div class="flex flex-wrap gap-3 mt-auto">
+            {
+              algoChips.map((chip) => (
+                <span class={chipGreenCls}>
+                  <svg
+                    class="w-3.5 h-3.5 shrink-0"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M2.5 7.2l2.4 2.3L11.5 3" />
+                  </svg>
+                  {chip}
+                </span>
+              ))
+            }
+          </div>
+        </article>
+
+        <article
+          class="reveal bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-8 flex flex-col"
+          data-reveal-delay="80"
+        >
+          <p
+            class="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4"
+          >
+            Intelligent sagsbehandling
+          </p>
+          <h3
+            class="text-xl sm:text-2xl font-semibold text-text-primary leading-snug tracking-[-0.02em] mb-4"
+          >
+            Anlæggelsestrategi baseret på machine learning analyse af tidligere
+            førte sager
+          </h3>
+          <p class="text-[15px] text-text-secondary leading-relaxed">
+            Tidligere førte sager gør vores algoritmer i stand til at analysere
+            og tilrettelægge den bedste strategi og forløb i hver enkelt sag, og
+            øger dermed chancerne for at sagen vindes.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    {/* 5. Final CTA on gradient */}
+    <section class="max-w-[1140px] mx-auto px-6 pt-12 pb-20 text-center">
+      <h2
+        class="reveal text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold leading-[1.12] tracking-[-1.2px] text-white mb-8"
+      >
+        Vi sikrer jeres retsmæssige krav.
+      </h2>
+      <div
+        class="reveal flex flex-wrap justify-center gap-3"
+        data-reveal-delay="80"
+      >
+        <a
+          href="https://meetings-eu1.hubspot.com/christian-olson/inbound-meeting?uuid=149ef705-4b35-416c-a59e-c8b6e1024b62"
+          target="_blank"
+          rel="noopener"
+          class={pillBtn}
+        >
+          Book et møde
+        </a>
+        <a href="/counterpart" class={pillBtn}>
+          Har du modtaget en mail fra os?
+        </a>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
