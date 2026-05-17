@@ -1,0 +1,510 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+
+const inputBase =
+  "peer block w-full px-2.5 pb-2.5 pt-4 text-sm text-text-primary bg-transparent rounded-lg border border-border-deafult appearance-none focus:outline-none focus:ring-0 focus:border-brand-blue transition";
+
+const labelBase =
+  "absolute inline-flex items-center text-sm text-text-secondary duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-surface-0 px-2 start-1 peer-focus:text-brand-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4";
+
+// For the textarea, vertically-centered placeholder positioning doesn't make sense —
+// the label sits near the top of the multi-line field when collapsed.
+const labelTextarea =
+  "absolute inline-flex items-center text-sm text-text-secondary duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-surface-0 px-2 start-1 peer-focus:text-brand-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4";
+
+const segmentBtn =
+  "px-5 py-2 text-sm font-semibold rounded-md transition text-text-secondary aria-pressed:bg-brand-blue aria-pressed:text-white aria-pressed:shadow-sm cursor-pointer";
+
+const whiteCta =
+  "inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-brand-blue text-[15px] font-semibold tracking-[-0.01em] no-underline shadow-[0_4px_20px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-blue hover:text-white hover:shadow-[0_8px_32px_rgba(0,0,0,0.18)]";
+---
+
+<Layout title="Kontakt | smallclaims.ai">
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <main>
+    <section class="max-w-[1140px] mx-auto pt-32 pb-12 px-6 text-center">
+      <p
+        class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-white/50 mb-4 animate-fade-up [animation-delay:80ms]"
+      >
+        Kontakt
+      </p>
+      <h1
+        class="text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.04em] text-white mb-6 animate-fade-up [animation-delay:160ms]"
+      >
+        Lad os tage en dialog om hvordan vi rentabelt kan inddrive jeres
+        retskrav.
+      </h1>
+      <p
+        class="text-base sm:text-lg text-white/65 font-light leading-relaxed max-w-[620px] mx-auto mb-10 animate-fade-up [animation-delay:240ms]"
+      >
+        Vi sikrer jeres retsmæssige krav.
+      </p>
+
+      <div
+        class="flex flex-wrap justify-center gap-3 animate-fade-up [animation-delay:320ms]"
+      >
+        <a
+          href="https://meetings-eu1.hubspot.com/christian-olson/inbound-meeting?uuid=149ef705-4b35-416c-a59e-c8b6e1024b62"
+          class={whiteCta}
+        >
+          Book et møde
+        </a>
+        <a href="/counterpart" class={whiteCta}>
+          Har du modtaget en mail fra os?
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-[1140px] mx-auto px-6 pb-24">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8 lg:gap-12 items-start"
+      >
+        <!-- LEFT: Form -->
+        <form
+          class="reveal bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-7 sm:p-9 space-y-5"
+          aria-label="Kontaktformular"
+        >
+          <header class="mb-2">
+            <h2
+              class="text-xl sm:text-2xl font-semibold text-text-primary tracking-[-0.01em]"
+            >
+              Skriv til os
+            </h2>
+            <p class="text-sm text-text-secondary mt-1">
+              Vi vender tilbage hurtigst muligt.
+            </p>
+          </header>
+
+          <!-- Fornavn + Efternavn -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="relative">
+              <input
+                type="text"
+                id="fornavn"
+                name="fornavn"
+                autocomplete="given-name"
+                required
+                placeholder=" "
+                class={inputBase}
+              />
+              <label for="fornavn" class={labelBase}>
+                <svg
+                  class="w-4 h-4 me-1.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  ></path>
+                </svg>
+                Fornavn<span aria-hidden="true" class="ml-0.5">*</span>
+              </label>
+            </div>
+            <div class="relative">
+              <input
+                type="text"
+                id="efternavn"
+                name="efternavn"
+                autocomplete="family-name"
+                required
+                placeholder=" "
+                class={inputBase}
+              />
+              <label for="efternavn" class={labelBase}>
+                <svg
+                  class="w-4 h-4 me-1.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  ></path>
+                </svg>
+                Efternavn<span aria-hidden="true" class="ml-0.5">*</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="relative">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+              placeholder=" "
+              class={inputBase}
+            />
+            <label for="email" class={labelBase}>
+              <svg
+                class="w-4 h-4 me-1.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
+                ></path>
+              </svg>
+              Email<span aria-hidden="true" class="ml-0.5">*</span>
+            </label>
+          </div>
+
+          <!-- Telefon -->
+          <div class="relative">
+            <input
+              type="tel"
+              id="telefon"
+              name="telefon"
+              autocomplete="tel"
+              placeholder=" "
+              class={inputBase}
+            />
+            <label for="telefon" class={labelBase}>
+              <svg
+                class="w-4 h-4 me-1.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18.427 14.768 17.2 13.542a1.733 1.733 0 0 0-2.45 0l-.613.613a1.732 1.732 0 0 1-2.45 0l-1.84-1.84a1.732 1.732 0 0 1 0-2.45l.614-.613a1.732 1.732 0 0 0 0-2.45L9.237 5.572a1.6 1.6 0 0 0-2.45 0c-3.223 3.2-1.702 6.896 1.519 10.117 3.22 3.221 6.914 4.745 10.12 1.535a1.601 1.601 0 0 0 0-2.456Z"
+                ></path>
+              </svg>
+              Telefon
+            </label>
+          </div>
+
+          <!-- Privat / Erhverv segmented toggle -->
+          <fieldset>
+            <legend
+              class="block text-sm font-medium text-text-primary mb-2"
+            >
+              Privat eller Erhverv<span aria-hidden="true" class="ml-0.5"
+                >*</span
+              >
+            </legend>
+            <div
+              class="inline-flex rounded-lg border border-border-deafult p-1 bg-surface-1"
+              role="group"
+              aria-label="Vælg kundetype"
+            >
+              <button
+                type="button"
+                data-customer-type="privat"
+                aria-pressed="true"
+                class={segmentBtn}
+              >
+                Privat
+              </button>
+              <button
+                type="button"
+                data-customer-type="erhverv"
+                aria-pressed="false"
+                class={segmentBtn}
+              >
+                Erhverv
+              </button>
+            </div>
+            <input
+              type="hidden"
+              name="customerType"
+              id="customer-type-input"
+              value="privat"
+            />
+          </fieldset>
+
+          <!-- Virksomhedens Navn (revealed when Erhverv) -->
+          <div id="company-wrap" hidden>
+            <div class="relative">
+              <input
+                type="text"
+                id="virksomhed"
+                name="virksomhed"
+                autocomplete="organization"
+                placeholder=" "
+                class={inputBase}
+              />
+              <label for="virksomhed" class={labelBase}>
+                <svg
+                  class="w-4 h-4 me-1.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"
+                  ></path>
+                </svg>
+                Virksomhedens navn
+              </label>
+            </div>
+          </div>
+
+          <!-- Dit spørgsmål -->
+          <div class="relative">
+            <textarea
+              id="spoergsmaal"
+              name="spoergsmaal"
+              rows="5"
+              placeholder=" "
+              class={`${inputBase} resize-none`}></textarea>
+            <label for="spoergsmaal" class={labelTextarea}>
+              <svg
+                class="w-4 h-4 me-1.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 10.5h.01m-4.01 0h.01M8 10.5h.01M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-3.5L12 19l-3.5-3H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
+                ></path>
+              </svg>
+              Dit spørgsmål
+            </label>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-blue text-white text-[15px] font-semibold tracking-[-0.01em] shadow-[0_4px_20px_rgba(43,79,191,0.25)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-blue-dark hover:shadow-[0_8px_32px_rgba(43,79,191,0.35)] active:translate-y-px"
+          >
+            Send besked
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M4 9h10M10 5l4 4-4 4"></path>
+            </svg>
+          </button>
+        </form>
+
+        <!-- RIGHT: Contact info -->
+        <aside class="reveal space-y-4" data-reveal-delay="120">
+          <article
+            class="bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-6 flex items-start gap-4"
+          >
+            <div
+              class="bg-brand-blue/10 text-brand-blue w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+              aria-hidden="true"
+            >
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.15em] text-text-tertiary mb-1"
+              >
+                Adresse
+              </p>
+              <a
+                href="https://maps.app.goo.gl/yrS6D6x5B7cRzXxw7"
+                class="block text-text-primary font-medium leading-snug hover:text-brand-blue transition-colors no-underline"
+              >
+                Sortedam Dossering 55<br />2100 København Ø
+              </a>
+            </div>
+          </article>
+
+          <article
+            class="bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-6 flex items-start gap-4"
+          >
+            <div
+              class="bg-brand-blue/10 text-brand-blue w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+              aria-hidden="true"
+            >
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.15em] text-text-tertiary mb-1"
+              >
+                Telefon
+              </p>
+              <a
+                href="tel:+4527132622"
+                class="block text-text-primary font-medium hover:text-brand-blue transition-colors no-underline"
+              >
+                +45 27 13 26 22
+              </a>
+            </div>
+          </article>
+
+          <article
+            class="bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-6 flex items-start gap-4"
+          >
+            <div
+              class="bg-brand-blue/10 text-brand-blue w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+              aria-hidden="true"
+            >
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                ></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.15em] text-text-tertiary mb-1"
+              >
+                Email
+              </p>
+              <a
+                href="mailto:info@smallclaims.ai"
+                class="block text-text-primary font-medium hover:text-brand-blue transition-colors no-underline"
+              >
+                info@smallclaims.ai
+              </a>
+            </div>
+          </article>
+
+          <article
+            class="bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-6 flex items-start gap-4"
+          >
+            <div
+              class="bg-brand-blue/10 text-brand-blue w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+              aria-hidden="true"
+            >
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.15em] text-text-tertiary mb-1"
+              >
+                Telefontid
+              </p>
+              <p class="text-text-primary font-medium leading-snug">
+                Tirsdag 10–12<br />Torsdag 10–12
+              </p>
+            </div>
+          </article>
+
+          <p class="text-center text-xs text-white/45 pt-2">
+            SmallClaims ApS · CVR 43188739
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-customer-type]",
+  );
+  const companyWrap = document.getElementById("company-wrap");
+  const hiddenInput = document.getElementById(
+    "customer-type-input",
+  ) as HTMLInputElement | null;
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const type = btn.dataset.customerType ?? "privat";
+      buttons.forEach((b) =>
+        b.setAttribute("aria-pressed", String(b === btn)),
+      );
+      if (hiddenInput) hiddenInput.value = type;
+      if (companyWrap)
+        companyWrap.toggleAttribute("hidden", type !== "erhverv");
+    });
+  });
+</script>
