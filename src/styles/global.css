@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "flowbite/plugin";
 
 @theme inline {
   --font-sans: var(--font-manrope);
