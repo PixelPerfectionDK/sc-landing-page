@@ -1,0 +1,155 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Footer from "../../../components/Footer.astro";
+
+const faqItems = [
+  {
+    q: "Er der et maksimum på antallet af sager SmallClaims kan behandle?",
+    a: [
+      "Nej. SmallClaims er bygget til håndtering af en høj volumen af sager. Faktisk er det bedre jo flere sager I har, da vores platform fungerer via mange forskellige datakilder og algoritmer.",
+    ],
+  },
+  {
+    q: "Kan SmallClaims hjælpe med alle typer af sager?",
+    a: [
+      "Vi kan som det klare udgangspunkt hjælpe med alle typer af sager så længe sagen kan føres under småsagsprocessen, hvor kravet som udgangspunkt ikke må være større end DKK 100.000. Omkostninger og renter skal ikke medtages ved fastsættelsen af beløbsgrænsen.",
+    ],
+  },
+  {
+    q: "Ved hvilken domstole vil retssagen foregå?",
+    a: [
+      "Retssagen skal som altovervejende hovedregel foregå ved den byret, hvor sagsøgte har adresse.",
+    ],
+  },
+  {
+    q: "Hvad sker der, når en sag er blevet anlagt hos en domstol?",
+    a: [
+      "Når sagen bliver anlagt hos den relevante domstol vil modparten som udgangspunkt få 7 dage til at kvittere for modtagelse af stævning. Herefter får modparten 14 dage til at komme med sine bemærkninger til stævningen i et svarskrift. Hvis modparten ikke kommenterer på stævningen eller på anden måde kommer med indsigelser inden for de 14 dage, vil retten normalt afgøre sagen til sagsøger i en udeblivelsesdom.",
+      "Hvis modparten kommer med et svarskrift og indlæg i sagen vil der normalt blive fastsat et retsmøde, hvor parterne og dommeren tilrettelægger sagens videre forløb. I nogle tilfælde indgår parterne et forlig i forlængelse af dette møde eller umiddelbart efter, men for størstedelen vil sagen formentlig kræve yderligere skriftveksling eller blive optaget til dom, som enten kan være på skriftligt grundlag eller ved fysisk fremmøde i en såkaldt hovedforhandling, hvor parterne skal fremlægge sagen foran en dommer.",
+    ],
+  },
+  {
+    q: "Skal vores virksomhed vide noget omkring lovgivning relevant for vores sager eller retslige processer?",
+    a: [
+      "SmallClaims håndterer den fulde proces, og I skal derfor ikke vide noget om hverken lovgivning eller proces ved domstolene. Hos SmallClaims er vi eksperter i jura og småsagsprocesser.",
+    ],
+  },
+  {
+    q: "Hvor lang tid tager en retssag (småsag) hos domstolene?",
+    a: [
+      "Varigheden af en retssag afhænger af sagens kompleksitet og om parterne beder om fristforlængelser. Normalt bliver de fleste småsager afgjort inden for 4 måneder og for langt størstedelen indenfor 2 måneder.",
+    ],
+  },
+  {
+    q: "Kan vores virksomhed indlede drøftelser om sagen med sagsøgte under sagens forløb?",
+    a: [
+      "I kan ikke indlede drøftelser om sagen med sagsøgte så længe retsprocessen er undervejs. Grunden til dette er, at det i givet fald vil være praktisk umuligt for SmallClaims at håndtere sagen bedst muligt, ligesom det vil mindske sandsynligheden for at sagen vindes.",
+    ],
+  },
+  {
+    q: "Hvad hvis vores virksomhed har flere krav mod samme person/virksomhed?",
+    a: [
+      "Der findes i retsplejeloven mulighed for at sambehandle sager, hvorfor SmallClaims i langt de fleste tilfælde kan finde en god løsning for den konkrete sag(er).",
+    ],
+  },
+  {
+    q: "Hvad hvis den virksomhed, som vi har et krav imod er gået konkurs?",
+    a: [
+      "Hvis virksomheden er en enkeltmandsvirksomhed kan kravet føres videre mod den ansvarlige deltager personligt. SmallClaims har stor erfaring og succes selv med disse sager. Er der tale om et anparts- eller aktieselskab, som er gået konkurs, så anbefales det at droppe sagen.",
+    ],
+  },
+];
+---
+
+<Layout title="FAQ | smallclaims.ai">
+  <div class="fixed inset-0 -z-10 bg-signin-gradient"></div>
+  <div
+    class="fixed inset-0 -z-10 pointer-events-none [filter:url(#grain)] opacity-[0.18]"
+  >
+  </div>
+
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65"
+        numOctaves="3"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+  </svg>
+
+  <main>
+    <section class="max-w-[1140px] mx-auto pt-32 pb-12 px-6 text-center">
+      <p
+        class="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-white/50 mb-4 animate-fade-up [animation-delay:80ms]"
+      >
+        FAQ
+      </p>
+      <h1
+        class="text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.04em] text-white mb-6 animate-fade-up [animation-delay:160ms]"
+      >
+        Ofte stillede spørgsmål
+      </h1>
+      <p
+        class="text-base sm:text-lg text-white/65 font-light leading-relaxed max-w-[620px] mx-auto animate-fade-up [animation-delay:240ms]"
+      >
+        Find svar på de oftest stillede spørgsmål nedenfor.
+      </p>
+    </section>
+
+    <section class="max-w-[860px] mx-auto px-6 pb-16">
+      <div class="space-y-3">
+        {
+          faqItems.map(({ q, a }, i) => (
+            <details
+              class="group reveal bg-surface-0 border border-border-deafult rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] overflow-hidden"
+              data-reveal-delay={i * 60}
+            >
+              <summary class="flex items-center justify-between gap-6 py-6 px-7 cursor-pointer hover:bg-surface-1 list-none [&::-webkit-details-marker]:hidden transition-colors">
+                <span class="text-text-primary font-semibold text-base sm:text-lg leading-snug tracking-[-0.01em]">
+                  {q}
+                </span>
+                <span class="text-brand-blue text-2xl leading-none transition-transform duration-300 shrink-0 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <div class="px-7 pb-7 text-sm sm:text-base text-text-secondary leading-relaxed">
+                {a.map((paragraph) => (
+                  <p class="mb-3 last:mb-0">{paragraph}</p>
+                ))}
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="max-w-[1140px] mx-auto px-6 pb-24 text-center">
+      <p
+        class="reveal text-2xl sm:text-3xl text-white/90 font-medium tracking-[-0.01em] mb-8"
+      >
+        Vi sikrer jeres retsmæssige krav.
+      </p>
+      <div
+        class="reveal flex flex-wrap justify-center gap-3"
+        data-reveal-delay="80"
+      >
+        <a
+          href="https://meetings-eu1.hubspot.com/christian-olson/inbound-meeting?uuid=149ef705-4b35-416c-a59e-c8b6e1024b62"
+          class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-brand-blue text-[15px] font-semibold tracking-[-0.01em] no-underline shadow-[0_4px_20px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-blue hover:text-white hover:shadow-[0_8px_32px_rgba(0,0,0,0.18)]"
+        >
+          Book et møde
+        </a>
+        <a
+          href="/counterpart"
+          class="inline-flex items-center justify-center px-7 py-3.5 rounded-full border border-white/30 text-white text-[15px] font-semibold tracking-[-0.01em] no-underline transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-white/10"
+        >
+          Har du modtaget en mail fra os?
+        </a>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
